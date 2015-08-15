@@ -1,8 +1,8 @@
 class Family < ActiveRecord::Base
   enum at_home: {
-    undefined: 0, # $BL$;XDj(B
-    at_home: 1,   # $B:_BpHrFq(B
-    in_refuge: 2  # $BHrFq=j$GHrFq$9$k(B
+    unspecified: 0, # 未指定
+    at_home: 1,   # 在宅避難
+    in_refuge: 2  # 避難所で避難する
   }
 
   validates :num_of_members,
@@ -14,6 +14,5 @@ class Family < ActiveRecord::Base
   validates :at_home,
     presence: true
   validates :postal_code,
-    allow_blank: false,
     format: { with: /\A(\d{7})?\Z/ }
 end

@@ -5,6 +5,15 @@ class FamilyTest < ActiveSupport::TestCase
     @family = families(:pc_hamamatsu)
   end
 
+  test 'デフォルト値が正しい' do
+    default = families(:default)
+
+    assert_equal 1, default.num_of_members, '家族の人数'
+    assert_equal 'unspecified', default.at_home, '在宅避難'
+    assert_equal '',  default.address, '住所'
+    assert_equal '',  default.postal_code, '郵便番号'
+  end
+
   test '有効である' do
     assert @family.valid?
   end
@@ -25,7 +34,7 @@ class FamilyTest < ActiveSupport::TestCase
   end
 
   test '在宅：未指定' do
-    @family.at_home = :undefined
+    @family.at_home = :unspecified
     assert @family.valid?
   end
 
@@ -39,7 +48,7 @@ class FamilyTest < ActiveSupport::TestCase
     assert @family.valid?
   end
 
-  test '在宅：その他' do
+  test '在宅：その他（エラー）' do
     assert_raises(ArgumentError) do
       @family.at_home = :etc
     end
