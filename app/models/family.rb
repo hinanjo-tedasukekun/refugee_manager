@@ -11,6 +11,8 @@ class Family < ActiveRecord::Base
       only_integer: true,
       greater_than: 0
     }
+  validates :at_home,
+    presence: true
   validates :postal_code,
     allow_blank: false,
     format: { with: /\A(\d{7})?\Z/ }
