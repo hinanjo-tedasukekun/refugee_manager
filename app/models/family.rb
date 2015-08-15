@@ -1,0 +1,17 @@
+class Family < ActiveRecord::Base
+  enum at_home: {
+    undefined: 0, # 未指定
+    at_home: 1,   # 在宅避難
+    in_refuge: 2  # 避難所で避難する
+  }
+
+  validates :num_of_members,
+    presence: true,
+    numericality: {
+      only_integer: true,
+      greater_than: 0
+    }
+  validates :postal_code,
+    allow_blank: false,
+    format: { with: /\A(\d{7})?\Z/ }
+end

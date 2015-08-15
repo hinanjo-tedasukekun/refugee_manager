@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  num_of_members: 1
+  at_home: false
+  address: MyString
+  postal_code: MyString
+
+two:
+  num_of_members: 1
+  at_home: false
+  address: MyString
+  postal_code: MyString
