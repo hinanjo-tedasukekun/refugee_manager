@@ -61,6 +61,11 @@ class RefugeeTest < ActiveSupport::TestCase
     end
   end
 
+  test '年齢は空でもよい' do
+    @foo.age = nil
+    assert @foo.valid?
+  end
+
   test '年齢は数である' do
     @foo.age = 'abc'
     assert_not @foo.valid?

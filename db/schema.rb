@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150815141616) do
+ActiveRecord::Schema.define(version: 20150820002552) do
 
   create_table "families", force: :cascade do |t|
     t.integer  "num_of_members",           default: 1,  null: false
@@ -20,9 +20,11 @@ ActiveRecord::Schema.define(version: 20150815141616) do
     t.string   "postal_code",    limit: 7, default: "", null: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
+    t.integer  "leader_id",                             null: false
   end
 
   add_index "families", ["at_home"], name: "index_families_on_at_home"
+  add_index "families", ["leader_id"], name: "index_families_on_leader_id"
   add_index "families", ["num_of_members"], name: "index_families_on_num_of_members"
 
   create_table "refugees", force: :cascade do |t|
@@ -33,9 +35,11 @@ ActiveRecord::Schema.define(version: 20150815141616) do
     t.integer  "age"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.integer  "family_id",                            null: false
   end
 
   add_index "refugees", ["age"], name: "index_refugees_on_age"
+  add_index "refugees", ["family_id"], name: "index_refugees_on_family_id"
   add_index "refugees", ["furigana"], name: "index_refugees_on_furigana"
   add_index "refugees", ["gender"], name: "index_refugees_on_gender"
   add_index "refugees", ["name"], name: "index_refugees_on_name"
