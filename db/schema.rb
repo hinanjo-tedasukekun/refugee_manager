@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150822094443) do
+ActiveRecord::Schema.define(version: 20150822145020) do
 
   create_table "families", force: :cascade do |t|
     t.integer  "num_of_members",           default: 1,  null: false
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 20150822094443) do
 
   add_index "families", ["at_home"], name: "index_families_on_at_home"
   add_index "families", ["num_of_members"], name: "index_families_on_num_of_members"
+
+  create_table "leaders", force: :cascade do |t|
+    t.integer  "family_id",  null: false
+    t.integer  "refugee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "leaders", ["family_id"], name: "index_leaders_on_family_id", unique: true
+  add_index "leaders", ["refugee_id"], name: "index_leaders_on_refugee_id", unique: true
 
   create_table "refugees", force: :cascade do |t|
     t.boolean  "presence",              default: true, null: false
