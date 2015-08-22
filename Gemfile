@@ -50,4 +50,5 @@ group :test do
   gem 'mini_backtrace'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'factory_girl_rails', '~> 4.5'
 end
