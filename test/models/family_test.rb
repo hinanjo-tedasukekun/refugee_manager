@@ -2,11 +2,11 @@ require 'test_helper'
 
 class FamilyTest < ActiveSupport::TestCase
   def setup
-    @family = families(:pc_hamamatsu)
+    @family = create(:family)
   end
 
   test 'デフォルト値が正しい' do
-    default = families(:default)
+    default = Family.new
 
     assert_equal 1, default.num_of_members, '家族の人数'
     assert_equal 'unspecified', default.at_home, '在宅避難'
