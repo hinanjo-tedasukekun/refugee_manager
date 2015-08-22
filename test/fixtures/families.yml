@@ -1,9 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-default: {}
-
-pc_hamamatsu:
-  num_of_members: 6
-  at_home: 0
-  address: 静岡県浜松市南区法枝町693
-  postal_code: 4328053
