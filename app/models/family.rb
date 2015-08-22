@@ -1,6 +1,5 @@
 class Family < ActiveRecord::Base
   has_many :refugees
-  belongs_to :leader, class_name: 'Refugee'
 
   enum at_home: {
     unspecified: 0, # 未指定
