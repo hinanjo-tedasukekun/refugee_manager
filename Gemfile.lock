@@ -166,6 +166,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    serialport (1.3.1)
     shellany (0.0.1)
     slop (3.6.0)
     spring (1.3.6)
@@ -190,6 +191,8 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    xbee-ruby (0.0.4)
+      serialport (>= 1.1.0)
 
 PLATFORMS
   ruby
@@ -213,6 +216,4 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
-
-BUNDLED WITH
-   1.10.6
+  xbee-ruby
