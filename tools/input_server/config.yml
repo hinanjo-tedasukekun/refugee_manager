@@ -1,0 +1,16 @@
+# 家族情報入力端末の設定
+
+# 避難所番号（この避難所番号のデータの登録のみ有効になる）
+refuge_id: 19
+
+# XBee 関連の設定
+xbee:
+  # XBee Coordinator デバイスファイルのパス
+  port: /dev/ttyUSB0
+  # ボーレート
+  rate: 9600
+
+# Rails の環境
+# 開発中：development
+# 本番　：production
+rails_env: development

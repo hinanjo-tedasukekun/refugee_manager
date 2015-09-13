@@ -56,4 +56,5 @@ end
 
 group :input_server do
   gem 'xbee-ruby'
+  gem 'serverengine'
 end

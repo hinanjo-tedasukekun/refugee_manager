@@ -6,7 +6,7 @@ REFUGE_ID = 19
 require 'active_record'
 require 'yaml'
 
-root_path = File.expand_path('..', File.dirname(__FILE__))
+root_path = File.expand_path('../..', File.dirname(__FILE__))
 $LOAD_PATH.unshift("#{root_path}/app")
 $LOAD_PATH.unshift("#{root_path}/lib")
 
