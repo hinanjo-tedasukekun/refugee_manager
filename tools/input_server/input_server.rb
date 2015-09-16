@@ -95,7 +95,7 @@ module InputServer
           response = @xbee.read_response
           case response
           when XBeeRuby::RxResponse
-            data_str = response.data.pack('c*')
+            data_str = response.data.pack('c*').chomp
             if FAMILY_DATA_PATTERN === data_str
               family_data = FamilyData.new(
                 data_str,
@@ -112,7 +112,11 @@ module InputServer
                 respond_to_sender('E', response.address64, response.address16)
               end
             else
-              logger.info("Response: #{response}")
+              if response.respond_to?(:data)
+                logger.info("Response: #{response}; Data: #{response.data}")
+              else
+                logger.info("Response: #{response}")
+              end
             end
           end
         rescue => e
@@ -142,13 +146,15 @@ module InputServer
     # 代表者番号
     num_of_members = num_of_members_s.to_i
 
-    leader = Leader.find_by(id: leader_id)
+    leader = Leader.find_by(refugee_id: leader_id)
     if leader
       # 代表者が登録されていれば情報を更新する
+      logger.info("Registered leader: #{leader_id}")
       update_family_data(leader, num_of_members)
       respond_to_sender('U', family_data.address64, family_data.address16)
     else
       # 代表者が登録されていなければ情報を登録する
+      logger.info("New leader: #{leader_id}")
       insert_family_data(leader_id, num_of_members)
       respond_to_sender('R', family_data.address64, family_data.address16)
     end
@@ -156,27 +162,31 @@ module InputServer
 
   # 家族のデータを登録する
   def insert_family_data(leader_id, num_of_members)
+    family = nil
     ActiveRecord::Base.transaction do
       family = Family.create!(num_of_members: num_of_members)
       refugee = Refugee.create!(id: leader_id, family: family)
       Leader.create!(family: family, refugee: refugee)
     end
 
-    logger.info("Registered: leader_id = #{leader_id}, " \
+    logger.info("Registered: family_id = #{family.id}, " \
+                "leader_id = #{leader_id}, " \
                 "num_of_members = #{num_of_members}")
     true
   end
 
   # 家族のデータを更新する
   def update_family_data(leader, num_of_members)
+    family = nil
     ActiveRecord::Base.transaction do
       family = leader.family
       family.num_of_members = num_of_members
       family.save!
     end
 
-    logger.info("Updated: leader_id = #{leader.id}, " \
-                "num_of_members = #{num_of_members}")
+    logger.info("Updated: family_id = #{family.id}, " \
+                "leader_id = #{leader.refugee.id}, " \
+                "num_of_members = #{num_of_members} ")
     true
   end
 
@@ -187,7 +197,11 @@ module InputServer
         data.bytes,
         address16: address16
       )
-      @xbee.write_request(request)
+
+      3.times do
+        @xbee.write_request(request)
+        sleep(0.3)
+      end
     rescue => e
       logger.error("Response error: #{e}")
     end
