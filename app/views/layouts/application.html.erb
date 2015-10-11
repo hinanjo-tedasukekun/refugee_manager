@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>RefugeeManager</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ポリテクカレッジ浜松 避難所</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <header>
+      <h1>ポリテクカレッジ浜松 避難所</h1>
+    </header>
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
 </html>
