@@ -1,19 +1,47 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+$navbar-bg-color: #61B816;
+$navbar-brand-color: white;
+$navbar-brand-hover-color: #FEF7E3;
+$navbar-brand-hover-bg-color: $navbar-bg-color;
+
 body {
   font-size: 16px;
 }
 
-header h1 {
+.navbar-default {
+  background-color: $navbar-bg-color;
+  // border-color: $navbar-default-border;
+
+  .navbar-brand {
+    font-weight: bold;
+    color: $navbar-brand-color;
+    &:hover,
+    &:focus {
+      color: $navbar-brand-hover-color;
+      background-color: $navbar-brand-hover-bg-color;
+    }
+  }
+}
+
+/*
+header {
   width: 100%;
   margin: 0;
   padding: 10px 20px;
   background-color: #61B816;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
   color: white;
-  font-size: 1.1em;
+
+  h1 {
+    margin: 0;
+    font-size: 1.1em;
+    line-height: 1.1;
+    font-weight: bold;
+  }
 }
+*/
 
 footer {
   margin: 2em 0 0;
@@ -33,33 +61,5 @@ footer {
 
   li {
     list-style-type: none;
-  }
-}
-
-.num-of-refugees {
-  h1 {
-    margin-bottom: 0.75em;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
-
-    .fa {
-      color: #E06D15;
-    }
-  }
-
-  p {
-    text-align: center;
-  }
-
-  .num {
-    font-size: 1.5em;
-    line-height: 1.25;
-    font-weight: bold;
-  }
-
-  strong {
-    font-size: 4em;
-    color: #EDAD0B;
   }
 }

@@ -1,3 +1,31 @@
 // Place all the styles related to the Refugees controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.num-of-refugees {
+  h1 {
+    margin-bottom: 0.75em;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+
+    .fa {
+      color: #E06D15;
+    }
+  }
+
+  p {
+    text-align: center;
+  }
+
+  .num {
+    font-size: 1.5em;
+    line-height: 1.25;
+    font-weight: bold;
+  }
+
+  strong {
+    font-size: 4em;
+    color: #EDAD0B;
+  }
+}
