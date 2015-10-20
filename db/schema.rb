@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150822145020) do
+ActiveRecord::Schema.define(version: 20151020152921) do
 
   create_table "families", force: :cascade do |t|
     t.integer  "num_of_members", limit: 4,   default: 1,  null: false
@@ -52,5 +52,21 @@ ActiveRecord::Schema.define(version: 20150822145020) do
   add_index "refugees", ["gender"], name: "refugees_gender"
   add_index "refugees", ["name"], name: "refugees_name"
   add_index "refugees", ["presence"], name: "refugees_presence"
+
+  create_table "vulnerabilities", force: :cascade do |t|
+    t.integer  "refugee_id", limit: 4
+    t.integer  "type_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "vulnerabilities", ["refugee_id"], name: "vulnerabilities_refugee_id"
+  add_index "vulnerabilities", ["type_id"], name: "vulnerabilities_type_id"
+
+  create_table "vulnerability_types", force: :cascade do |t|
+    t.string   "name",       limit: 32, default: "", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
 
 end
