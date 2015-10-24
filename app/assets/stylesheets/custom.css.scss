@@ -1,18 +1,20 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@mixin emboss-box($shadow: 0.05, $highlight: 0.5) {
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, $shadow), 1px 1px 0 rgba(255, 255, 255, $highlight) inset;
+}
+
 $navbar-bg-color: #61B816;
 $navbar-brand-color: white;
 $navbar-brand-hover-color: #FEF7E3;
 $navbar-brand-hover-bg-color: $navbar-bg-color;
 
 body {
-  font-size: 16px;
 }
 
 .navbar-default {
   background-color: $navbar-bg-color;
-  // border-color: $navbar-default-border;
 
   .navbar-brand {
     font-weight: bold;
@@ -24,24 +26,6 @@ body {
     }
   }
 }
-
-/*
-header {
-  width: 100%;
-  margin: 0;
-  padding: 10px 20px;
-  background-color: #61B816;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
-  color: white;
-
-  h1 {
-    margin: 0;
-    font-size: 1.1em;
-    line-height: 1.1;
-    font-weight: bold;
-  }
-}
-*/
 
 footer {
   margin: 2em 0 0;
@@ -61,5 +45,26 @@ footer {
 
   li {
     list-style-type: none;
+  }
+}
+
+.main-content {
+  h1 {
+    @include emboss-box(0.15);
+
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    background-color: #FEF7E3;
+    border-left: 6px solid $navbar-bg-color;
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+
+  .well {
+    h1 {
+      padding-bottom: 0;
+      color: #D59B0A;
+      border-bottom: 0;
+    }
   }
 }

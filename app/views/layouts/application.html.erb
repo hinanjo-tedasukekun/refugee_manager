@@ -13,11 +13,11 @@
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">ポリテクカレッジ浜松 避難所</a>
+          <%= link_to 'ポリテクカレッジ浜松 避難所', root_path, class: 'navbar-brand' %>
         </div>
       </div>
     </nav>
-    <div class="container">
+    <div class="container main-content">
       <%= yield %>
     </div>
   </body>
