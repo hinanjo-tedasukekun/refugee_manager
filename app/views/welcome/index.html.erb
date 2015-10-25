@@ -2,12 +2,25 @@
   <div class="col-xs-12">
     <div class="register well">
       <p>避難者名簿作成のため、個人情報の登録をお願いします。</p>
-      <p><button type="button" class="btn btn-danger btn-lg btn-block"><%= fa_icon 'user', text: '個人情報を登録する' %></button></p>
+      <p><%= link_to(fa_icon('user', text: '個人情報を登録する'), refugees_entry_path, class: 'btn btn-success btn-lg btn-block') %></p>
     </div>
 
     <div class="news">
       <h1>お知らせ</h1>
-      <p>ポリテクカレッジ浜松避難所が開設されました。避難者名簿作成のため、個人情報の登録をお願いします。</p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>日時</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= Time.new.strftime('%F %T') %></td>
+            <td><%= link_to 'ポリテクカレッジ浜松避難所が開設されました', '#' %></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
