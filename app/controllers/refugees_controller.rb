@@ -29,4 +29,8 @@ class RefugeesController < ApplicationController
   def edit
     @refugee = Refugee.find(params[:id])
   end
+
+  def index
+    redirect_to root_path
+  end
 end
