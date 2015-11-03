@@ -21,6 +21,11 @@ test:
   <<: *dev_user
   database: db/test.fdb
 
+staging:
+  <<: *default
+  <<: *dev_user
+  database: db/staging.fdb
+
 production:
   <<: *default
   <<: *dev_user

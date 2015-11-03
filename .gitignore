@@ -8,7 +8,7 @@
 /.bundle
 /vendor/bundle
 
-# Ignore the default SQLite database.
+# Ignore the default database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /db/*.fdb
@@ -17,6 +17,8 @@
 /log/*
 !/log/.keep
 /tmp
+/shared
+/public/assets
 
 # Ignore Spring files.
 /spring/*.pid
