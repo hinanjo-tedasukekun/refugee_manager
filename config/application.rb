@@ -26,5 +26,10 @@ module RefugeeManager
 
     # autoload 用
     config.autoload_paths += %W(#{config.root}/lib)
+
+    if Rails.env.development? || Rails.env.test?
+      # ローカルネットワークからのアクセスならば Web コンソールの描画を許可する
+      config.web_console.whitelisted_ips = %w(192.168.0.0/16)
+    end
   end
 end
