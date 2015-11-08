@@ -2,15 +2,20 @@
   <div class="col-xs-12">
     <h1>個人情報の登録・修正</h1>
     <p>避難者カードに記載されている番号を入力してください。</p>
-  </div>
 
-  <div class="col-xs-12">
     <%= form_tag(refugees_query_path, method: 'get') do %>
       <div class="form-group">
         <%= label_tag(:refugee_num, '番号') %>
         <%= text_field_tag(:refugee_num, nil, class: 'form-control') %>
       </div>
-      <%= button_tag('次へ', type: 'submit', class: 'btn btn-success') %>
+
+      <% if @invalid %>
+        <div class="alert alert-danger" role="alert">
+          無効な番号が入力されました。番号を再度ご確認ください。
+        </div>
+      <% end %>
+
+      <%= button_tag('次へ', type: 'submit', class: 'btn btn-success form-control') %>
     <% end %>
   </div>
 </div>

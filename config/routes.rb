@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get 'refugees/count'
   get 'refugees/query'
-  get 'barcode' => 'refugees#input_barcode_num'
+  get 'refugees/input-num'
   resources :refugees
 
   # The priority is based upon order of creation: first created -> highest priority.
