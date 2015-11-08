@@ -39,9 +39,16 @@ class RefugeesController < ApplicationController
   def create
   end
 
+  # 避難者情報表示画面
+  def show
+    @refugee = Refugee.find(params[:id])
+    @refugee_num = RefugeeManager::BarCode.from_id(19, @refugee.id).code
+  end
+
   # 避難者情報修正画面
   def edit
     @refugee = Refugee.find(params[:id])
+    @refugee_num = RefugeeManager::BarCode.from_id(19, @refugee.id).code
   end
 
   def index

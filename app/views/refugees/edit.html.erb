@@ -1,16 +1,32 @@
 <div class="row">
   <div class="col-xs-12">
     <h1>個人情報の修正</h1>
-    <%= form_tag do %>
+  </div>
+</div>
+
+<%= form_tag do %>
+  <div class="row">
+    <div class="col-xs-12">
       <div class="form-group">
         <%= label_tag :num, '番号' %>
-        <p><%= '%03d%04d' % [19, @refugee.id] %></p>
+        <p><%= @refugee_num %></p>
       </div>
       <div class="form-group">
         <%= label_tag :name, '名前' %>
         <%= text_field_tag :name, @refugee.name, class: 'form-control' %>
       </div>
-      <%= button_tag '修正', type: 'submit', class: 'btn btn-success' %>
-    <% end %>
+      <div class="form-group">
+        <%= label_tag :name, 'ふりがな' %>
+        <%= text_field_tag :furigana, @refugee.furigana, class: 'form-control' %>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="row">
+    <div class="col-xs-6">
+      <%= link_to(fa_icon('chevron-left', text: '戻る'), refugee_path, class: 'btn btn-default btn-block', role: 'button') %>
+    </div>
+    <div class="col-xs-6">
+      <%= button_tag fa_icon('pencil', text: '修正'), type: 'submit', class: 'btn btn-success form-control' %>
+    </div>
+  </div>
+<% end %>
