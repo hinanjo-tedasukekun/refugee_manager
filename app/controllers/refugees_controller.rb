@@ -17,7 +17,8 @@ class RefugeesController < ApplicationController
   def query
     barcode = RefugeeManager::BarCode.new(params[:refugee_num])
     unless barcode.valid?
-      redirect_to action: 'input_num', invalid: true
+      flash[:danger] = t('view.flash.invalid_number')
+      redirect_to action: 'input_num'
       return
     end
 
@@ -40,9 +41,13 @@ class RefugeesController < ApplicationController
 
   # 避難者情報登録処理
   def create
-    @refugee = Refugee.new(
-      params.require(%i(refugee)).permit(%i(name furigana))
-    )
+    @refugee = Refugee.new(refugee_create_params)
+
+    if @refugee.save
+      redirect_to @refugee
+    else
+      render 'new'
+    end
   end
 
   # 避難者情報表示画面
@@ -57,7 +62,27 @@ class RefugeesController < ApplicationController
     @refugee_num = RefugeeManager::BarCode.from_id(19, @refugee.id).code
   end
 
+  def update
+    @refugee = Refugee.find(params[:id])
+    if @refugee.update_attributes(refugee_create_params)
+      flash[:success] = t('view.flash.profile_updated')
+      redirect_to @refugee
+    else
+      render 'edit'
+    end
+  end
+
   def index
-    redirect_to root_path
+    @refugees = Refugee.all
+  end
+
+  private
+
+  def refugee_create_params
+    params.require(:refugee).permit(:id, :name, :furigana)
+  end
+
+  def refugee_update_params
+    params.requrie(:refugee).permit(:name, :furigana)
   end
 end

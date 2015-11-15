@@ -5,6 +5,14 @@
       <p><%= link_to(fa_icon('user', text: '個人情報の登録・修正'), refugees_input_num_path, class: 'btn btn-success btn-lg btn-block') %></p>
     </div>
 
+    <div class="admin">
+      <h1>スタッフ向け</h1>
+      <ul>
+        <li><%= link_to '避難者数確認', refugees_count_path %></li>
+        <li><%= link_to '避難者一覧', refugees_path %></li>
+      </ul>
+    </div>
+
     <div class="news">
       <h1>お知らせ</h1>
       <table class="table table-striped">

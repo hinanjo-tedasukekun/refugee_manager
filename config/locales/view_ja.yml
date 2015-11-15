@@ -1,0 +1,5 @@
+ja:
+  view:
+    flash:
+      invalid_number: 無効な番号が入力されました。番号を再度ご確認ください。
+      profile_updated: 個人情報が更新されました。

@@ -6,14 +6,8 @@
     <%= form_tag(refugees_query_path, method: 'get') do %>
       <div class="form-group">
         <%= label_tag(:refugee_num, '番号') %>
-        <%= text_field_tag(:refugee_num, nil, class: 'form-control') %>
+        <%= text_field_tag(:refugee_num, nil, class: 'form-control', required: true) %>
       </div>
-
-      <% if @invalid %>
-        <div class="alert alert-danger" role="alert">
-          無効な番号が入力されました。番号を再度ご確認ください。
-        </div>
-      <% end %>
 
       <%= button_tag('次へ', type: 'submit', class: 'btn btn-success form-control') %>
     <% end %>
