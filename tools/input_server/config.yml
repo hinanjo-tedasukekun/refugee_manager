@@ -13,4 +13,4 @@ xbee:
 # Rails の環境
 # 開発中：development
 # 本番　：production
-rails_env: development
+rails_env: staging

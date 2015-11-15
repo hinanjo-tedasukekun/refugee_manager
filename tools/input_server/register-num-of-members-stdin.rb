@@ -15,9 +15,17 @@ require 'models/refugee'
 require 'models/leader'
 require 'refugee_manager/bar_code'
 
+config_path = File.expand_path('config.yml', File.dirname(__FILE__))
+default_config = {
+  'refuge_id' => 19,
+  'rails_env' => 'development'
+}
+config = default_config.merge(YAML.load_file(config_path))
+
 # データベースへの接続
 Dir.chdir(root_path)
-db_config = YAML.load_file('config/database.yml')['development']
+rails_env = config['rails_env']
+db_config = YAML.load_file('config/database.yml')[rails_env]
 ActiveRecord::Base.establish_connection(db_config)
 
 # エラー表示
@@ -72,7 +80,7 @@ while line = gets
   # 家族の人数
   num_of_members = data[1].to_i
 
-  leader = Leader.find_by(id: leader_id)
+  leader = Leader.find_by(refugee_id: leader_id)
   begin
     if leader
       # 代表者が登録されていれば情報を更新する
