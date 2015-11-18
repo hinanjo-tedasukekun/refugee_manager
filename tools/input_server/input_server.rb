@@ -18,6 +18,7 @@ module InputServer
   FAMILY_DATA_PATTERN = /\A[0-9]{8},[1-9][0-9]?\z/
 
   def run
+    logger.level = config['log_level']
     logger.info('Starting input server...')
 
     begin
@@ -98,9 +99,9 @@ module InputServer
           when XBeeRuby::RxResponse
             data_str = response.data.pack('c*').chomp
             if FAMILY_DATA_PATTERN === data_str
-              logger.debug("[Family Data] From: " \
+              logger.debug("<< [Family Data] from: " \
                            "#{format_address(response)}; " \
-                           "Data: #{data_str.inspect}")
+                           "data: #{data_str.inspect}")
 
               family_data = FamilyData.new(
                 data_str,
@@ -201,7 +202,7 @@ module InputServer
       )
 
       @xbee.write_request(request)
-      logger.debug("Responsed #{data.inspect} to " \
+      logger.debug(">> #{data.inspect} to " \
                    "#{format_address2(address64, address16)}")
     rescue => e
       logger.error("Response error: #{e}")
@@ -211,11 +212,11 @@ module InputServer
   # 送られてきたデータをログに残す
   def log_incoming(response)
     if response.respond_to?(:data)
-      logger.info("From: #{format_address(response)}; " \
-                  "Data: #{data_str.inspect}")
+      logger.debug("<< from: #{format_address(response)}; " \
+                  "data: #{data_str.inspect}")
     else
-      logger.info("From: #{format_address(response)}; " \
-                  "Response: #{response}")
+      logger.debug("<< from: #{format_address(response)}; " \
+                  "response: #{response}")
     end
   end
 
@@ -243,7 +244,8 @@ default_config = {
     'port' => '/dev/ttyUSB0',
     'rate' => 9600
   },
-  'rails_env' => 'development'
+  'rails_env' => 'development',
+  'log_level' => 'info'
 }
 config = default_config.merge(YAML.load_file(config_path))
 se = ServerEngine.create(nil, InputServer, config)
