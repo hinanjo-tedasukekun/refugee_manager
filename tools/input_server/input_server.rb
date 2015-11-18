@@ -101,7 +101,7 @@ module InputServer
               logger.info("<< [ACK] from: #{format_address(response)}")
               respond_to_sender("OK\r\n", response)
             when FAMILY_DATA_PATTERN
-              logger.debug("<< [Family Data] from: " \
+              logger.info("<< [Family Data] from: " \
                            "#{format_address(response)}; " \
                            "data: #{data_str.inspect}")
               process_family_data(data_str, response)
