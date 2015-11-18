@@ -12,8 +12,6 @@ require 'models/refugee'
 require 'models/leader'
 require 'refugee_manager/bar_code'
 
-FamilyData = Struct.new(:data, :address64, :address16)
-
 module InputServer
   FAMILY_DATA_PATTERN = /\A[0-9]{8},[1-9][0-9]?\z/
 
@@ -102,21 +100,7 @@ module InputServer
               logger.debug("<< [Family Data] from: " \
                            "#{format_address(response)}; " \
                            "data: #{data_str.inspect}")
-
-              family_data = FamilyData.new(
-                data_str,
-                response.address64,
-                response.address16
-              )
-
-              begin
-                process_family_data(family_data)
-              rescue => family_data_process_error
-                logger.error(
-                  "Couldn't register data: #{family_data_process_error}"
-                )
-                respond_to_sender('E', response.address64, response.address16)
-              end
+              process_family_data(data_str, response)
             else
               log_incoming(response)
             end
@@ -130,8 +114,8 @@ module InputServer
     end
   end
 
-  def process_family_data(family_data)
-    bar_code_s, num_of_members_s = family_data.data.split(',')
+  def process_family_data(data_str, response)
+    bar_code_s, num_of_members_s = data_str.split(',')
     bar_code = RefugeeManager::BarCode.new(bar_code_s)
 
     unless bar_code.valid?
@@ -154,12 +138,15 @@ module InputServer
     if leader
       # 代表者が登録されていれば情報を更新する
       update_family_data(leader, num_of_members)
-      respond_to_sender('U', family_data.address64, family_data.address16)
+      respond_to_sender('U', response.address64, response.address16)
     else
       # 代表者が登録されていなければ情報を登録する
       insert_family_data(leader_id, num_of_members)
-      respond_to_sender('R', family_data.address64, family_data.address16)
+      respond_to_sender('R', response.address64, response.address16)
     end
+  rescue => e
+    logger.error("Couldn't register data: #{e}")
+    respond_to_sender('E', response.address64, response.address16)
   end
 
   # 世帯のデータを登録する
