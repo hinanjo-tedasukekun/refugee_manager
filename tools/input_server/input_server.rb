@@ -96,7 +96,11 @@ module InputServer
           case response
           when XBeeRuby::RxResponse
             data_str = response.data.pack('c*').chomp
-            if FAMILY_DATA_PATTERN === data_str
+            case data_str
+            when 'ACK'
+              logger.info("<< [ACK] from: #{format_address(response)}")
+              respond_to_sender("OK\r\n", response)
+            when FAMILY_DATA_PATTERN
               logger.debug("<< [Family Data] from: " \
                            "#{format_address(response)}; " \
                            "data: #{data_str.inspect}")
@@ -138,15 +142,15 @@ module InputServer
     if leader
       # 代表者が登録されていれば情報を更新する
       update_family_data(leader, num_of_members)
-      respond_to_sender('U', response.address64, response.address16)
+      respond_to_sender('U', response)
     else
       # 代表者が登録されていなければ情報を登録する
       insert_family_data(leader_id, num_of_members)
-      respond_to_sender('R', response.address64, response.address16)
+      respond_to_sender('R', response)
     end
   rescue => e
     logger.error("Couldn't register data: #{e}")
-    respond_to_sender('E', response.address64, response.address16)
+    respond_to_sender('E', response)
   end
 
   # 世帯のデータを登録する
@@ -180,17 +184,17 @@ module InputServer
   end
 
   # 送信してきた端末に返信する
-  def respond_to_sender(data, address64, address16)
+  def respond_to_sender(data, response)
     begin
       request = XBeeRuby::TxRequest.new(
-        address64,
+        response.address64,
         data.bytes,
-        address16: address16
+        address16: response.address16
       )
 
       @xbee.write_request(request)
       logger.debug(">> #{data.inspect} to " \
-                   "#{format_address2(address64, address16)}")
+                   "#{format_address(response)}")
     rescue => e
       logger.error("Response error: #{e}")
     end
@@ -214,11 +218,6 @@ module InputServer
     else
       "0x#{response.address16}"
     end
-  end
-
-  # アドレスを文字列に整形する
-  def format_address2(address64, address16)
-    "0x#{address64} (0x#{address16})"
   end
 end
 
