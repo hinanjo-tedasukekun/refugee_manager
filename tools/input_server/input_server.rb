@@ -200,12 +200,9 @@ module InputServer
         address16: address16
       )
 
-      3.times do
-        @xbee.write_request(request)
-        logger.debug("Responsed #{data.inspect} to " \
-                     "#{format_address2(address64, address16)}")
-        sleep(0.3)
-      end
+      @xbee.write_request(request)
+      logger.debug("Responsed #{data.inspect} to " \
+                   "#{format_address2(address64, address16)}")
     rescue => e
       logger.error("Response error: #{e}")
     end
