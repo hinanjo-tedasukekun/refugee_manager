@@ -92,11 +92,16 @@ module InputServer
     Thread.new do
       loop do
         begin
+          logger.debug('Waiting response')
           response = @xbee.read_response
           case response
           when XBeeRuby::RxResponse
             data_str = response.data.pack('c*').chomp
             if FAMILY_DATA_PATTERN === data_str
+              logger.debug("[Family Data] From: " \
+                           "#{format_address(response)}; " \
+                           "Data: #{data_str.inspect}")
+
               family_data = FamilyData.new(
                 data_str,
                 response.address64,
@@ -112,12 +117,10 @@ module InputServer
                 respond_to_sender('E', response.address64, response.address16)
               end
             else
-              if response.respond_to?(:data)
-                logger.info("Response: #{response}; Data: #{response.data}")
-              else
-                logger.info("Response: #{response}")
-              end
+              log_incoming(response)
             end
+          else
+            log_incoming(response)
           end
         rescue => e
           logger.error(e.message)
@@ -149,12 +152,10 @@ module InputServer
     leader = Leader.find_by(refugee_id: leader_id)
     if leader
       # 代表者が登録されていれば情報を更新する
-      logger.info("Registered leader: #{leader_id}")
       update_family_data(leader, num_of_members)
       respond_to_sender('U', family_data.address64, family_data.address16)
     else
       # 代表者が登録されていなければ情報を登録する
-      logger.info("New leader: #{leader_id}")
       insert_family_data(leader_id, num_of_members)
       respond_to_sender('R', family_data.address64, family_data.address16)
     end
@@ -190,6 +191,7 @@ module InputServer
     true
   end
 
+  # 送信してきた端末に返信する
   def respond_to_sender(data, address64, address16)
     begin
       request = XBeeRuby::TxRequest.new(
@@ -200,11 +202,38 @@ module InputServer
 
       3.times do
         @xbee.write_request(request)
+        logger.debug("Responsed #{data.inspect} to " \
+                     "#{format_address2(address64, address16)}")
         sleep(0.3)
       end
     rescue => e
       logger.error("Response error: #{e}")
     end
+  end
+
+  # 送られてきたデータをログに残す
+  def log_incoming(response)
+    if response.respond_to?(:data)
+      logger.info("From: #{format_address(response)}; " \
+                  "Data: #{data_str.inspect}")
+    else
+      logger.info("From: #{format_address(response)}; " \
+                  "Response: #{response}")
+    end
+  end
+
+  # アドレスを文字列に整形する
+  def format_address(response)
+    if response.respond_to?(:address64)
+      "0x#{response.address64} (0x#{response.address16})"
+    else
+      "0x#{response.address16}"
+    end
+  end
+
+  # アドレスを文字列に整形する
+  def format_address2(address64, address16)
+    "0x#{address64} (0x#{address16})"
   end
 end
 
