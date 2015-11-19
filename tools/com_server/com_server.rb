@@ -16,6 +16,7 @@ require 'refugee_manager/bar_code'
 module ComServer
 
   def run
+    logger.level = :info
     logger.info('Starting Kuno server...')
 
     begin
@@ -70,7 +71,7 @@ module ComServer
       refuge_id ="%03d" %  config[ 'refuge_id' ]
       loop do
         line = @sp.gets.chomp
-        logger.info(line)
+        logger.debug("<< #{line}")
         case line
         when %r{@(\d\d\d)DNU}
           if $1 == refuge_id
