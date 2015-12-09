@@ -47,7 +47,14 @@ class RefugeesController < ApplicationController
   def create
     @refugee = Refugee.new(refugee_create_params)
 
-    if @refugee.save
+    leader_num = params.require(:leader_num)
+    barcode = RefugeeManager::BarCode.new(leader_num)
+    raise InvalidBarCodeError unless barcode.valid?
+    leader = Leader.find_by(refugee_id: barcode.refugee_id)
+    @refugee.family = leader.try!(:family)
+
+    if @refugee.save!
+      flash[:success] = t('view.flash.profile_registered')
       redirect_to @refugee
     else
       render 'new'

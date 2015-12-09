@@ -8,6 +8,7 @@ class Refugee < ActiveRecord::Base
     female: 2       # 女性
   }
 
+  validates :family, presence: true
   validates :name, length: { maximum: 64 }
   validates :furigana, length: { maximum: 64 }
   validates :age,

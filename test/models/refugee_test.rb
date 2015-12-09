@@ -18,6 +18,11 @@ class RefugeeTest < ActiveSupport::TestCase
     assert @refugee.valid?
   end
 
+  test '家族は必須である' do
+    @refugee.family = nil
+    assert_not @refugee.valid?
+  end
+
   test '名前は空でもよい' do
     @refugee.name = ''
     assert @refugee.valid?
