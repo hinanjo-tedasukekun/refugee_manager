@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
-  get 'refugees/count'
   get 'refugees/query'
   get 'refugees/input-num'
-  resources :refugees
+
+  constraints Subdomain::Admin do
+    get 'refugees/count'
+    resources :refugees
+  end
+
+  constraints subdomain: '' do
+    resources :refugees, only: [:new, :create]
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
