@@ -25,7 +25,7 @@ $navbar-default-border:            darken($navbar-default-bg, 5%) !default;
 // Navbar links
 $navbar-default-link-color:                $navbar-default-color !default;
 $navbar-default-link-hover-color:          #FEF7E3 !default;
-$navbar-default-link-hover-bg:             transparent !default;
+$navbar-default-link-hover-bg:             rgba(208, 208, 208, 0.5) !default;
 $navbar-default-link-active-color:         $navbar-default-link-color !default;
 $navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
 $navbar-default-link-disabled-color:       #ccc !default;
@@ -35,6 +35,11 @@ $navbar-default-link-disabled-bg:          transparent !default;
 $navbar-default-brand-color:               $navbar-default-link-color !default;
 $navbar-default-brand-hover-color:         $navbar-default-link-hover-color !default;
 $navbar-default-brand-hover-bg:            transparent !default;
+
+// Navbar toggle
+$navbar-default-toggle-hover-bg:           rgba(208, 208, 208, 0.5) !default;
+$navbar-default-toggle-icon-bar-bg:        #fff !default;
+$navbar-default-toggle-border-color:       #ddd !default;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
