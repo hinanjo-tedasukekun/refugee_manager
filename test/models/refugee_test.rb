@@ -12,6 +12,7 @@ class RefugeeTest < ActiveSupport::TestCase
     assert_equal '', default.name, '名前'
     assert_equal '', default.furigana, 'ふりがな'
     assert_equal nil, default.age, '年齢'
+    assert_equal false, default.use_password, 'パスワード使用'
   end
 
   test '有効である' do
@@ -81,6 +82,30 @@ class RefugeeTest < ActiveSupport::TestCase
 
   test '年齢は 0 以上である' do
     @refugee.age = -1
+    assert_not @refugee.valid?
+  end
+
+  test 'パスワード使用時はパスワードが必須である' do
+    @refugee.use_password = true
+    @refugee.password = ''
+    assert_not @refugee.valid?
+  end
+
+  test 'パスワードは 72 文字以内である' do
+    @refugee.use_password = true
+    @refugee.password = 'a' * 73
+    assert_not @refugee.valid?
+  end
+
+  test 'パスワードは空白だけではならない' do
+    @refugee.use_password = true
+    @refugee.password = ' ' * 4
+    assert_not @refugee.valid?
+  end
+
+  test 'パスワードは 4 文字以上である' do
+    @refugee.use_password = true
+    @refugee.password = 'a' * 3
     assert_not @refugee.valid?
   end
 end

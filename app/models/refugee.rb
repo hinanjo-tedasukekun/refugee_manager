@@ -8,6 +8,8 @@ class Refugee < ActiveRecord::Base
     female: 2       # 女性
   }
 
+  has_secure_password validations: false
+
   validates :family, presence: true
   validates :name, length: { maximum: 64 }
   validates :furigana, length: { maximum: 64 }
@@ -17,4 +19,9 @@ class Refugee < ActiveRecord::Base
       only_integer: true,
       greater_than_or_equal_to: 0
     }
+
+  validates :password,
+    presence: true,
+    length: { minimum: 4, maximum: 72 },
+    if: :use_password?
 end
