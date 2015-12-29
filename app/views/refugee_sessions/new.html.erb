@@ -1,0 +1,16 @@
+<% provide(:title, 'ログイン') %>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>個人情報の登録・修正</h1>
+    <p>避難者カードに記載されている番号を入力してください。</p>
+
+    <%= form_for(:session, url: login_path) do |f| %>
+      <div class="form-group">
+        <%= f.label(:refugee_num, '番号') %>
+        <%= f.text_field(:refugee_num, class: 'form-control', required: true) %>
+      </div>
+
+      <%= f.submit('次へ', class: 'btn btn-success form-control') %>
+    <% end %>
+  </div>
+</div>

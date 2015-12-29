@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h1>個人情報</h1>
+
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <th>番号</th>
+          <td><%= @refugee_num %></td>
+        </tr>
+        <tr>
+          <th>名前</th>
+          <td><%= @refugee.name %></td>
+        </tr>
+        <tr>
+          <th>ふりがな</th>
+          <td><%= @refugee.furigana %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><%# link_to(fa_icon('pencil', text: '修正'), edit_refugee_path, class: 'btn btn-success btn-block') %></p>
+  </div>
+</div>

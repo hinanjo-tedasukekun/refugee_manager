@@ -1,4 +1,6 @@
 class RefugeesController < ApplicationController
+  include RefugeeSessionsHelper
+
   # 無効なバーコードであることを表すエラークラス
   class InvalidBarCodeError < StandardError; end
 
@@ -64,6 +66,13 @@ class RefugeesController < ApplicationController
   # 避難者情報表示画面
   def show
     @refugee = Refugee.find(params[:id])
+    @refugee_num = RefugeeManager::BarCode.from_id(19, @refugee.id).code
+  end
+
+  def profile
+    redirect_to login_path unless refugee_logged_in?
+
+    @refugee = current_refugee
     @refugee_num = RefugeeManager::BarCode.from_id(19, @refugee.id).code
   end
 
