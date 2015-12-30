@@ -67,13 +67,6 @@ class RefugeesController < ApplicationController
     @refugee_num = RefugeeManager::BarCode.from_id(ApplicationHelper::REFUGE_ID, @refugee.id).code
   end
 
-  def profile
-    redirect_to login_path unless refugee_logged_in?
-
-    @refugee = current_refugee
-    @refugee_num = RefugeeManager::BarCode.from_id(ApplicationHelper::REFUGE_ID, @refugee.id).code
-  end
-
   # 避難者情報修正画面
   def edit
     @refugee = Refugee.find(params[:id])

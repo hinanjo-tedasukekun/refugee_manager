@@ -1,18 +1,19 @@
+<% provide(:title, '個人情報') %>
 <div class="row">
   <div class="col-xs-12">
     <h1>個人情報</h1>
 
     <table class="table table-striped">
       <tbody>
-        <tr>
+        <tr class="refugee-num">
           <th>番号</th>
           <td><%= @refugee_num %></td>
         </tr>
-        <tr>
+        <tr class="refugee-name">
           <th>名前</th>
           <td><%= @refugee.name %></td>
         </tr>
-        <tr>
+        <tr class="refugee-furigana">
           <th>ふりがな</th>
           <td><%= @refugee.furigana %></td>
         </tr>

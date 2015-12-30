@@ -1,6 +1,4 @@
 class RefugeeSessionsController < ApplicationController
-  include RefugeeSessionsHelper
-
   def new
   end
 
