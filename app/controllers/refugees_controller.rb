@@ -37,7 +37,7 @@ class RefugeesController < ApplicationController
   # 避難者登録画面
   def new
     @refugee = Refugee.new
-    @barcode = RefugeeManager::BarCode.new(params[:refugee_num])
+    @barcode = RefugeeManager::BarCode.new(params[:num])
     raise InvalidBarCodeError unless @barcode.valid?
     @refugee.id = @barcode.refugee_id
     @refugee_num = @barcode.code
