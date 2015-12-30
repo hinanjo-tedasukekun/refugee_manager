@@ -108,4 +108,11 @@ class RefugeeTest < ActiveSupport::TestCase
     @refugee.password = 'a' * 3
     assert_not @refugee.valid?
   end
+
+  test '正しいバーコードが得られる' do
+    num = RefugeeManager::BarCode.
+      from_id(ApplicationHelper::REFUGE_ID, @refugee.id).
+      code
+    assert_equal num, @refugee.barcode.code
+  end
 end

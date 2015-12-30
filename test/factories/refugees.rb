@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :refugee do
+    id 1234
     family
     presence true
     name 'Foo Bar'

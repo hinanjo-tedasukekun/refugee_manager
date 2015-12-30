@@ -24,4 +24,9 @@ class Refugee < ActiveRecord::Base
     presence: true,
     length: { minimum: 4, maximum: 72 },
     if: :use_password?
+
+  # 対応するバーコードを返す
+  def barcode
+    @barcode ||= RefugeeManager::BarCode.from_id(ApplicationHelper::REFUGE_ID, id)
+  end
 end

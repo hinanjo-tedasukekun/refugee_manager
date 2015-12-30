@@ -1,4 +1,7 @@
 module ApplicationHelper
+  # 避難所番号
+  REFUGE_ID = 19
+
   # ページごとに完全なタイトルを返す
   def full_title(page_title = '')
     base_title = 'ポリテクカレッジ避難所'
