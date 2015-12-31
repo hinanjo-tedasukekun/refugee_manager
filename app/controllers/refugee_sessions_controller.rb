@@ -18,7 +18,7 @@ class RefugeeSessionsController < ApplicationController
       refugee_log_in refugee
       redirect_to profile_path
     else
-      redirect_to controller: 'refugees', action: 'new', num: refugee_num
+      redirect_to controller: 'profile', action: 'new', num: refugee_num
     end
   end
 

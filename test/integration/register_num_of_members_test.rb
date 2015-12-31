@@ -10,14 +10,14 @@ class RegisterNumOfMembersTest < ActionDispatch::IntegrationTest
     Leader.create(family: family, refugee: refugee)
   end
 
-  test '家族の人数を登録できる' do
+  test '世帯の人数を登録できる' do
     register_num_of_members
     assert_equal(
       3, Leader.find_by(refugee_id: REFUGEE_ID).family.num_of_members
     )
   end
 
-  test '家族の人数を更新できる' do
+  test '世帯の人数を更新できる' do
     register_num_of_members
 
     leader = Leader.find_by(refugee_id: REFUGEE_ID)

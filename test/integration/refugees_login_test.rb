@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class RefugeesLoginTest < ActionDispatch::IntegrationTest
-  NORMAL_HOST = 'hinan.jp'
-
   test '無効な番号でログインする' do
     host! NORMAL_HOST
     get login_path
@@ -35,8 +33,8 @@ class RefugeesLoginTest < ActionDispatch::IntegrationTest
       from_id(ApplicationHelper::REFUGE_ID, 9999).
       code
     post login_path, session: { refugee_num: num }
-    assert_redirected_to controller: 'refugees', action: 'new', num: num
+    assert_redirected_to controller: 'profile', action: 'new', num: num
     follow_redirect!
-    assert_select '.refugee-num p', num
+    assert_select '#refugee_num', num
   end
 end

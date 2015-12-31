@@ -10,7 +10,7 @@ class Refugee < ActiveRecord::Base
 
   has_secure_password validations: false
 
-  validates :family, presence: true
+  validate :family_must_be_present
   validates :name, length: { maximum: 64 }
   validates :furigana, length: { maximum: 64 }
   validates :age,
@@ -28,5 +28,11 @@ class Refugee < ActiveRecord::Base
   # 対応するバーコードを返す
   def barcode
     @barcode ||= RefugeeManager::BarCode.from_id(ApplicationHelper::REFUGE_ID, id)
+  end
+
+  def family_must_be_present
+    if family.nil?
+      errors.add(:family, :not_registered)
+    end
   end
 end

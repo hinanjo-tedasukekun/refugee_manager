@@ -1,9 +1,9 @@
 ja:
   activerecord:
     models:
-      family: 家族
+      family: 世帯
       refugee: 避難者
-      leader: 家族代表者
+      leader: 世帯代表者
     attributes:
       family:
         address: 住所
@@ -11,6 +11,7 @@ ja:
         num_of_members: 人数
         postal_code: 郵便番号
       refugee:
+        family: 世帯
         age: 年齢
         furigana: ふりがな
         gender: 性別
