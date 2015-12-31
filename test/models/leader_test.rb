@@ -15,8 +15,8 @@ class LeaderTest < ActiveSupport::TestCase
   end
 
   test '世帯はユニークである' do
-    other_refugee = create(:refugee)
-    leader2 = Leader.new(family: @leader.family, refugee: other_refugee)
+    refugee2 = create(:refugee2)
+    leader2 = Leader.new(family: @leader.family, refugee: refugee2)
     assert_not leader2.valid?
   end
 
