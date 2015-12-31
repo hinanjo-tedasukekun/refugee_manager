@@ -1,0 +1,2 @@
+module Profile::BasicInfoHelper
+end

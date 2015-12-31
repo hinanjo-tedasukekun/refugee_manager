@@ -29,6 +29,12 @@
       </tbody>
     </table>
 
-    <p><%# link_to(fa_icon('pencil', text: '修正'), edit_refugee_path, class: 'btn btn-success btn-block') %></p>
+    <nav>
+      <p><%= link_to(fa_icon('user', text: '基本情報'), profile_basic_info_path, class: 'btn btn-default btn-block') %></p>
+      <p><%= link_to(fa_icon('key', text: 'パスワード'), '#', class: 'btn btn-default btn-block') %></p>
+      <p><%= link_to(fa_icon('exclamation-triangle', text: '要配慮項目・必需品'), '#', class: 'btn btn-default btn-block') %></p>
+      <p><%= link_to(fa_icon('ban', text: 'アレルギー'), '#', class: 'btn btn-default btn-block') %></p>
+      <p><%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'btn btn-default btn-block') %></p>
+    </nav>
   </div>
 </div>

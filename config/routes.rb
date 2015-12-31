@@ -15,9 +15,12 @@ Rails.application.routes.draw do
     delete 'logout' => 'refugee_sessions#destroy'
 
     get 'profile' => 'profile#show'
-    get 'profile/new' => 'profile#new', as: :new_profile
+    get 'profile/new' => 'profile#new'
     post 'profile/new' => 'profile#create'
 
-    resources :refugees, only: [:new, :create]
+    namespace :profile do
+      get 'basic-info' => 'basic_info#edit'
+      patch 'basic-info' => 'basic_info#update'
+    end
   end
 end
