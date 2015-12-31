@@ -38,7 +38,8 @@ class ProfileController < ApplicationController
     end
 
     @refugee = current_refugee
-    @refugee_num = @refugee.barcode.code
+    @family = @refugee.family
+    @leader = Leader.find_by(family: @family).refugee
   end
 
   private

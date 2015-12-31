@@ -5,17 +5,26 @@
 
     <table class="table table-striped">
       <tbody>
-        <tr class="refugee-num">
+        <tr>
           <th>番号</th>
-          <td><%= @refugee_num %></td>
+          <td id="refugee_num"><%= @refugee.barcode.code %></td>
         </tr>
-        <tr class="refugee-name">
+        <tr>
           <th>名前</th>
-          <td><%= @refugee.name %></td>
+          <td id="refugee_name"><%= @refugee.name %></td>
         </tr>
-        <tr class="refugee-furigana">
+        <tr>
           <th>ふりがな</th>
-          <td><%= @refugee.furigana %></td>
+          <td id="refugee_furigana"><%= @refugee.furigana %></td>
+        </tr>
+        <tr>
+          <% if @leader.name.empty? %>
+            <th>世帯代表者の番号</th>
+            <td id="leader_num"><%= @leader.barcode.code %></td>
+          <% else %>
+            <th>世帯代表者</th>
+            <td id="leader_name"><%= @leader.name %></td>
+          <% end %>
         </tr>
       </tbody>
     </table>
