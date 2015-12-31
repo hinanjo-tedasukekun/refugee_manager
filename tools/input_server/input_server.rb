@@ -160,7 +160,7 @@ module InputServer
     end
   end
 
-  # 家族のデータを登録する
+  # 世帯のデータを登録する
   def insert_family_data(leader_id, num_of_members)
     family = nil
     ActiveRecord::Base.transaction do
@@ -175,7 +175,7 @@ module InputServer
     true
   end
 
-  # 家族のデータを更新する
+  # 世帯のデータを更新する
   def update_family_data(leader, num_of_members)
     family = nil
     ActiveRecord::Base.transaction do

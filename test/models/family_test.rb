@@ -8,7 +8,7 @@ class FamilyTest < ActiveSupport::TestCase
   test 'デフォルト値が正しい' do
     default = Family.new
 
-    assert_equal 1, default.num_of_members, '家族の人数'
+    assert_equal 1, default.num_of_members, '世帯の人数'
     assert_equal 'unspecified', default.at_home, '在宅避難'
     assert_equal '',  default.address, '住所'
     assert_equal '',  default.postal_code, '郵便番号'
@@ -18,17 +18,17 @@ class FamilyTest < ActiveSupport::TestCase
     assert @family.valid?
   end
 
-  test '家族の人数は必須である' do
+  test '世帯の人数は必須である' do
     @family.num_of_members = nil
     assert_not @family.valid?
   end
 
-  test '家族の人数は 0 より大きい' do
+  test '世帯の人数は 0 より大きい' do
     @family.num_of_members = 0
     assert_not @family.valid?
   end
 
-  test '家族の人数は整数である' do
+  test '世帯の人数は整数である' do
     @family.num_of_members = 1.1
     assert_not @family.valid?
   end

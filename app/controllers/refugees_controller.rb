@@ -47,9 +47,19 @@ class RefugeesController < ApplicationController
   def create
     @refugee = Refugee.new(refugee_create_params)
 
-    leader_num = params.require(:leader_num)
+    begin
+      leader_num = params.require(:leader_num)
+    rescue ActionController::ParameterMissing
+      flash.now[:danger] = t('view.flash.leader_num_required')
+      return
+    end
+
     barcode = RefugeeManager::BarCode.new(leader_num)
-    raise InvalidBarCodeError unless barcode.valid?
+    unless barcode.valid?
+      flash.now[:danger] = t('view.flash.invalid_number')
+      return
+    end
+
     leader = Leader.find_by(refugee_id: barcode.refugee_id)
     @refugee.family = leader.try!(:family)
 

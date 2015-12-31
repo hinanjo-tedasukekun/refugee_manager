@@ -8,20 +8,20 @@
 <%= form_for(@refugee) do |f| %>
   <div class="row">
     <div class="col-xs-12">
-      <div class="form-group refugee-num">
+      <div class="form-group">
         <%= label_tag :num, t('view.label.number') %>
-        <p><%= @refugee_num %></p>
+        <%= content_tag :p, @refugee_num, id: 'refugee_num' %>
         <%= f.hidden_field :id %>
       </div>
-      <div class="form-group leader-num">
+      <div class="form-group">
         <%= label_tag 'leader_num', t('view.label.leader_number') %>
         <%= text_field_tag 'leader_num', '', class: 'form-control' %>
       </div>
-      <div class="form-group refugee-name">
+      <div class="form-group">
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
       </div>
-      <div class="form-group refugee-furigana">
+      <div class="form-group">
         <%= f.label :furigana %>
         <%= f.text_field :furigana, class: 'form-control' %>
       </div>

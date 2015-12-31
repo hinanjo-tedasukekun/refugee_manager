@@ -1,4 +1,4 @@
-# 標準入力から受け取った家族の情報をデータベースへ登録する
+# 標準入力から受け取った世帯の情報をデータベースへ登録する
 
 # 避難所番号（この避難所番号のデータの登録のみ有効になる）
 REFUGE_ID = 19
@@ -33,7 +33,7 @@ def print_error(line)
   puts("#{line}: 登録できませんでした")
 end
 
-# 家族のデータを登録する
+# 世帯のデータを登録する
 def insert_family_data(leader_id, num_of_members)
   ActiveRecord::Base.transaction do
     family = Family.create!(num_of_members: num_of_members)
@@ -41,10 +41,10 @@ def insert_family_data(leader_id, num_of_members)
     Leader.create!(family: family, refugee: refugee)
   end
 
-  puts("登録しました: 代表者番号 #{leader_id}, 家族人数 #{num_of_members}")
+  puts("登録しました: 代表者番号 #{leader_id}, 世帯人数 #{num_of_members}")
 end
 
-# 家族のデータを更新する
+# 世帯のデータを更新する
 def update_family_data(leader, num_of_members)
   ActiveRecord::Base.transaction do
     family = leader.family
@@ -52,7 +52,7 @@ def update_family_data(leader, num_of_members)
     family.save!
   end
 
-  puts("更新しました: 代表者番号 #{leader.id}, 家族人数 #{num_of_members}")
+  puts("更新しました: 代表者番号 #{leader.id}, 世帯人数 #{num_of_members}")
 end
 
 # メインループ：1 行ずつ読み込む
@@ -77,7 +77,7 @@ while line = gets
 
   # 代表者番号
   leader_id = bar_code.refugee_id
-  # 家族の人数
+  # 世帯の人数
   num_of_members = data[1].to_i
 
   leader = Leader.find_by(refugee_id: leader_id)

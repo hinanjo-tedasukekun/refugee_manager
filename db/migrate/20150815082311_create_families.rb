@@ -1,7 +1,7 @@
 class CreateFamilies < ActiveRecord::Migration
   def change
     create_table :families do |t|
-      # 家族の人数
+      # 世帯の人数
       t.integer :num_of_members, null: false, default: 1
       # 在宅避難かどうか
       t.integer :at_home, null: false, limit: 1, default: 0

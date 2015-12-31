@@ -9,12 +9,12 @@ class LeaderTest < ActiveSupport::TestCase
     assert @leader.valid?
   end
 
-  test '家族は必須である' do
+  test '世帯は必須である' do
     @leader.family = nil
     assert_not @leader.valid?
   end
 
-  test '家族はユニークである' do
+  test '世帯はユニークである' do
     other_refugee = create(:refugee)
     leader2 = Leader.new(family: @leader.family, refugee: other_refugee)
     assert_not leader2.valid?
