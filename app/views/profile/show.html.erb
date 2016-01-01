@@ -1,6 +1,14 @@
 <% provide(:title, '個人情報') %>
 <div class="row">
   <div class="col-xs-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'ホーム', root_path %></li>
+      <li class="active">個人情報</li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
     <h1>個人情報</h1>
 
     <table class="table table-striped">
@@ -29,12 +37,12 @@
       </tbody>
     </table>
 
-    <nav>
-      <p><%= link_to(fa_icon('user', text: '基本情報'), profile_basic_info_path, class: 'btn btn-default btn-block') %></p>
-      <p><%= link_to(fa_icon('key', text: 'パスワード'), '#', class: 'btn btn-default btn-block') %></p>
-      <p><%= link_to(fa_icon('exclamation-triangle', text: '要配慮項目・必需品'), '#', class: 'btn btn-default btn-block') %></p>
-      <p><%= link_to(fa_icon('ban', text: 'アレルギー'), '#', class: 'btn btn-default btn-block') %></p>
-      <p><%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'btn btn-default btn-block') %></p>
+    <div class="list-group">
+      <%= link_to(fa_icon('user', text: '基本情報'), profile_basic_info_path, class: 'list-group-item') %>
+      <%= link_to(fa_icon('key', text: 'パスワード'), '#', class: 'list-group-item') %>
+      <%= link_to(fa_icon('exclamation-triangle', text: '要配慮項目・必需品'), '#', class: 'list-group-item') %>
+      <%= link_to(fa_icon('ban', text: 'アレルギー'), '#', class: 'list-group-item') %>
+      <%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'list-group-item') %>
     </nav>
   </div>
 </div>
