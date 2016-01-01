@@ -24,7 +24,7 @@ class RefugeesController < ApplicationController
 
     refugee = Refugee.find_by(id: barcode.refugee_id)
     if refugee
-      if Subdomain::Admin.matches?(request)
+      if Subdomain::Admin.match?(request)
         redirect_to refugee
       else
         redirect_to '/profile'

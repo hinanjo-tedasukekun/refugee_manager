@@ -1,0 +1,27 @@
+// vim: sw=2 sts=2 ts=2
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body {
+}
+
+.navbar-default {
+  a.navbar-brand {
+    padding-left: 52px;
+    background: url(<%= asset_path 'shelter.svg' %>) 15px center/auto 35px no-repeat;
+    font-weight: bold;
+  }
+}
+
+.main-content {
+  h1 {
+    margin: 0.25em 0 0.75em;
+    padding: 0.625em 0.5em;
+    background-color: #F6F6F6;
+    border-left: 6px solid $brand-danger;
+    border-bottom: 1px solid #DDD;
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+}

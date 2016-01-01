@@ -4,11 +4,17 @@ module ApplicationHelper
 
   # ページごとに完全なタイトルを返す
   def full_title(page_title = '')
-    base_title = 'ポリテクカレッジ避難所'
+    base_title =
+      Subdomain::Admin.match?(request) ? '避難所管理システム' : '避難所'
     if page_title.empty?
       base_title
     else
       page_title + ' - ' + base_title
     end
+  end
+
+  # ナビゲーションバーのタイトルを返す
+  def navbar_title
+    Subdomain::Admin.match?(request) ? '避難所管理システム' : '避難所'
   end
 end
