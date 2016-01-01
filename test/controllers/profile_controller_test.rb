@@ -14,7 +14,7 @@ class ProfileControllerTest < ActionController::TestCase
     @request.host = NORMAL_HOST
   end
 
-  test 'ログインしていない場合ホームページにリダイレクトされる' do
+  test 'ログインしていない場合ログインページにリダイレクトされる' do
     assert_not refugee_logged_in?
     get :show
     assert_redirected_to login_path
