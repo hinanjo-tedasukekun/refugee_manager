@@ -5,7 +5,7 @@
       <p><%= link_to(fa_icon('user', text: '個人情報の登録・修正'), login_path, class: 'btn btn-primary btn-lg btn-block') %></p>
     </div>
 
-    <% if Subdomain::Admin.match?(request) %>
+    <% if Subdomain::Admin.matches?(request) %>
       <div class="admin">
         <h1>スタッフ向け</h1>
         <ul>

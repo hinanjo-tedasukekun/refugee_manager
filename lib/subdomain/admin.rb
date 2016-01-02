@@ -1,6 +1,6 @@
 module Subdomain
   class Admin
-    def self.match?(request)
+    def self.matches?(request)
       request.subdomain == 'admin'
     end
   end
