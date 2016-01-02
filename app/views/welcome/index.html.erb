@@ -1,10 +1,10 @@
+<%= render 'shared/flash' %>
 <div class="row">
   <div class="col-xs-12">
     <div class="register well">
       <p>避難者名簿作成のため、個人情報の登録をお願いします。</p>
       <p><%= link_to(fa_icon('user', text: '個人情報の登録・修正'), login_path, class: 'btn btn-primary btn-lg btn-block') %></p>
     </div>
-
     <% if Subdomain::Admin.matches?(request) %>
       <div class="admin">
         <h1>スタッフ向け</h1>
@@ -14,7 +14,6 @@
         </ul>
       </div>
     <% end %>
-
     <div class="news">
       <h1>お知らせ</h1>
       <table class="table table-striped">

@@ -2,8 +2,7 @@ class ProfileController < ApplicationController
   def new
     barcode = RefugeeManager::BarCode.new(params[:num])
     unless barcode.valid?
-      flash[:danger] = t('view.flash.invalid_number')
-      redirect_to login_path
+      redirect_to login_path, alert: t('view.flash.invalid_number')
       return
     end
 

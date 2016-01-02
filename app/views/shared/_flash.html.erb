@@ -1,0 +1,6 @@
+<% alert_class = { alert: 'alert-danger', success: 'alert-success', warning: 'alert-warning', notice: 'alert-info' } %>
+<% alert_class.each do |category, classname| %>
+  <% if flash[category] %>
+    <div class="alert <%= classname %>"><%= flash[category] %></div>
+  <% end %>
+<% end %>

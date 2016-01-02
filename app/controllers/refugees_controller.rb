@@ -17,8 +17,7 @@ class RefugeesController < ApplicationController
   def query
     barcode = RefugeeManager::BarCode.new(params[:refugee_num])
     unless barcode.valid?
-      flash[:danger] = t('view.flash.invalid_number')
-      redirect_to action: 'input_num'
+      redirect_to action: 'input_num', alert: t('view.flash.invalid_number')
       return
     end
 

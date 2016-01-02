@@ -8,13 +8,12 @@
     </ol>
   </div>
 </div>
-
+<%= render 'shared/flash' %>
 <div class="row">
   <div class="col-xs-12">
     <h1>基本情報</h1>
   </div>
 </div>
-
 <%= form_for(@refugee, url: profile_basic_info_path) do |f| %>
   <div class="row">
     <div class="col-xs-12">
@@ -38,7 +37,6 @@
       </div>
     </div>
   </div>
-
   <div class="row">
     <div class="col-xs-6">
       <%= link_to '戻る', profile_path, class: 'btn btn-default btn-block', role: 'button' %>
