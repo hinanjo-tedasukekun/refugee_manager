@@ -1,39 +1,28 @@
 <% provide(:title, '個人情報の登録') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">個人情報の登録</li>
+</ol>
 <%= render 'shared/flash' %>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>個人情報の登録</h1>
-  </div>
-</div>
+<h1>個人情報の登録</h1>
 <%= form_for(@refugee, url: profile_new_path) do |f| %>
-  <div class="row">
-    <div class="col-xs-12">
-      <%= render 'shared/error_messages', target: @refugee %>
-      <div class="form-group">
-        <%= label_tag :num, t('view.label.number') %>
-        <%= content_tag :p, @refugee_num, id: 'refugee_num' %>
-        <%= f.hidden_field :id %>
-      </div>
-      <div class="form-group">
-        <%= label_tag 'leader_num', t('view.label.leader_number') %>
-        <%= text_field_tag 'leader_num', '', class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control' %>
-      </div>
-      <div class="form-group">
-        <%= f.label :furigana %>
-        <%= f.text_field :furigana, class: 'form-control' %>
-      </div>
-    </div>
+  <%= render 'shared/error_messages', target: @refugee %>
+  <div class="form-group">
+    <%= label_tag :num, t('view.label.number') %>
+    <%= content_tag :p, @refugee_num, id: 'refugee_num' %>
+    <%= f.hidden_field :id %>
   </div>
-  <div class="row">
-    <div class="col-xs-6">
-      <%= link_to '戻る', login_path, class: 'btn btn-default btn-block', role: 'button' %>
-    </div>
-    <div class="col-xs-6">
-      <%= f.submit '登録', class: 'btn btn-primary form-control' %>
-    </div>
+  <div class="form-group">
+    <%= label_tag 'leader_num', t('view.label.leader_number') %>
+    <%= text_field_tag 'leader_num', '', class: 'form-control' %>
   </div>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :furigana %>
+    <%= f.text_field :furigana, class: 'form-control' %>
+  </div>
+  <%= f.submit '登録', class: 'btn btn-primary form-control' %>
 <% end %>
