@@ -4,42 +4,36 @@
   <li class="active">個人情報</li>
 </ol>
 <%= render 'shared/flash' %>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>個人情報</h1>
-
-    <table class="refugee-profile table table-striped">
-      <tbody>
-        <tr>
-          <th>番号</th>
-          <td id="refugee_num"><%= @refugee.barcode.code %></td>
-        </tr>
-        <tr>
-          <th>名前</th>
-          <td id="refugee_name"><%= @refugee.name %></td>
-        </tr>
-        <tr>
-          <th>ふりがな</th>
-          <td id="refugee_furigana"><%= @refugee.furigana %></td>
-        </tr>
-        <tr>
-          <% if @leader.name.empty? %>
-            <th>世帯代表者の番号</th>
-            <td id="leader_num"><%= @leader.barcode.code %></td>
-          <% else %>
-            <th>世帯代表者</th>
-            <td id="leader_name"><%= @leader.name %></td>
-          <% end %>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="list-group">
-      <%= link_to(fa_icon('user', text: '基本情報'), profile_basic_info_path, class: 'list-group-item') %>
-      <%= link_to(fa_icon('key', text: 'パスワード'), '#', class: 'list-group-item') %>
-      <%= link_to(fa_icon('exclamation-triangle', text: '要配慮項目・必需品'), '#', class: 'list-group-item') %>
-      <%= link_to(fa_icon('ban', text: 'アレルギー'), '#', class: 'list-group-item') %>
-      <%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'list-group-item') %>
-    </nav>
-  </div>
+<h1>個人情報</h1>
+<table class="refugee-profile table table-striped">
+  <tbody>
+    <tr>
+      <th>番号</th>
+      <td id="refugee_num"><%= @refugee.barcode.code %></td>
+    </tr>
+    <tr>
+      <th>名前</th>
+      <td id="refugee_name"><%= @refugee.name %></td>
+    </tr>
+    <tr>
+      <th>ふりがな</th>
+      <td id="refugee_furigana"><%= @refugee.furigana %></td>
+    </tr>
+    <tr>
+      <% if @leader.name.empty? %>
+        <th>世帯代表者の番号</th>
+        <td id="leader_num"><%= @leader.barcode.code %></td>
+      <% else %>
+        <th>世帯代表者</th>
+        <td id="leader_name"><%= @leader.name %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+<div class="list-group">
+  <%= link_to(fa_icon('user', text: '基本情報'), profile_basic_info_path, class: 'list-group-item') %>
+  <%= link_to(fa_icon('key', text: 'パスワード'), profile_password_path, class: 'list-group-item') %>
+  <%= link_to(fa_icon('exclamation-triangle', text: '要配慮項目・必需品'), '#', class: 'list-group-item') %>
+  <%= link_to(fa_icon('ban', text: 'アレルギー'), '#', class: 'list-group-item') %>
+  <%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'list-group-item') %>
 </div>

@@ -29,7 +29,6 @@ class Profile::BasicInfoControllerTest < ActionController::TestCase
     get :edit
     assert_template 'edit'
     assert_select 'a[href=?]', root_path
-    assert_select 'form a[href=?]', profile_path
   end
 
   test '初期値が正しい' do
