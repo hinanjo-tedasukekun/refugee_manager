@@ -17,3 +17,9 @@ ja:
         gender: 性別
         name: 名前
         presence: 在室
+  enums:
+    refugee:
+      gender:
+        unspecified: 未指定
+        male: 男性
+        female: 女性

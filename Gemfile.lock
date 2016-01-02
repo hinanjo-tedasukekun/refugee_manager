@@ -63,6 +63,7 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
+    enum_help (0.0.14)
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -228,6 +229,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   coffee-rails (~> 4.1)
+  enum_help
   factory_girl_rails (~> 4.5)
   font-awesome-rails
   guard
