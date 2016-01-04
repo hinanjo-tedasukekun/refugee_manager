@@ -105,7 +105,7 @@ class ProfileControllerTest < ActionController::TestCase
     get :new
 
     assert_redirected_to login_path
-    assert_not flash.empty?
+    assert_not flash[:alert].empty?
   end
 
   test '無効な避難者番号が指定された場合、登録画面が表示されない' do
@@ -114,6 +114,6 @@ class ProfileControllerTest < ActionController::TestCase
     get :new, num: '012'
 
     assert_redirected_to login_path
-    assert_not flash.empty?
+    assert_not flash[:alert].empty?
   end
 end

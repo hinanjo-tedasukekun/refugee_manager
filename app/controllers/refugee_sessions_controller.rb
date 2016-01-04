@@ -8,7 +8,7 @@ class RefugeeSessionsController < ApplicationController
     refugee_num = params[:session][:refugee_num]
     barcode = RefugeeManager::BarCode.new(refugee_num)
     unless barcode.valid?
-      flash.now[:danger] = t('view.flash.invalid_number')
+      flash.now[:alert] = t('view.flash.invalid_number')
       render 'new'
       return
     end

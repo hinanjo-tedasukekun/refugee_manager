@@ -7,7 +7,7 @@ class RefugeesLoginTest < ActionDispatch::IntegrationTest
     assert_template 'refugee_sessions/new'
     post login_path, session: { refugee_num: '0' }
     assert_template 'refugee_sessions/new'
-    assert_not flash.empty?
+    assert_not flash[:alert].empty?
     get root_path
     assert flash.empty?
   end
