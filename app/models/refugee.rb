@@ -35,7 +35,7 @@ class Refugee < ActiveRecord::Base
 
   # 対応するバーコードを返す
   def barcode
-    @barcode ||= RefugeeManager::BarCode.from_id(ApplicationHelper::SHELTER_ID, id)
+    @barcode ||= Barcode.from_id(ApplicationHelper::SHELTER_ID, id)
   end
 
   def family_must_be_present

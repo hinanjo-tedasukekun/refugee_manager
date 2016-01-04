@@ -22,7 +22,7 @@ class RegisterProfileTest < ActionDispatch::IntegrationTest
 
     host! NORMAL_HOST
     assert Refugee.find_by(id: LEADER_ID).nil?
-    leader_num = RefugeeManager::BarCode.from_id(SHELTER_ID, LEADER_ID).code
+    leader_num = Barcode.from_id(SHELTER_ID, LEADER_ID).code
     post profile_new_path, refugee: { id: 9999 }, leader_num: leader_num
     assert_template 'profile/new'
     assert_select '#error-explanation'

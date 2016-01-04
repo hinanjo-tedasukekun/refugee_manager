@@ -15,7 +15,7 @@ class RefugeesController < ApplicationController
   # 避難者番号から避難者を探し、適切なページにリダイレクトする
   # 無効な番号が入力された場合、番号入力画面に戻す
   def query
-    barcode = RefugeeManager::BarCode.new(params[:refugee_num])
+    barcode = Barcode.new(params[:refugee_num])
     unless barcode.valid?
       redirect_to action: 'input_num', alert: t('view.flash.invalid_number')
       return
@@ -36,7 +36,7 @@ class RefugeesController < ApplicationController
   # 避難者登録画面
   def new
     @refugee = Refugee.new
-    @barcode = RefugeeManager::BarCode.new(params[:num])
+    @barcode = Barcode.new(params[:num])
     raise InvalidBarCodeError unless @barcode.valid?
     @refugee.id = @barcode.refugee_id
     @refugee_num = @barcode.code
@@ -53,7 +53,7 @@ class RefugeesController < ApplicationController
       return
     end
 
-    barcode = RefugeeManager::BarCode.new(leader_num)
+    barcode = Barcode.new(leader_num)
     unless barcode.valid?
       flash.now[:danger] = t('view.flash.invalid_number')
       return
@@ -73,13 +73,13 @@ class RefugeesController < ApplicationController
   # 避難者情報表示画面
   def show
     @refugee = Refugee.find(params[:id])
-    @refugee_num = RefugeeManager::BarCode.from_id(ApplicationHelper::SHELTER_ID, @refugee.id).code
+    @refugee_num = Barcode.from_id(ApplicationHelper::SHELTER_ID, @refugee.id).code
   end
 
   # 避難者情報修正画面
   def edit
     @refugee = Refugee.find(params[:id])
-    @refugee_num = RefugeeManager::BarCode.from_id(ApplicationHelper::SHELTER_ID, @refugee.id).code
+    @refugee_num = Barcode.from_id(ApplicationHelper::SHELTER_ID, @refugee.id).code
   end
 
   def update

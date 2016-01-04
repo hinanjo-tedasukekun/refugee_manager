@@ -2,7 +2,7 @@ class ProfileController < ApplicationController
   before_action :logged_in_refugee, only: %i(show)
 
   def new
-    barcode = RefugeeManager::BarCode.new(params[:num])
+    barcode = Barcode.new(code: params[:num])
     unless barcode.valid?
       redirect_to login_path, alert: t('view.flash.invalid_number')
       return
@@ -19,7 +19,7 @@ class ProfileController < ApplicationController
     @refugee_num = @refugee.barcode.code
 
     leader_num = params[:leader_num]
-    barcode = RefugeeManager::BarCode.new(leader_num)
+    barcode = Barcode.new(code: leader_num)
     leader = Leader.find_by(refugee_id: barcode.refugee_id)
     @refugee.family = leader.try!(:family)
 

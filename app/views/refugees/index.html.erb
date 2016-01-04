@@ -19,7 +19,7 @@
       <tbody>
         <% @refugees.each do |r| %>
           <tr>
-            <td><%= RefugeeManager::BarCode.from_id(19, r.id).code %></td>
+            <td><%= Barcode.from_id(19, r.id).code %></td>
             <td><%= r.name %></td>
             <td><%= r.furigana %></td>
           </tr>

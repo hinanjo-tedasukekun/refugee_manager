@@ -6,7 +6,7 @@ class RefugeeSessionsController < ApplicationController
   # 無効な番号が入力された場合、番号入力画面に戻す
   def create
     refugee_num = params[:session][:refugee_num]
-    barcode = RefugeeManager::BarCode.new(refugee_num)
+    barcode = Barcode.new(code: refugee_num)
     unless barcode.valid?
       flash.now[:alert] = t('view.flash.invalid_number')
       render 'new'

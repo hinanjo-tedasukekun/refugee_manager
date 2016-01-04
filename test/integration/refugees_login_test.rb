@@ -15,7 +15,7 @@ class RefugeesLoginTest < ActionDispatch::IntegrationTest
   test '登録されている番号でログインする' do
     leader = FactoryGirl.create(:leader)
     refugee = leader.refugee
-    refugee_num = RefugeeManager::BarCode.from_id(19, refugee.id).code
+    refugee_num = Barcode.from_id(19, refugee.id).code
 
     host! NORMAL_HOST
     get login_path
@@ -29,9 +29,7 @@ class RefugeesLoginTest < ActionDispatch::IntegrationTest
     get login_path
     assert_template 'refugee_sessions/new'
 
-    num = RefugeeManager::BarCode.
-      from_id(ApplicationHelper::SHELTER_ID, 9999).
-      code
+    num = Barcode.from_id(ApplicationHelper::SHELTER_ID, 9999).code
     post login_path, session: { refugee_num: num }
     assert_redirected_to controller: 'profile', action: 'new', num: num
     follow_redirect!
