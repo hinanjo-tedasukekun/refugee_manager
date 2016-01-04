@@ -4,7 +4,7 @@ module RefugeeManager
     # @return [String] バーコードに含まれているコード
     attr_reader :code
     # @return [Fixnum] 避難所番号
-    attr_reader :refuge_id
+    attr_reader :shelter_id
     # @return [Fixnum] 避難者番号
     attr_reader :refugee_id
 
@@ -55,19 +55,19 @@ module RefugeeManager
     end
 
     # 避難所番号、避難者番号からバーコード情報を生成する
-    # @param [Fixnum] refuge_id 避難所番号
+    # @param [Fixnum] shelter_id 避難所番号
     # @param [Fixnum] refugee_id 避難者番号
     # @return [BarCode]
-    def self.from_id(refuge_id, refugee_id)
-      unless (0..999).include?(refuge_id)
-        raise RangeError, "invalid refuge id: #{refuge_id}"
+    def self.from_id(shelter_id, refugee_id)
+      unless (0..999).include?(shelter_id)
+        raise RangeError, "invalid shelter id: #{shelter_id}"
       end
 
       unless (0..9999).include?(refugee_id)
         raise RangeError, "invalid refugee id: #{refugee_id}"
       end
 
-      data = '%03d%04d' % [refuge_id, refugee_id]
+      data = '%03d%04d' % [shelter_id, refugee_id]
       new("#{data}#{check_digit(data)}")
     end
 
@@ -77,10 +77,10 @@ module RefugeeManager
         self.class.is_check_digit_correct?(@code)
 
       if @valid
-        @refuge_id = @code[0..2].to_i
+        @shelter_id = @code[0..2].to_i
         @refugee_id = @code[3..6].to_i
       else
-        @refuge_id = nil
+        @shelter_id = nil
         @refugee_id = nil
       end
     end

@@ -3,8 +3,8 @@ class Family < ActiveRecord::Base
 
   enum at_home: {
     unspecified: 0, # 未指定
-    at_home: 1,   # 在宅避難
-    in_refuge: 2  # 避難所で避難する
+    at_home: 1,     # 在宅避難
+    in_shelter: 2   # 避難所で避難する
   }
 
   validates :num_of_members,

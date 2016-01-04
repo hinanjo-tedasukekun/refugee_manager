@@ -87,7 +87,7 @@ class ProfileControllerTest < ActionController::TestCase
   test '登録画面が表示される' do
     assert_not refugee_logged_in?
 
-    num = RefugeeManager::BarCode.from_id(REFUGE_ID, 9999).code
+    num = RefugeeManager::BarCode.from_id(SHELTER_ID, 9999).code
     name = 'foo bar'
     furigana = 'ふー ばー'
 

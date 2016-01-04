@@ -21,15 +21,15 @@ class TestBarCode < Minitest::Test
                  'バーコード 3 のコードが正しい')
   end
 
-  def test_refuge_id
+  def test_shelter_id
     assert_equal(19,
-                 @bar_code_1.refuge_id,
+                 @bar_code_1.shelter_id,
                  'バーコード 1 の避難所番号が正しい')
     assert_equal(19,
-                 @bar_code_2.refuge_id,
+                 @bar_code_2.shelter_id,
                  'バーコード 2 の避難所番号が正しい')
     assert_equal(123,
-                 @bar_code_3.refuge_id,
+                 @bar_code_3.shelter_id,
                  'バーコード 3 の避難所番号が正しい')
   end
 
@@ -89,7 +89,7 @@ class TestBarCode < Minitest::Test
   def invalid_code_assertions(code)
     bar_code = RefugeeManager::BarCode.new(code)
     assert(!bar_code.valid?, "#{code}: 無効と判断される")
-    assert_equal(nil, bar_code.refuge_id)
+    assert_equal(nil, bar_code.shelter_id)
     assert_equal(nil, bar_code.refugee_id)
   end
 end

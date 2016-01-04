@@ -1,7 +1,7 @@
 # 標準入力から受け取った世帯の情報をデータベースへ登録する
 
 # 避難所番号（この避難所番号のデータの登録のみ有効になる）
-REFUGE_ID = 19
+SHELTER_ID = 19
 
 require 'active_record'
 require 'yaml'
@@ -17,7 +17,7 @@ require 'refugee_manager/bar_code'
 
 config_path = File.expand_path('config.yml', File.dirname(__FILE__))
 default_config = {
-  'refuge_id' => 19,
+  'shelter_id' => 19,
   'rails_env' => 'development'
 }
 config = default_config.merge(YAML.load_file(config_path))
@@ -69,7 +69,7 @@ while line = gets
 
   # バーコード
   bar_code = RefugeeManager::BarCode.new(data[0])
-  unless bar_code.valid? && bar_code.refuge_id == REFUGE_ID
+  unless bar_code.valid? && bar_code.shelter_id == SHELTER_ID
     # 無効なバーコードまたは避難所番号が異なる場合
     print_error(line)
     next

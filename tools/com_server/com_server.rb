@@ -68,15 +68,15 @@ module ComServer
   # 新しいサーバースレッドを作成する
   def new_server_thread
     Thread.new do
-      refuge_id ="%03d" %  config[ 'refuge_id' ]
+      shelter_id ="%03d" %  config[ 'shelter_id' ]
       loop do
         line = @sp.gets.chomp
         logger.debug("<< #{line}")
         case line
         when %r{@(\d\d\d)DNU}
-          if $1 == refuge_id
+          if $1 == shelter_id
             refugees_num = Family.sum(:num_of_members)
-            @sp.puts "@#{refuge_id}UNU #{refugees_num}\r"
+            @sp.puts "@#{shelter_id}UNU #{refugees_num}\r"
           end
         end
       end
@@ -87,7 +87,7 @@ end
 config_path = File.expand_path('config.yml', File.dirname(__FILE__))
 default_config = {
   root_path: root_path,
-  'refuge_id' => 19,
+  'shelter_id' => 19,
   'serial_port' => '/dev/ttyACM0',
   'rails_env' => 'development'
 }

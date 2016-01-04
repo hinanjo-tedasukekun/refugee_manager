@@ -44,7 +44,7 @@ class FamilyTest < ActiveSupport::TestCase
   end
 
   test '在宅：避難所で避難する' do
-    @family.at_home = :in_refuge
+    @family.at_home = :in_shelter
     assert @family.valid?
   end
 

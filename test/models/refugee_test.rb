@@ -122,7 +122,7 @@ class RefugeeTest < ActiveSupport::TestCase
 
   test '正しいバーコードが得られる' do
     num = RefugeeManager::BarCode.
-      from_id(ApplicationHelper::REFUGE_ID, @refugee.id).
+      from_id(ApplicationHelper::SHELTER_ID, @refugee.id).
       code
     assert_equal num, @refugee.barcode.code
   end

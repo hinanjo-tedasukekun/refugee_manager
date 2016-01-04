@@ -126,11 +126,11 @@ module InputServer
       raise ArgumentError, "Invalid bar code: #{bar_code_s}"
     end
 
-    bar_code_refuge_id = bar_code.refuge_id
-    this_refuge_id = config['refuge_id']
-    unless bar_code_refuge_id == this_refuge_id
+    bar_code_shelter_id = bar_code.shelter_id
+    this_shelter_id = config['shelter_id']
+    unless bar_code_shelter_id == this_shelter_id
       raise ArgumentError,
-        "Different refuge id: #{bar_code_refuge_id} =/= #{this_refuge_id}"
+        "Different shelter id: #{bar_code_shelter_id} =/= #{this_shelter_id}"
     end
 
     # 代表者番号
@@ -225,7 +225,7 @@ config_path = File.expand_path('config.yml', File.dirname(__FILE__))
 default_config = {
   root_path: root_path,
   log: '-',
-  'refuge_id' => 19,
+  'shelter_id' => 19,
   'xbee' => {
     'port' => '/dev/ttyUSB0',
     'rate' => 9600

@@ -73,13 +73,13 @@ class RefugeesController < ApplicationController
   # 避難者情報表示画面
   def show
     @refugee = Refugee.find(params[:id])
-    @refugee_num = RefugeeManager::BarCode.from_id(ApplicationHelper::REFUGE_ID, @refugee.id).code
+    @refugee_num = RefugeeManager::BarCode.from_id(ApplicationHelper::SHELTER_ID, @refugee.id).code
   end
 
   # 避難者情報修正画面
   def edit
     @refugee = Refugee.find(params[:id])
-    @refugee_num = RefugeeManager::BarCode.from_id(ApplicationHelper::REFUGE_ID, @refugee.id).code
+    @refugee_num = RefugeeManager::BarCode.from_id(ApplicationHelper::SHELTER_ID, @refugee.id).code
   end
 
   def update

@@ -30,7 +30,7 @@ class RefugeesLoginTest < ActionDispatch::IntegrationTest
     assert_template 'refugee_sessions/new'
 
     num = RefugeeManager::BarCode.
-      from_id(ApplicationHelper::REFUGE_ID, 9999).
+      from_id(ApplicationHelper::SHELTER_ID, 9999).
       code
     post login_path, session: { refugee_num: num }
     assert_redirected_to controller: 'profile', action: 'new', num: num
