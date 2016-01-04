@@ -1,19 +1,11 @@
 class Profile::PasswordController < ApplicationController
-  def edit
-    unless refugee_logged_in?
-      redirect_to login_path
-      return
-    end
+  before_action :logged_in_refugee, only: %i(edit update)
 
+  def edit
     @refugee = current_refugee
   end
 
   def update
-    unless refugee_logged_in?
-      redirect_to login_path
-      return
-    end
-
     @refugee = current_refugee
     new_data = password_params
     @refugee.password_protected = new_data[:password_protected]

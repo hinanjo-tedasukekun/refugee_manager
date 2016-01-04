@@ -1,4 +1,6 @@
 class ProfileController < ApplicationController
+  before_action :logged_in_refugee, only: %i(show)
+
   def new
     barcode = RefugeeManager::BarCode.new(params[:num])
     unless barcode.valid?
@@ -31,11 +33,6 @@ class ProfileController < ApplicationController
   end
 
   def show
-    unless refugee_logged_in?
-      redirect_to login_path
-      return
-    end
-
     @refugee = current_refugee
     @family = @refugee.family
     @leader = Leader.find_by(family: @family).refugee

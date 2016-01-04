@@ -1,19 +1,11 @@
 class Profile::BasicInfoController < ApplicationController
-  def edit
-    unless refugee_logged_in?
-      redirect_to login_path
-      return
-    end
+  before_action :logged_in_refugee, only: %i(edit update)
 
+  def edit
     @refugee = current_refugee
   end
 
   def update
-    unless refugee_logged_in?
-      redirect_to login_path
-      return
-    end
-
     @refugee = current_refugee
     new_data = basic_info_params
     @refugee.name = new_data[:name]

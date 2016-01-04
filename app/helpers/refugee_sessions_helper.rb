@@ -13,4 +13,10 @@ module RefugeeSessionsHelper
   def refugee_logged_in?
     !current_refugee.nil?
   end
+
+  # ログイン済み避難者かどうか確認する
+  # ログインしていなければログイン画面へリダイレクトする
+  def logged_in_refugee
+    redirect_to login_url unless refugee_logged_in?
+  end
 end
