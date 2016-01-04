@@ -21,9 +21,17 @@ class Refugee < ActiveRecord::Base
     }
 
   validates :password,
+    absence: true,
+    unless: :password_protected?
+
+  validates :password,
     presence: true,
-    length: { minimum: 4, maximum: 72 },
-    if: :use_password?
+    confirmation: true,
+    length: { minimum: 4 },
+    if: :password_protected?
+  validates :password_confirmation,
+    presence: true,
+    if: :password_protected?
 
   # 対応するバーコードを返す
   def barcode

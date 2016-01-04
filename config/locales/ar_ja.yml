@@ -17,6 +17,9 @@ ja:
         gender: 性別
         name: 名前
         presence: 在室
+        password_protected: パスワード保護を行う
+        password: パスワード
+        password_confirmation: パスワード（確認）
   enums:
     refugee:
       gender:

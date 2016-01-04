@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     namespace :profile do
       get 'basic-info' => 'basic_info#edit'
       patch 'basic-info' => 'basic_info#update'
+
+      get 'password' => 'password#edit'
+      patch 'password' => 'password#update'
     end
   end
 end

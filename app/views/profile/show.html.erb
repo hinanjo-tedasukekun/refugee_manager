@@ -16,10 +16,6 @@
       <td id="refugee_name"><%= @refugee.name %></td>
     </tr>
     <tr>
-      <th>ふりがな</th>
-      <td id="refugee_furigana"><%= @refugee.furigana %></td>
-    </tr>
-    <tr>
       <% if @leader.name.empty? %>
         <th>世帯代表者の番号</th>
         <td id="leader_num"><%= @leader.barcode.code %></td>
@@ -27,6 +23,11 @@
         <th>世帯代表者</th>
         <td id="leader_name"><%= @leader.name %></td>
       <% end %>
+    </tr>
+    <tr>
+      <th>パスワード保護</th>
+      <% label_suffix = @refugee.password_protected? ? 'set' : 'unset' %>
+      <td id="refugee_password_protected"><%= t("view.label.password_protection_#{label_suffix}") %></td>
     </tr>
   </tbody>
 </table>

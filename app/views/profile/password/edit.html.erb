@@ -1,0 +1,26 @@
+<% provide(:title, 'パスワード') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to '個人情報', profile_path %></li>
+  <li class="active">パスワード</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>パスワード</h1>
+<%= form_for(@refugee, url: profile_password_path) do |f| %>
+  <%= render 'shared/error_messages', target: @refugee %>
+  <div class="checkbox">
+    <label>
+      <%= f.check_box :password_protected %>
+      <%= t('activerecord.attributes.refugee.password_protected') %>
+    </label>
+  </div>
+  <div class="form-group refugee-password">
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control' %>
+  </div>
+  <div class="form-group refugee-password">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+  <%= f.submit '更新', class: 'btn btn-primary btn-block' %>
+<% end %>

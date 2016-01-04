@@ -9,3 +9,5 @@ ja:
     label:
       number: 番号
       leader_number: 代表者番号
+      password_protection_set: 設定済み
+      password_protection_unset: 未設定
