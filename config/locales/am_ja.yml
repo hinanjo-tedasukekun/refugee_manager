@@ -1,0 +1,7 @@
+ja:
+  activemodel:
+    models:
+      barcode: バーコード
+    attributes:
+      barcode:
+        code: 番号
