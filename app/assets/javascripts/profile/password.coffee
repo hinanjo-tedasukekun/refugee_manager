@@ -1,27 +1,56 @@
-# パスワード保護のチェック状態に合わせて
-# パスワード欄の表示を切り替える処理
-toggle_password_display = ->
-  $password_protected = $('#refugee_password_protected')
+passwordController = ->
+  passwordProtected = false
+
+  $form = $('form')
+  $passwordProtected = $('#refugee_password_protected')
   $password = $('.refugee-password')
+  $refugeePassword = $('#refugee_password')
+  $refugeePasswordConfirmation = $('#refugee_password_confirmation')
+  $passwordFields = $('#refugee_password, #refugee_password_confirmation')
+  $passwordConfirmationError = $('#password-confirmation-error small')
 
   # パスワード保護のチェック状態に合わせて
   # パスワード欄の表示を切り替える
   # 関数を返すようにし、アニメーションのスピードを変更できるようにする
   # speed: アニメーションのスピード。undefined ならばアニメーションなし
-  update_password_display = (speed = undefined) ->
+  updatePasswordProperties = (speed = undefined) ->
     ->
-      if $password_protected.prop('checked')
+      passwordProtected = $passwordProtected.prop('checked')
+      if passwordProtected
+        $passwordFields.attr('minlength', 4)
+        $passwordFields.prop('required', true)
         $password.show(speed)
       else
+        $passwordFields.removeAttr('minlength')
+        $passwordFields.prop('required', false)
         $password.hide(speed)
+      return
+
+  # 送信時にパスワードを確認する
+  confirmPassword = ->
+    return true unless passwordProtected
+
+    password = $refugeePassword.val()
+    confirmation = $refugeePasswordConfirmation.val()
+    unless confirmation == password
+      $passwordConfirmationError.text('パスワードが確認欄に入力されたものと一致しません。')
+      return false
+
+  $form.submit(confirmPassword)
+
+  # 確認エラーの文章をクリアする
+  clearError = ->
+    $passwordConfirmationError.text('')
+
+  $passwordFields.focus(clearError)
 
   # チェック状態が変化するときは、アニメーションを付ける
-  $password_protected.change(update_password_display('fast'))
+  $passwordProtected.change(updatePasswordProperties('fast'))
   # 初期状態ではアニメーションなし
-  (update_password_display())()
+  (updatePasswordProperties())()
 
 class ProfilePasswordController
-  edit: toggle_password_display
-  update: toggle_password_display
+  edit: passwordController
+  update: passwordController
 
 this.RefugeeManager.profile_password = new ProfilePasswordController
