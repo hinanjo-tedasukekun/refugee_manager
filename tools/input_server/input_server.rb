@@ -10,7 +10,8 @@ $LOAD_PATH.unshift("#{root_path}/lib")
 require 'models/family'
 require 'models/refugee'
 require 'models/leader'
-require 'refugee_manager/bar_code'
+require 'models/check_digit_validator'
+require 'models/barcode'
 
 module InputServer
   FAMILY_DATA_PATTERN = /\A[0-9]{8},[1-9][0-9]?\z/
@@ -119,22 +120,22 @@ module InputServer
   end
 
   def process_family_data(data_str, response)
-    bar_code_s, num_of_members_s = data_str.split(',')
-    bar_code = RefugeeManager::BarCode.new(bar_code_s)
+    barcode_s, num_of_members_s = data_str.split(',')
+    barcode = Barcode.new(code: barcode_s)
 
-    unless bar_code.valid?
-      raise ArgumentError, "Invalid bar code: #{bar_code_s}"
+    unless barcode.valid?
+      raise ArgumentError, "Invalid bar code: #{barcode_s}"
     end
 
-    bar_code_shelter_id = bar_code.shelter_id
+    barcode_shelter_id = barcode.shelter_id
     this_shelter_id = config['shelter_id']
-    unless bar_code_shelter_id == this_shelter_id
+    unless barcode_shelter_id == this_shelter_id
       raise ArgumentError,
-        "Different shelter id: #{bar_code_shelter_id} =/= #{this_shelter_id}"
+        "Different shelter id: #{barcode_shelter_id} =/= #{this_shelter_id}"
     end
 
     # 代表者番号
-    leader_id = bar_code.refugee_id
+    leader_id = barcode.refugee_id
     # 代表者番号
     num_of_members = num_of_members_s.to_i
 
