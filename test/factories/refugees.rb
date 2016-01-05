@@ -7,6 +7,10 @@ FactoryGirl.define do
     furigana 'ふー ばー'
     gender :unspecified
     age 20
+
+    initialize_with do
+      Refugee.find_or_create_by(id: id)
+    end
   end
 
   factory :refugee2, class: Refugee do
@@ -19,6 +23,10 @@ FactoryGirl.define do
     age 22
     password_protected false
     password nil
+
+    initialize_with do
+      Refugee.find_or_create_by(id: id)
+    end
   end
 
   factory :protected_refugee, class: Refugee do
@@ -32,5 +40,9 @@ FactoryGirl.define do
     password_protected true
     password '12345678'
     password_confirmation '12345678'
+
+    initialize_with do
+      Refugee.find_or_create_by(id: id)
+    end
   end
 end
