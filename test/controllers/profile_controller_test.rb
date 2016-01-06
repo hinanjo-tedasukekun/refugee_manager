@@ -29,6 +29,22 @@ class ProfileControllerTest < ActionController::TestCase
     assert_select 'title', /個人情報/
   end
 
+  test 'メニューのリンクが正しい' do
+    refugee_log_in @refugee
+    assert refugee_logged_in?
+
+    get :show
+
+    assert_template 'show'
+
+    assert_select 'a[href=?]', profile_basic_info_path
+    assert_select 'a[href=?]', profile_password_path
+    assert_select 'a[href=?]', profile_vulnerabilities_path
+    #assert_select 'a[href=?]', profile_supplies_path
+    #assert_select 'a[href=?]', profile_allergens_path
+    #assert_select 'a[href=?]', profile_skills_path
+  end
+
   test '正しい避難者番号が表示される' do
     refugee_log_in @refugee
     assert refugee_logged_in?

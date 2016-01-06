@@ -24,6 +24,18 @@ Rails.application.routes.draw do
 
       get 'password' => 'password#edit'
       patch 'password' => 'password#update'
+
+      get 'vulnerabilities' => 'vulnerabilities#edit'
+      patch 'vulnerabilities' => 'vulnerabilities#update'
+
+      #get 'supplies' => 'supplies#edit'
+      #patch 'supplies' => 'supplies#edit'
+
+      #get 'allergens' => 'allergens#edit'
+      #patch 'allergens' => 'allergens#edit'
+
+      #get 'skills' => 'skills#edit'
+      #patch 'skills' => 'skills#edit'
     end
   end
 end

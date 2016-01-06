@@ -1,6 +1,7 @@
 class Refugee < ActiveRecord::Base
   belongs_to :family
   has_many :vulnerabilities
+  has_many :vulnerability_types, through: :vulnerabilities
 
   enum gender: {
     unspecified: 0, # 未指定

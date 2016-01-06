@@ -31,10 +31,11 @@
     </tr>
   </tbody>
 </table>
-<div class="list-group">
+<div class="list-group menu">
   <%= link_to(fa_icon('user', text: '基本情報'), profile_basic_info_path, class: 'list-group-item') %>
   <%= link_to(fa_icon('key', text: 'パスワード'), profile_password_path, class: 'list-group-item') %>
-  <%= link_to(fa_icon('exclamation-triangle', text: '要配慮項目・必需品'), '#', class: 'list-group-item') %>
+  <%= link_to(fa_icon('exclamation-triangle', text: '要配慮事項'), profile_vulnerabilities_path, class: 'list-group-item') %>
+  <%= link_to(fa_icon('archive', text: '必需品'), '#', class: 'list-group-item') %>
   <%= link_to(fa_icon('ban', text: 'アレルギー'), '#', class: 'list-group-item') %>
   <%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'list-group-item') %>
 </div>
