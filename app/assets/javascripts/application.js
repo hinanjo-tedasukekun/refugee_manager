@@ -1,8 +1,10 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require refugee_manager
 //= require_tree .
+//= require turbolinks
 
 /*global $, RefugeeManager */
 
