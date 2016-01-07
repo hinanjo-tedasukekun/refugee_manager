@@ -43,9 +43,18 @@ class Refugee < ActiveRecord::Base
     @barcode ||= Barcode.from_id(ApplicationHelper::SHELTER_ID, id)
   end
 
+  # 世帯が存在していることのバリデーション
   def family_must_be_present
     if family.nil?
       errors.add(:family, :not_registered)
     end
+  end
+
+  # 基本情報が設定されているかどうかを返す
+  def set_basic_info?
+    !(name.blank? &&
+      furigana.blank? &&
+      gender == 'unspecified' &&
+      age.blank?)
   end
 end

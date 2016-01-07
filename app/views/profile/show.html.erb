@@ -24,17 +24,21 @@
         <td id="leader_name"><%= @leader.name %></td>
       <% end %>
     </tr>
-    <tr>
-      <th>パスワード保護</th>
-      <% label_suffix = @refugee.password_protected? ? 'set' : 'unset' %>
-      <td id="refugee_password_protected"><%= t("view.label.password_protection_#{label_suffix}") %></td>
-    </tr>
   </tbody>
 </table>
-<div class="list-group menu">
-  <%= link_to(fa_icon('user', text: '基本情報'), profile_basic_info_path, class: 'list-group-item') %>
-  <%= link_to(fa_icon('key', text: 'パスワード'), profile_password_path, class: 'list-group-item') %>
-  <%= link_to(fa_icon('exclamation-triangle', text: '要配慮事項'), profile_vulnerabilities_path, class: 'list-group-item') %>
+<div class="list-group profile-menu">
+  <a href="<%= profile_basic_info_path %>" class="list-group-item">
+    <%= fa_icon('user', text: '基本情報') %>
+    <%= render('shared/set_badge') if @refugee.set_basic_info? %>
+  </a>
+  <a href="<%= profile_password_path %>" class="list-group-item">
+    <%= fa_icon('key', text: 'パスワード') %>
+    <%= render('shared/set_badge') if @refugee.password_protected? %>
+  </a>
+  <a href="<%= profile_vulnerabilities_path %>" class="list-group-item">
+    <%= fa_icon('exclamation-triangle', text: '要配慮事項') %>
+    <%= render('shared/set_badge') unless @refugee.vulnerabilities.empty? %>
+  </a>
   <%= link_to(fa_icon('archive', text: '必需品'), '#', class: 'list-group-item') %>
   <%= link_to(fa_icon('ban', text: 'アレルギー'), '#', class: 'list-group-item') %>
   <%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'list-group-item') %>
