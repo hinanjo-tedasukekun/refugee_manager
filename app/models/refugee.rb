@@ -21,18 +21,22 @@ class Refugee < ActiveRecord::Base
       greater_than_or_equal_to: 0
     }
 
-  validates :password,
-    absence: true,
-    unless: :password_protected?
+  # パスワード変更時のみバリデーションを行う
+  # @see http://qiita.com/kadoppe/items/061d137e6022fa099872
+  with_options on: :change_password do
+    validates :password,
+      absence: true,
+      unless: :password_protected?
 
-  validates :password,
-    presence: true,
-    confirmation: true,
-    length: { minimum: 4 },
-    if: :password_protected?
-  validates :password_confirmation,
-    presence: true,
-    if: :password_protected?
+    validates :password,
+      presence: true,
+      confirmation: true,
+      length: { minimum: 4 },
+      if: :password_protected?
+    validates :password_confirmation,
+      presence: true,
+      if: :password_protected?
+  end
 
   # 対応するバーコードを返す
   def barcode

@@ -7,6 +7,7 @@ class Profile::BasicInfoControllerTest < ActionController::TestCase
   def setup
     @leader = create(:leader)
     @refugee = create(:refugee2)
+    @protected_refugee = create(:protected_refugee)
   end
 
   test 'ログインしていない場合ログインページにリダイレクトされる' do
@@ -106,5 +107,35 @@ class Profile::BasicInfoControllerTest < ActionController::TestCase
 
     assert_template 'edit'
     assert_select '#error-explanation'
+  end
+
+  test 'パスワード関連のエラーが出ない' do
+    refugee_log_in @protected_refugee
+    assert refugee_logged_in?
+
+    new_name = 'アイウエオ'
+    new_furigana = 'あいうえお'
+    new_gender = Refugee.genders[:unspecified]
+    new_age = 12
+
+    params = {
+      refugee: {
+        name: new_name,
+        furigana: new_furigana,
+        gender: new_gender,
+        age: new_age
+      }
+    }
+
+    patch :update, params
+
+    @protected_refugee.reload
+    assert_equal new_name, @protected_refugee.name
+    assert_equal new_furigana, @protected_refugee.furigana
+    assert_equal new_gender, @protected_refugee[:gender]
+    assert_equal new_age, @protected_refugee.age
+
+    assert_redirected_to profile_path
+    assert_not flash[:success].empty?
   end
 end

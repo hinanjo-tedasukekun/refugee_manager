@@ -17,7 +17,9 @@ class Profile::PasswordController < ApplicationController
       @refugee.password = nil
     end
 
-    if @refugee.save
+    # パスワードのバリデーションを有効にして保存する
+    # @see http://qiita.com/kadoppe/items/061d137e6022fa099872
+    if @refugee.save(context: :change_password)
       flash[:success] = t('view.flash.profile_updated')
       redirect_to profile_path
     else

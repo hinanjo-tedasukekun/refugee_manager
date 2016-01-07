@@ -21,7 +21,7 @@ class RefugeeTest < ActiveSupport::TestCase
 
   test '世帯は必須である' do
     @refugee.family = nil
-    assert_not @refugee.valid?
+    refute @refugee.valid?
   end
 
   test '名前は空でもよい' do
@@ -31,7 +31,7 @@ class RefugeeTest < ActiveSupport::TestCase
 
   test '名前は 64 文字以内である' do
     @refugee.name = 'あ' * 65
-    assert_not @refugee.valid?
+    refute @refugee.valid?
   end
 
   test 'ふりがなは空でもよい' do
@@ -41,7 +41,7 @@ class RefugeeTest < ActiveSupport::TestCase
 
   test 'ふりがなは 64 文字以内である' do
     @refugee.furigana = 'あ' * 65
-    assert_not @refugee.valid?
+    refute @refugee.valid?
   end
 
   test '性別：未指定' do
@@ -72,52 +72,52 @@ class RefugeeTest < ActiveSupport::TestCase
 
   test '年齢は数である' do
     @refugee.age = 'abc'
-    assert_not @refugee.valid?
+    refute @refugee.valid?
   end
 
   test '年齢は整数である' do
     @refugee.age = 0.5
-    assert_not @refugee.valid?
+    refute @refugee.valid?
   end
 
   test '年齢は 0 以上である' do
     @refugee.age = -1
-    assert_not @refugee.valid?
+    refute @refugee.valid?
   end
 
   test 'パスワード不使用時はパスワードが空である' do
     @refugee.password_protected = false
 
     @refugee.password = @refugee.password_confirmation = nil
-    assert @refugee.valid?, 'password == nil => valid'
+    assert @refugee.valid?(:change_password), 'password == nil => valid'
 
     @refugee.password = @refugee.password_confirmation = '12345678'
-    assert_not @refugee.valid?, 'password != nil => invalid'
+    refute @refugee.valid?(:change_password), 'password != nil => invalid'
   end
 
   test 'パスワード使用時はパスワードが必須である' do
     @refugee.password_protected = true
     @refugee.password = @refugee.password_confirmation = nil
-    assert_not @refugee.valid?
+    refute @refugee.valid?(:change_password)
   end
 
   test 'パスワードと確認欄が異なってはならない' do
     @refugee.password_protected = true
     @refugee.password = '12345678'
     @refugee.password_confirmation = '123456789'
-    assert_not @refugee.valid?
+    refute @refugee.valid?(:change_password)
   end
 
   test 'パスワードは空白以外の文字を含まなければならない' do
     @refugee.password_protected = true
     @refugee.password = @refugee.password_confirmation = ' ' * 4
-    assert_not @refugee.valid?
+    refute @refugee.valid?(:change_password)
   end
 
   test 'パスワードは 4 文字以上である' do
     @refugee.password_protected = true
     @refugee.password = @refugee.password_confirmation = 'a' * 3
-    assert_not @refugee.valid?
+    refute @refugee.valid?(:change_password)
   end
 
   test '正しいバーコードが得られる' do
