@@ -28,8 +28,8 @@ Rails.application.routes.draw do
       get 'vulnerabilities' => 'vulnerabilities#edit'
       patch 'vulnerabilities' => 'vulnerabilities#update'
 
-      #get 'supplies' => 'supplies#edit'
-      #patch 'supplies' => 'supplies#edit'
+      get 'supplies' => 'supplies#edit'
+      patch 'supplies' => 'supplies#update'
 
       #get 'allergens' => 'allergens#edit'
       #patch 'allergens' => 'allergens#edit'

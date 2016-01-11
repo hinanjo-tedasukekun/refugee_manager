@@ -39,7 +39,10 @@
     <%= fa_icon('exclamation-triangle', text: '要配慮事項') %>
     <%= render('shared/set_badge') unless @refugee.vulnerabilities.empty? %>
   </a>
-  <%= link_to(fa_icon('archive', text: '必需品'), '#', class: 'list-group-item') %>
+  <a href="<%= profile_supplies_path %>" class="list-group-item">
+    <%= fa_icon('archive', text: '必需品') %>
+    <%= render('shared/set_badge') unless @refugee.supplies.empty? %>
+  </a>
   <%= link_to(fa_icon('ban', text: 'アレルギー'), '#', class: 'list-group-item') %>
   <%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'list-group-item') %>
 </div>
