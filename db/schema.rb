@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111091911) do
+ActiveRecord::Schema.define(version: 20160111114644) do
 
   create_table "families", force: :cascade do |t|
     t.integer  "num_of_members", limit: 4,   default: 1,  null: false
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20160111091911) do
   add_index "refugees", ["gender"], name: "refugees_gender"
   add_index "refugees", ["name"], name: "refugees_name"
   add_index "refugees", ["presence"], name: "refugees_presence"
+
+  create_table "supplies", force: :cascade do |t|
+    t.string   "name",       limit: 32, default: "", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "supplies", ["name"], name: "supplies_name", unique: true
 
   create_table "vulnerabilities", force: :cascade do |t|
     t.string   "name",       limit: 32, default: "", null: false
