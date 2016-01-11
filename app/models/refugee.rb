@@ -7,6 +7,9 @@ class Refugee < ActiveRecord::Base
   has_many :refugee_supplies
   has_many :supplies, through: :refugee_supplies
 
+  has_many :refugee_allergens
+  has_many :allergens, through: :refugee_allergens
+
   enum gender: {
     unspecified: 0, # 未指定
     male: 1,        # 男性

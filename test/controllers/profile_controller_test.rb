@@ -41,7 +41,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_select 'a[href=?]', profile_password_path
     assert_select 'a[href=?]', profile_vulnerabilities_path
     assert_select 'a[href=?]', profile_supplies_path
-    #assert_select 'a[href=?]', profile_allergens_path
+    assert_select 'a[href=?]', profile_allergens_path
     #assert_select 'a[href=?]', profile_skills_path
   end
 

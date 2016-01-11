@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111140109) do
+ActiveRecord::Schema.define(version: 20160111141650) do
 
   create_table "allergens", force: :cascade do |t|
     t.string   "name",       limit: 32, default: "", null: false
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(version: 20160111140109) do
 
   add_index "leaders", ["family_id"], name: "leaders_family_id", unique: true
   add_index "leaders", ["refugee_id"], name: "leaders_refugee_id", unique: true
+
+  create_table "refugee_allergens", force: :cascade do |t|
+    t.integer  "refugee_id",  limit: 4
+    t.integer  "allergen_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "refugee_allergens", ["allergen_id"], name: "refugee_allergens_allergen_id"
+  add_index "refugee_allergens", ["refugee_id"], name: "refugee_allergens_refugee_id"
 
   create_table "refugee_supplies", force: :cascade do |t|
     t.integer  "refugee_id", limit: 4

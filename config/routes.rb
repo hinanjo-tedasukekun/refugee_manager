@@ -31,11 +31,11 @@ Rails.application.routes.draw do
       get 'supplies' => 'supplies#edit'
       patch 'supplies' => 'supplies#update'
 
-      #get 'allergens' => 'allergens#edit'
-      #patch 'allergens' => 'allergens#edit'
+      get 'allergens' => 'allergens#edit'
+      patch 'allergens' => 'allergens#update'
 
       #get 'skills' => 'skills#edit'
-      #patch 'skills' => 'skills#edit'
+      #patch 'skills' => 'skills#update'
     end
   end
 end

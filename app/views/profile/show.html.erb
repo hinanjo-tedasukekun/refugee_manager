@@ -43,6 +43,9 @@
     <%= fa_icon('archive', text: '必需品') %>
     <%= render('shared/set_badge') unless @refugee.supplies.empty? %>
   </a>
-  <%= link_to(fa_icon('ban', text: 'アレルギー'), '#', class: 'list-group-item') %>
+  <a href="<%= profile_allergens_path %>" class="list-group-item">
+    <%= fa_icon('ban', text: 'アレルギー') %>
+    <%= render('shared/set_badge') unless @refugee.allergens.empty? %>
+  </a>
   <%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'list-group-item') %>
 </div>
