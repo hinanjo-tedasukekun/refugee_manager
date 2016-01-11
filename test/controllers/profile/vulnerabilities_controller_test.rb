@@ -8,10 +8,10 @@ class Profile::VulnerabilitiesControllerTest < ActionController::TestCase
     @leader = create(:leader)
     @refugee = create(:refugee2)
 
-    @vulnerability = create(:vulnerability_type)
-    @vulnerability2 = create(:vulnerability_type2)
+    @vulnerability = create(:vulnerability)
+    @vulnerability2 = create(:vulnerability2)
 
-    @refugee.vulnerability_types = [@vulnerability]
+    @refugee.vulnerabilities = [@vulnerability]
     @refugee.save
   end
 
@@ -35,19 +35,19 @@ class Profile::VulnerabilitiesControllerTest < ActionController::TestCase
     get :edit
     assert_template 'edit'
 
-    assert_select "#refugee_vulnerability_type_ids_#{@vulnerability.id}[checked]"
-    assert_select "#refugee_vulnerability_type_ids_#{@vulnerability2.id}"
-    assert_select "#refugee_vulnerability_type_ids_#{@vulnerability2.id}[checked]", count: 0
+    assert_select "#refugee_vulnerability_ids_#{@vulnerability.id}[checked]"
+    assert_select "#refugee_vulnerability_ids_#{@vulnerability2.id}"
+    assert_select "#refugee_vulnerability_ids_#{@vulnerability2.id}[checked]", count: 0
   end
 
   test '要配慮事項を更新できる' do
     refugee_log_in @refugee
     assert refugee_logged_in?
 
-    patch :update, refugee: { vulnerability_type_ids: [@vulnerability2.id, ''] }
+    patch :update, refugee: { vulnerability_ids: [@vulnerability2.id, ''] }
 
     @refugee.reload
-    assert_equal [@vulnerability2], @refugee.vulnerability_types.to_a
+    assert_equal [@vulnerability2], @refugee.vulnerabilities.to_a
 
     assert_redirected_to profile_path
     assert_not flash[:success].empty?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160103142112) do
+ActiveRecord::Schema.define(version: 20160111091911) do
 
   create_table "families", force: :cascade do |t|
     t.integer  "num_of_members", limit: 4,   default: 1,  null: false
@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 20160103142112) do
   add_index "leaders", ["family_id"], name: "leaders_family_id", unique: true
   add_index "leaders", ["refugee_id"], name: "leaders_refugee_id", unique: true
 
+  create_table "refugee_vulnerabilities", force: :cascade do |t|
+    t.integer  "refugee_id",       limit: 4
+    t.integer  "vulnerability_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "refugee_vulnerabilities", ["refugee_id"], name: "refugee_vul_refugee_id"
+  add_index "refugee_vulnerabilities", ["vulnerability_id"], name: "refugee_vul_vulnerability_id"
+
   create_table "refugees", force: :cascade do |t|
     t.boolean  "presence",                       default: true,  null: false
     t.string   "name",               limit: 64,  default: "",    null: false
@@ -56,16 +66,6 @@ ActiveRecord::Schema.define(version: 20160103142112) do
   add_index "refugees", ["presence"], name: "refugees_presence"
 
   create_table "vulnerabilities", force: :cascade do |t|
-    t.integer  "refugee_id", limit: 4
-    t.integer  "type_id",    limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "vulnerabilities", ["refugee_id"], name: "vulnerabilities_refugee_id"
-  add_index "vulnerabilities", ["type_id"], name: "vulnerabilities_type_id"
-
-  create_table "vulnerability_types", force: :cascade do |t|
     t.string   "name",       limit: 32, default: "", null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false

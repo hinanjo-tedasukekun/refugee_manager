@@ -7,7 +7,7 @@ class Profile::VulnerabilitiesController < ApplicationController
 
   def update
     @refugee = current_refugee
-    @refugee.vulnerability_type_ids = vulnerabilities_params[:vulnerability_type_ids]
+    @refugee.vulnerability_ids = vulnerabilities_params[:vulnerability_ids]
     if @refugee.save
       flash[:success] = t('view.flash.profile_updated')
       redirect_to profile_path
@@ -19,6 +19,6 @@ class Profile::VulnerabilitiesController < ApplicationController
   private
 
   def vulnerabilities_params
-    params.require(:refugee).permit(vulnerability_type_ids: [])
+    params.require(:refugee).permit(vulnerability_ids: [])
   end
 end

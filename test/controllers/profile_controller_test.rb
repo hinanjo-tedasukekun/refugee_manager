@@ -66,28 +66,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_select '#leader_num', @leader_refugee.barcode.code
   end
 
-  test '"パスワード保護：未設定" が表示される' do
-    assert_not @refugee.password_protected?
-    refugee_log_in @refugee
-    assert refugee_logged_in?
-
-    get :show
-
-    assert_select '#refugee_password_protected',
-      I18n.t('view.label.password_protection_unset')
-  end
-
-  test '"パスワード保護：設定済み" が表示される' do
-    assert @protected_refugee.password_protected?
-    refugee_log_in @protected_refugee
-    assert refugee_logged_in?
-
-    get :show
-
-    assert_select '#refugee_password_protected',
-      I18n.t('view.label.password_protection_set')
-  end
-
   test '代表者の名前が空でない場合、代表者名が表示される' do
     assert_not @leader_refugee.name.empty?
 
