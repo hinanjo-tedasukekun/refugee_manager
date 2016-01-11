@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111120304) do
+ActiveRecord::Schema.define(version: 20160111140109) do
+
+  create_table "allergens", force: :cascade do |t|
+    t.string   "name",       limit: 32, default: "", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "allergens", ["name"], name: "allergens_name", unique: true
 
   create_table "families", force: :cascade do |t|
     t.integer  "num_of_members", limit: 4,   default: 1,  null: false
