@@ -34,8 +34,8 @@ Rails.application.routes.draw do
       get 'allergens' => 'allergens#edit'
       patch 'allergens' => 'allergens#update'
 
-      #get 'skills' => 'skills#edit'
-      #patch 'skills' => 'skills#update'
+      get 'skills' => 'skills#edit'
+      patch 'skills' => 'skills#update'
     end
   end
 end

@@ -47,5 +47,8 @@
     <%= fa_icon('ban', text: 'アレルギー') %>
     <%= render('shared/set_badge') unless @refugee.allergens.empty? %>
   </a>
-  <%= link_to(fa_icon('star', text: '得意な分野'), '#', class: 'list-group-item') %>
+  <a href="<%= profile_skills_path %>" class="list-group-item">
+    <%= fa_icon('star', text: '得意な分野') %>
+    <%= render('shared/set_badge') unless @refugee.skills.empty? %>
+  </a>
 </div>

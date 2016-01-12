@@ -42,7 +42,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_select 'a[href=?]', profile_vulnerabilities_path
     assert_select 'a[href=?]', profile_supplies_path
     assert_select 'a[href=?]', profile_allergens_path
-    #assert_select 'a[href=?]', profile_skills_path
+    assert_select 'a[href=?]', profile_skills_path
   end
 
   test '正しい避難者番号が表示される' do
