@@ -23,6 +23,13 @@
         </div>
 
         <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <% if refugee_logged_in? %>
+              <li><%= link_to 'ログアウト', logout_path, method: 'delete' %></li>
+            <% else %>
+              <li><%= link_to '個人情報の登録・修正', login_path %></li>
+            <% end %>
+          </ul>
         </div>
       </div>
     </nav>

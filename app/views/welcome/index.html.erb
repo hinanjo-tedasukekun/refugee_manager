@@ -1,8 +1,10 @@
 <%= render 'shared/flash' %>
-<div class="register well">
-  <p>避難者名簿作成のため、個人情報の登録をお願いします。</p>
-  <p><%= link_to(fa_icon('user', text: '個人情報の登録・修正'), login_path, class: 'btn btn-primary btn-lg btn-block') %></p>
-</div>
+<% unless refugee_logged_in? %>
+  <div class="register well">
+    <p>避難者名簿作成のため、個人情報の登録をお願いします。</p>
+    <p><%= link_to(fa_icon('user', text: '個人情報の登録・修正'), login_path, class: 'btn btn-primary btn-lg btn-block') %></p>
+  </div>
+<% end %>
 <% if Subdomain::Admin.matches?(request) %>
   <div class="admin">
     <h1>スタッフ向け</h1>
@@ -29,3 +31,11 @@
     </tbody>
   </table>
 </div>
+<% if refugee_logged_in? %>
+  <div class="menu">
+    <h1>メニュー</h1>
+    <div class="list-group profile-menu">
+      <%= link_to fa_icon('user', text: '個人情報の登録・修正'), profile_path, class: 'list-group-item' %>
+    </div>
+  </div>
+<% end %>

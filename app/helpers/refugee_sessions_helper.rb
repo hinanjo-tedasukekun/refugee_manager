@@ -4,6 +4,12 @@ module RefugeeSessionsHelper
     session[:refugee_id] = refugee.id
   end
 
+  # ログアウトする
+  def refugee_log_out
+    session.delete(:refugee_id)
+    @current_refugee = nil
+  end
+
   # 現在ログインしている避難者を返す（ログイン中のみ）
   def current_refugee
     @current_refugee ||= Refugee.find_by(id: session[:refugee_id])
