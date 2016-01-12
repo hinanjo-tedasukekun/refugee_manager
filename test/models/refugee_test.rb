@@ -3,6 +3,7 @@ require 'test_helper'
 class RefugeeTest < ActiveSupport::TestCase
   def setup
     @refugee = create(:refugee)
+    @allergen = create(:allergen)
   end
 
   test 'デフォルト値が正しい' do
@@ -13,6 +14,7 @@ class RefugeeTest < ActiveSupport::TestCase
     assert_equal '', default.furigana, 'ふりがな'
     assert_equal nil, default.age, '年齢'
     assert_equal false, default.password_protected, 'パスワード保護'
+    assert_equal '', default.other_allergens
   end
 
   test '有効である' do
@@ -123,5 +125,67 @@ class RefugeeTest < ActiveSupport::TestCase
   test '正しいバーコードが得られる' do
     num = Barcode.from_id(SHELTER_ID, @refugee.id).code
     assert_equal num, @refugee.barcode.code
+  end
+
+  test 'その他アレルゲンは空でもよい' do
+    @refugee.other_allergens = ''
+    assert @refugee.valid?
+  end
+
+  test '基本情報が設定されていないと判断される' do
+    @refugee.name = @refugee.furigana = ''
+    @refugee.gender = 'unspecified'
+    @refugee.age = nil
+    refute @refugee.set_basic_info?
+  end
+
+  test '基本情報が設定されていると判断される（名前）' do
+    @refugee.name = 'あ'
+    @refugee.furigana = ''
+    @refugee.gender = 'unspecified'
+    @refugee.age = nil
+    assert @refugee.set_basic_info?
+  end
+
+  test '基本情報が設定されていると判断される（ふりがな）' do
+    @refugee.name = ''
+    @refugee.furigana = 'あ'
+    @refugee.gender = 'unspecified'
+    @refugee.age = nil
+    assert @refugee.set_basic_info?
+  end
+
+  test '基本情報が設定されていると判断される（性別）' do
+    @refugee.name = ''
+    @refugee.furigana = ''
+    @refugee.gender = 'male'
+    @refugee.age = nil
+    assert @refugee.set_basic_info?
+  end
+
+  test '基本情報が設定されていると判断される（年齢）' do
+    @refugee.name = ''
+    @refugee.furigana = ''
+    @refugee.gender = 'unspecified'
+    @refugee.age = 0
+    assert @refugee.set_basic_info?
+  end
+
+  test 'アレルギーがないと判断される' do
+    @refugee.allergens = []
+    @refugee.other_allergens = ''
+    refute @refugee.have_allergies?
+  end
+
+  test 'アレルギーがあると判断される（アレルゲン）' do
+    @refugee.allergens = [@allergen]
+    @refugee.other_allergens = ''
+    assert @refugee.have_allergies?
+  end
+
+  test 'アレルギーがあると判断される（その他のアレルゲン）' do
+    @refugee.allergens = []
+    @refugee.other_allergens = 'あ'
+    assert @refugee.have_allergies?
   end
 end

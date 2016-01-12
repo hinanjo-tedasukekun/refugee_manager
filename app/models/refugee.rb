@@ -67,4 +67,9 @@ class Refugee < ActiveRecord::Base
       gender == 'unspecified' &&
       age.blank?)
   end
+
+  # アレルギーがあるかどうかを返す
+  def have_allergies?
+    (!other_allergens.blank?) || (!allergens.blank?)
+  end
 end

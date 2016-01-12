@@ -20,6 +20,7 @@ ja:
         password_protected: パスワード保護を行う
         password: パスワード
         password_confirmation: パスワード（確認）
+        other_allergens: その他のアレルゲン
   enums:
     refugee:
       gender:

@@ -7,7 +7,7 @@ class Profile::AllergensController < ApplicationController
 
   def update
     @refugee = current_refugee
-    @refugee.allergen_ids = allergens_params[:allergen_ids]
+    @refugee.update_attributes(allergens_params)
     if @refugee.save
       flash[:success] = t('view.flash.profile_updated')
       redirect_to profile_path
@@ -19,6 +19,6 @@ class Profile::AllergensController < ApplicationController
   private
 
   def allergens_params
-    params.require(:refugee).permit(allergen_ids: [])
+    params.require(:refugee).permit(:other_allergens, allergen_ids: [], )
   end
 end

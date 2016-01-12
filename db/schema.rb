@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112024933) do
+ActiveRecord::Schema.define(version: 20160112152718) do
 
   create_table "allergens", force: :cascade do |t|
     t.string   "name",       limit: 32, default: "", null: false
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160112024933) do
     t.integer  "family_id",          limit: 4,                   null: false
     t.boolean  "password_protected",             default: false, null: false
     t.string   "password_digest",    limit: 255
+    t.string   "other_allergens",    limit: 255, default: "",    null: false
   end
 
   add_index "refugees", ["age"], name: "refugees_age"
