@@ -8,7 +8,7 @@
 <h1>アレルギー</h1>
 <%= form_for(@refugee, url: profile_allergens_path) do |f| %>
   <%= render 'shared/error_messages', target: @refugee %>
-  <p>以下のうち、食べられないものにチェックを入れてください。</p>
+  <p>以下のうち、食べられないものがあればチェックを入れてください。</p>
   <div class="well">
     <%= f.collection_check_boxes :allergen_ids, Allergen.all, :id, :name do |b| %>
       <div class="checkbox">
