@@ -1,6 +1,7 @@
 # 標準入力から受け取った世帯の情報をデータベースへ登録する
 
 require 'active_record'
+require 'active_support/core_ext/object/with_options'
 require 'yaml'
 
 root_path = File.expand_path('../..', File.dirname(__FILE__))

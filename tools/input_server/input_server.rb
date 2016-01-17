@@ -1,6 +1,7 @@
 require 'serverengine'
 require 'xbee-ruby'
 require 'active_record'
+require 'active_support/core_ext/object/with_options'
 require 'yaml'
 
 root_path = File.expand_path('../..', File.dirname(__FILE__))

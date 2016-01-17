@@ -1,6 +1,7 @@
 require 'serverengine'
 require 'serialport'
 require 'active_record'
+require 'active_support/core_ext/object/with_options'
 require 'yaml'
 
 root_path = File.expand_path('../..', File.dirname(__FILE__))
@@ -10,8 +11,8 @@ $LOAD_PATH.unshift("#{root_path}/lib")
 require 'models/family'
 require 'models/refugee'
 require 'models/leader'
-require 'refugee_manager/bar_code'
-
+require 'models/check_digit_validator'
+require 'models/barcode'
 
 module ComServer
 
