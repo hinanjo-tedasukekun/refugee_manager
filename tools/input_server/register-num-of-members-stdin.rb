@@ -37,6 +37,11 @@ def print_invalid_command(line)
   puts("#{line}: 無効なコマンドです")
 end
 
+# 未登録表示
+def print_refugee_not_found(refugee_num)
+  puts("#{refugee_num}: 情報が登録されていません")
+end
+
 # エラー表示
 def print_error(line)
   puts("#{line}: 登録できませんでした")
@@ -64,6 +69,16 @@ def update_family_data(leader, num_of_members)
   puts("更新しました: 代表者番号 #{leader.id}, 世帯人数 #{num_of_members}")
 end
 
+# 在室状況を更新する
+def update_refugee_presence(refugee, presence)
+  ActiveRecord::Base.transaction do
+    refugee.presence = presence
+    refugee.save!
+  end
+
+  puts("更新しました: 番号 #{refugee.id}, #{presence ? '入室' : '退室'}")
+end
+
 %i(INT TERM).each do |signal|
   Signal.trap(signal) do
     # 割り込みを捕捉したら終了する
@@ -71,8 +86,12 @@ end
   end
 end
 
+# 接続確認のパターン
+CONNECT_PATTERN = 'C'
 # 世帯の人数のパターン
-FAMILY_DATA_PATTERN = /\A[0-9]{8},[1-9][0-9]?\z/
+FAMILY_DATA_PATTERN = /\A# ([0-9]{8}) ([0-9]{1,2})\z/
+# 入退室情報のパターン
+PRESENCE_PATTERN = /\AP ([0-9]{8}) ([01])\z/
 # 終了のパターン
 QUIT_PATTERN = /\Aq(?:uit)?\z/i
 
@@ -86,11 +105,13 @@ loop do
   case line
   when QUIT_PATTERN
     exit
+  when CONNECT_PATTERN
+    puts('A')
   when FAMILY_DATA_PATTERN
-    data = line.split(',')
+    m = Regexp.last_match
 
     # バーコード
-    barcode = Barcode.new(code: data[0])
+    barcode = Barcode.new(code: m[1])
     unless barcode.valid? && barcode.shelter_id == shelter_id
       # 無効なバーコードまたは避難所番号が異なる場合
       print_error(line)
@@ -100,7 +121,7 @@ loop do
     # 代表者番号
     leader_id = barcode.refugee_id
     # 世帯の人数
-    num_of_members = data[1].to_i
+    num_of_members = m[2].to_i
 
     leader = Leader.find_by(refugee_id: leader_id)
     begin
@@ -111,6 +132,28 @@ loop do
         # 代表者が登録されていなければ情報を登録する
         insert_family_data(leader_id, num_of_members)
       end
+    rescue
+      print_error(line)
+      next
+    end
+  when PRESENCE_PATTERN
+    m = Regexp.last_match
+
+    # バーコード
+    barcode = Barcode.new(code: m[1])
+    unless barcode.valid? && barcode.shelter_id == shelter_id
+      # 無効なバーコードまたは避難所番号が異なる場合
+      print_error(line)
+      next
+    end
+
+    refugee = Refugee.find_by(id: barcode.refugee_id)
+    unless refugee
+      print_refugee_not_found(barcode.code)
+    end
+
+    begin
+      update_refugee_presence(refugee, m[2] == '1')
     rescue
       print_error(line)
       next

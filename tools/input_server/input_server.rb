@@ -15,7 +15,15 @@ require 'models/check_digit_validator'
 require 'models/barcode'
 
 module InputServer
-  FAMILY_DATA_PATTERN = /\A[0-9]{8},[1-9][0-9]?\z/
+  # 世帯情報のパターン
+  FAMILY_DATA_PATTERN = /\A# ([0-9]{8}) ([0-9]{1,2})\z/
+  # 在室状況のパターン
+  PRESENCE_PATTERN = /\AP ([0-9]{8}) ([01])\z/
+
+  # 世帯情報のメッセージを表す構造体
+  FamilyDataMessage = Struct.new(:leader_num, :num_of_members, :response)
+  # 在室状況のメッセージを表す構造体
+  PresenceMessage = Struct.new(:refugee_num, :presence, :response)
 
   def run
     logger.level = config['log_level']
@@ -99,14 +107,23 @@ module InputServer
           when XBeeRuby::RxResponse
             data_str = response.data.pack('c*').chomp
             case data_str
-            when 'ACK'
-              logger.info("<< [ACK] from: #{format_address(response)}")
-              respond_to_sender("OK\r\n", response)
+            when 'C'
+              logger.info("<< [Connection] from: #{format_address(response)}")
+              respond_to_sender('A', response)
             when FAMILY_DATA_PATTERN
+              m = Regexp.last_match
+              message = FamilyDataMessage.new(m[1], m[2], response)
               logger.info("<< [Family Data] from: " \
                            "#{format_address(response)}; " \
                            "data: #{data_str.inspect}")
-              process_family_data(data_str, response)
+              process_family_data(message)
+            when PRESENCE_PATTERN
+              m = Regexp.last_match
+              message = PresenceMessage.new(m[1], m[2], response)
+              logger.info("<< [Presence] from: " \
+                           "#{format_address(response)}; " \
+                           "data: #{data_str.inspect}")
+              process_presence(message)
             else
               log_incoming(response)
             end
@@ -120,12 +137,13 @@ module InputServer
     end
   end
 
-  def process_family_data(data_str, response)
-    barcode_s, num_of_members_s = data_str.split(',')
-    barcode = Barcode.new(code: barcode_s)
+  # 世帯情報のメッセージを処理する
+  def process_family_data(message)
+    leader_num = message.leader_num
+    barcode = Barcode.new(code: leader_num)
 
     unless barcode.valid?
-      raise ArgumentError, "Invalid bar code: #{barcode_s}"
+      raise ArgumentError, "Invalid barcode: #{leader_num}"
     end
 
     barcode_shelter_id = barcode.shelter_id
@@ -138,9 +156,10 @@ module InputServer
     # 代表者番号
     leader_id = barcode.refugee_id
     # 代表者番号
-    num_of_members = num_of_members_s.to_i
+    num_of_members = message.num_of_members.to_i
 
     leader = Leader.find_by(refugee_id: leader_id)
+    response = message.response
     if leader
       # 代表者が登録されていれば情報を更新する
       update_family_data(leader, num_of_members)
@@ -182,6 +201,50 @@ module InputServer
     logger.info("Updated: family_id = #{family.id}, " \
                 "leader_id = #{leader.refugee.id}, " \
                 "num_of_members = #{num_of_members} ")
+    true
+  end
+
+  # 在室状況のメッセージを処理する
+  def process_presence(message)
+    refugee_num = message.refugee_num
+    barcode = Barcode.new(code: refugee_num)
+
+    unless barcode.valid?
+      raise ArgumentError, "Invalid barcode: #{refugee_num}"
+    end
+
+    barcode_shelter_id = barcode.shelter_id
+    this_shelter_id = config['shelter_id']
+    unless barcode_shelter_id == this_shelter_id
+      raise ArgumentError,
+        "Different shelter id: #{barcode_shelter_id} =/= #{this_shelter_id}"
+    end
+
+    refugee_id = barcode.refugee_id
+    refugee = Refugee.find_by(id: refugee_id)
+    unless refugee
+      raise ArgumentError, "Refugee not found: #{refugee_id}"
+    end
+
+    # 在室状況を更新する
+    presence = (message.presence == '1')
+    response = message.response
+    update_presence(refugee, presence)
+    respond_to_sender('U', response)
+  rescue => e
+    logger.error("Couldn't update data: #{e}")
+    respond_to_sender('E', response)
+  end
+
+  # 在室状況を更新する
+  def update_presence(refugee, presence)
+    ActiveRecord::Base.transaction do
+      refugee.presence = presence
+      refugee.save!
+    end
+
+    logger.info("Updated: refugee_id = #{refugee.id}, " \
+                "presence = #{presence}")
     true
   end
 
