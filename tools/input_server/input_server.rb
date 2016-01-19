@@ -17,12 +17,12 @@ require 'models/barcode'
 module InputServer
   # 世帯情報のパターン
   FAMILY_DATA_PATTERN = /\A# ([0-9]{8}) ([0-9]{1,2})\z/
-  # 在室状況のパターン
+  # 在室情報のパターン
   PRESENCE_PATTERN = /\AP ([0-9]{8}) ([01])\z/
 
   # 世帯情報のメッセージを表す構造体
   FamilyDataMessage = Struct.new(:leader_num, :num_of_members, :response)
-  # 在室状況のメッセージを表す構造体
+  # 在室情報のメッセージを表す構造体
   PresenceMessage = Struct.new(:refugee_num, :presence, :response)
 
   def run
@@ -140,6 +140,7 @@ module InputServer
   # 世帯情報のメッセージを処理する
   def process_family_data(message)
     leader_num = message.leader_num
+    response = message.response
     barcode = Barcode.new(code: leader_num)
 
     unless barcode.valid?
@@ -159,7 +160,6 @@ module InputServer
     num_of_members = message.num_of_members.to_i
 
     leader = Leader.find_by(refugee_id: leader_id)
-    response = message.response
     if leader
       # 代表者が登録されていれば情報を更新する
       update_family_data(leader, num_of_members)
@@ -204,9 +204,10 @@ module InputServer
     true
   end
 
-  # 在室状況のメッセージを処理する
+  # 在室情報のメッセージを処理する
   def process_presence(message)
     refugee_num = message.refugee_num
+    response = message.response
     barcode = Barcode.new(code: refugee_num)
 
     unless barcode.valid?
@@ -226,9 +227,8 @@ module InputServer
       raise ArgumentError, "Refugee not found: #{refugee_id}"
     end
 
-    # 在室状況を更新する
+    # 在室情報を更新する
     presence = (message.presence == '1')
-    response = message.response
     update_presence(refugee, presence)
     respond_to_sender('U', response)
   rescue => e
@@ -236,7 +236,7 @@ module InputServer
     respond_to_sender('E', response)
   end
 
-  # 在室状況を更新する
+  # 在室情報を更新する
   def update_presence(refugee, presence)
     ActiveRecord::Base.transaction do
       refugee.presence = presence
@@ -268,6 +268,7 @@ module InputServer
   # 送られてきたデータをログに残す
   def log_incoming(response)
     if response.respond_to?(:data)
+      data_str = response.data.pack('c*').chomp
       logger.debug("<< from: #{format_address(response)}; " \
                   "data: #{data_str.inspect}")
     else
