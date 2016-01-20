@@ -45,6 +45,9 @@ gem 'enum_help'
 # For seed data
 gem 'seed-fu', '~> 2.3'
 
+# 管理機能
+gem 'for_admin', path: 'for_admin'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

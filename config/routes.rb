@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ForAdmin::Engine => '/', constraints: { subdomain: 'admin' }
+
   constraints subdomain: '' do
     root 'welcome#index'
 

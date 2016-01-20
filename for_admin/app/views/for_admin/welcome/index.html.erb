@@ -1,0 +1,54 @@
+<%= render 'shared/flash' %>
+<h1>避難所状況</h1>
+<table class="table table-striped shelter-status">
+  <tbody>
+    <tr>
+      <th scope="col">世帯人数の合計</th>
+      <td class="value"><%= Family.sum(:num_of_members) %></td>
+    </tr>
+    <tr>
+      <th scope="col">登録避難者数</th>
+      <td class="value"><%= Refugee.count %></td>
+    </tr>
+    <tr>
+      <th scope="col">在室避難者数</th>
+      <td class="value"><%= Refugee.where(presence: true).count %></td>
+    </tr>
+  </tbody>
+</table>
+<h1>避難所情報</h1>
+<table class="table table-striped shelter-info">
+  <tbody>
+    <tr>
+      <th scope="col">避難所番号</th>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th scope="col">避難所名</th>
+      <td>ポリテクカレッジ浜松</td>
+    </tr>
+    <tr>
+      <th scope="col">郵便番号</th>
+      <td>432-8053</td>
+    </tr>
+    <tr>
+      <th scope="col">住所</th>
+      <td>静岡県浜松市南区法枝町693</td>
+    </tr>
+  </tbody>
+</table>
+<h1>メニュー</h1>
+<div class="list-group profile-menu">
+  <a href="#" class="list-group-item">
+    <i class="fa fa-user"></i>
+    登録避難者
+  </a>
+  <a href="#" class="list-group-item">
+    <i class="fa fa-info-circle"></i>
+    お知らせ
+  </a>
+  <a href="#" class="list-group-item">
+    <i class="fa fa-home"></i>
+    避難所情報
+  </a>
+</div>
