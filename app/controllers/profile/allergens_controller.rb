@@ -7,8 +7,7 @@ class Profile::AllergensController < ApplicationController
 
   def update
     @refugee = current_refugee
-    @refugee.update_attributes(allergens_params)
-    if @refugee.save
+    if @refugee.update_attributes(allergens_params)
       flash[:success] = t('view.flash.profile_updated')
       redirect_to profile_path
     else

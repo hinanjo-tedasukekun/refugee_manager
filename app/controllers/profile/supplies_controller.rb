@@ -7,8 +7,7 @@ class Profile::SuppliesController < ApplicationController
 
   def update
     @refugee = current_refugee
-    @refugee.supply_ids = supplies_params[:supply_ids]
-    if @refugee.save
+    if @refugee.update_attributes(supplies_params)
       flash[:success] = t('view.flash.profile_updated')
       redirect_to profile_path
     else

@@ -7,8 +7,7 @@ class Profile::SkillsController < ApplicationController
 
   def update
     @refugee = current_refugee
-    @refugee.skill_ids = skills_params[:skill_ids]
-    if @refugee.save
+    if @refugee.update_attributes(skills_params)
       flash[:success] = t('view.flash.profile_updated')
       redirect_to profile_path
     else
