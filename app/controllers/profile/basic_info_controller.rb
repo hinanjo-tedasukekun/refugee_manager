@@ -7,13 +7,7 @@ class Profile::BasicInfoController < ApplicationController
 
   def update
     @refugee = current_refugee
-    new_data = basic_info_params
-    @refugee.name = new_data[:name]
-    @refugee.furigana = new_data[:furigana]
-    @refugee[:gender] = new_data[:gender]
-    @refugee.age = new_data[:age]
-
-    if @refugee.save
+    if @refugee.update_attributes(basic_info_params)
       flash[:success] = t('view.flash.profile_updated')
       redirect_to profile_path
     else

@@ -5,7 +5,7 @@ FactoryGirl.define do
     presence true
     name 'Foo Bar'
     furigana 'ふー ばー'
-    gender :unspecified
+    gender 'unspecified'
     age 20
 
     initialize_with do
@@ -19,7 +19,7 @@ FactoryGirl.define do
     presence true
     name 'Baz Bar'
     furigana 'ばず ばー'
-    gender :male
+    gender 'male'
     age 22
     password_protected false
     password nil
@@ -35,7 +35,7 @@ FactoryGirl.define do
     presence true
     name 'hoge piyo'
     furigana 'ほげ ぴよ'
-    gender :female
+    gender 'female'
     age 24
     password_protected true
     password '12345678'

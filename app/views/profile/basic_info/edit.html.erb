@@ -18,8 +18,7 @@
   </div>
   <div class="form-group">
     <%= f.label :gender %>
-    <% gender_map = Refugee.genders_i18n.values.zip(Refugee.genders.values) %>
-    <%= f.select :gender, options_for_select(gender_map, selected: @refugee[:gender]), {}, class: 'form-control' %>
+    <%= f.select :gender, Refugee.genders_i18n.invert, {}, class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :age %>
