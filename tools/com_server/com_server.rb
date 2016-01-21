@@ -69,15 +69,20 @@ module ComServer
   # 新しいサーバースレッドを作成する
   def new_server_thread
     Thread.new do
-      shelter_id ="%03d" %  config[ 'shelter_id' ]
+      shelter_id ="%03d" % config[ 'shelter_id' ]
       loop do
         line = @sp.gets.chomp
         logger.debug("<< #{line}")
         case line
-        when %r{@(\d\d\d)DNU}
+        when /@(\d\d\d)DNU/
           if $1 == shelter_id
             refugees_num = Family.sum(:num_of_members)
             @sp.puts "@#{shelter_id}UNU #{refugees_num}\r"
+          end
+        when /@(\d\d\d)DNP/
+          if $1 == shelter_id
+            refugees_num = Refugee.where(presence: true).count
+            @sp.puts "@#{shelter_id}UNP #{refugees_num}\r"
           end
         end
       end
