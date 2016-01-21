@@ -4,6 +4,7 @@ ja:
       family: 世帯
       refugee: 避難者
       leader: 世帯代表者
+      notice: お知らせ
     attributes:
       family:
         address: 住所
@@ -21,6 +22,9 @@ ja:
         password: パスワード
         password_confirmation: パスワード（確認）
         other_allergens: その他のアレルゲン
+      notice:
+        title: タイトル
+        content: 内容
   enums:
     refugee:
       gender:

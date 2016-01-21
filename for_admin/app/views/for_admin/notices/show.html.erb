@@ -1,0 +1,11 @@
+<% provide(:title, @notice.title) %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to 'お知らせ', notices_path %></li>
+  <li class="active"><%= @notice.title %></li>
+</ol>
+<%= render 'shared/flash' %>
+<h1><%= @notice.title %></h1>
+<div class="well">
+  <%= simple_format(@notice.content) %>
+</div>

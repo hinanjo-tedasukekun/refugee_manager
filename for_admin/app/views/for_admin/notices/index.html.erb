@@ -1,0 +1,29 @@
+<% provide(:title, 'お知らせ') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">お知らせ</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>お知らせ</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>日時</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @notices.each do |n| %>
+      <tr>
+        <td><%= n.updated_at.strftime('%F %T') %></td>
+        <td><%= link_to n.title, notice_path(n) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p class="notice-list-buttons">
+  <a href="<%= new_notice_path %>" class="btn btn-primary btn-block">
+    <i class="fa fa-plus"></i>
+    追加
+  </a>
+</p>

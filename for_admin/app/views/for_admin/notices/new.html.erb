@@ -1,0 +1,20 @@
+<% provide(:title, '新しいお知らせ') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to 'お知らせ', notices_path %></li>
+  <li class="active">新しいお知らせ</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>新しいお知らせ</h1>
+<%= form_for(@notice) do |f| %>
+  <%= render 'shared/error_messages', target: @notice %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :content %>
+    <%= f.text_area :content, class: 'form-control', rows: 10 %>
+  </div>
+  <%= f.submit '追加', class: 'btn btn-primary form-control' %>
+<% end %>
