@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'notices/index'
-
-  get 'notices/show'
-
   mount ForAdmin::Engine => '/', constraints: { subdomain: 'admin' }
 
   constraints subdomain: '' do
@@ -37,5 +33,9 @@ Rails.application.routes.draw do
       get 'skills' => 'skills#edit'
       patch 'skills' => 'skills#update'
     end
+
+    get 'family' => 'family#show'
+    get 'family/edit' => 'family#edit'
+    patch 'family/update' => 'family#update'
   end
 end

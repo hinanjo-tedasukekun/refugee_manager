@@ -1,0 +1,41 @@
+<% provide(:title, '世帯情報') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">世帯情報</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>世帯情報</h1>
+<table class="family-profile table table-striped">
+  <tbody>
+    <tr>
+      <% if @leader.name.empty? %>
+        <th>世帯代表者の番号</th>
+        <td id="leader_num"><%= @leader.barcode.code %></td>
+      <% else %>
+        <th>世帯代表者</th>
+        <td id="leader_name"><%= @leader.name %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <th>人数</th>
+      <td><%= @family.num_of_members %></td>
+    </tr>
+    <tr>
+      <th>郵便番号</th>
+      <td><%= @family.postal_code %></td>
+    </tr>
+    <tr>
+      <th>住所</th>
+      <td><%= @family.address %></td>
+    </tr>
+    <tr>
+      <th>在宅避難</th>
+      <td><%= @family.at_home_i18n %></td>
+    </tr>
+  </tbody>
+</table>
+<div class="list-group profile-menu">
+  <a href="<%= family_edit_path %>" class="list-group-item">
+    <%= fa_icon('pencil', text: '世帯情報の修正') %>
+  </a>
+</div>

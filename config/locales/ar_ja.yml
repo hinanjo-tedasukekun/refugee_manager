@@ -27,3 +27,8 @@ ja:
         unspecified: 未指定
         male: 男性
         female: 女性
+    family:
+      at_home:
+        unspecified: 未指定
+        at_home: 在宅避難
+        in_shelter: 避難所生活
