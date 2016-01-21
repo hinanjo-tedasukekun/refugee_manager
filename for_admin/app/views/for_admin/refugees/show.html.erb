@@ -1,0 +1,61 @@
+<% provide(:title, '個人情報') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to '登録避難者', refugees_path %></li>
+  <li class="active">個人情報</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>個人情報</h1>
+<table class="refugee-profile table table-striped">
+  <tbody>
+    <tr>
+      <th>番号</th>
+      <td id="refugee_num"><%= @refugee.barcode.code %></td>
+    </tr>
+    <tr>
+      <th>名前</th>
+      <td id="refugee_name"><%= @refugee.name %></td>
+    </tr>
+    <tr>
+      <% if @leader.name.empty? %>
+        <th>世帯代表者の番号</th>
+        <td id="leader_num"><%= @leader.barcode.code %></td>
+      <% else %>
+        <th>世帯代表者</th>
+        <td id="leader_name"><%= @leader.name %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+<div class="list-group profile-menu">
+  <a href="#" class="list-group-item">
+    <i class="fa fa-user"></i>
+    基本情報
+    <%= render('shared/set_badge') if @refugee.set_basic_info? %>
+  </a>
+  <a href="#" class="list-group-item">
+    <i class="fa fa-key"></i>
+    パスワード
+    <%= render('shared/set_badge') if @refugee.password_protected? %>
+  </a>
+  <a href="#" class="list-group-item">
+    <i class="fa fa-exclamation-triangle"></i>
+    要配慮事項
+    <%= render('shared/set_badge') unless @refugee.vulnerabilities.empty? %>
+  </a>
+  <a href="#" class="list-group-item">
+    <i class="fa fa-archive"></i>
+    必需品
+    <%= render('shared/set_badge') unless @refugee.supplies.empty? %>
+  </a>
+  <a href="#" class="list-group-item">
+    <i class="fa fa-ban"></i>
+    アレルギー
+    <%= render('shared/set_badge') if @refugee.have_allergies? %>
+  </a>
+  <a href="#" class="list-group-item">
+    <i class="fa fa-star"></i>
+    得意な分野
+    <%= render('shared/set_badge') unless @refugee.skills.empty? %>
+  </a>
+</div>

@@ -6,6 +6,7 @@ ja:
       profile_registered: 個人情報が登録されました。
       profile_updated: 個人情報が更新されました。
       leader_number_required: 代表者番号を入力してください。
+      refugee_not_registered: 避難者が登録されていません。
     label:
       number: 番号
       leader_number: 代表者番号

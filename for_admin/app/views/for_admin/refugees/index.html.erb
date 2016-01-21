@@ -1,0 +1,23 @@
+<% provide(:title, '登録避難者') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">登録避難者</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>登録避難者</h1>
+<table class="table table-striped refugees-list">
+  <thead>
+    <th class="refugee_id">番号</th>
+    <th class="refugee_name">名前</th>
+    <th class="refugee_furigana">ふりがな</th>
+  </thead>
+  <tbody>
+    <% @refugees.each do |r| %>
+      <tr>
+        <td class="refugee_id"><%= link_to r.barcode.code, refugee_path(r) %></td>
+        <td class="refugee_name"><%= r.name %></td>
+        <td class="refugee_furigana"><%= r.furigana %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
