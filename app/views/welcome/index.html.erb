@@ -5,17 +5,8 @@
     <p><%= link_to(fa_icon('user', text: '個人情報の登録・修正'), login_path, class: 'btn btn-primary btn-lg btn-block') %></p>
   </div>
 <% end %>
-<% if Subdomain::Admin.matches?(request) %>
-  <div class="admin">
-    <h1>スタッフ向け</h1>
-    <ul>
-      <li><%= link_to '避難者数確認', refugees_count_path %></li>
-      <li><%= link_to '避難者一覧', refugees_path %></li>
-    </ul>
-  </div>
-<% end %>
 <div class="news">
-  <h1>お知らせ</h1>
+  <h1>最新のお知らせ</h1>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -24,12 +15,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><%= Time.new.strftime('%F %T') %></td>
-        <td><%= link_to 'ポリテクカレッジ浜松避難所が開設されました', '#' %></td>
-      </tr>
+      <% @notices.each do |n| %>
+        <tr>
+          <td><%= n.updated_at.strftime('%F %T') %></td>
+          <td><%= link_to n.title, notice_path(n) %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
+  <p><%= link_to fa_icon('info-circle', text: 'すべてのお知らせを見る'), notices_path, class: 'btn btn-default btn-block' %></p>
 </div>
 <% if refugee_logged_in? %>
   <div class="menu">

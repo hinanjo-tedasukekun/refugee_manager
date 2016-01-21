@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'notices/index'
+
+  get 'notices/show'
+
   mount ForAdmin::Engine => '/', constraints: { subdomain: 'admin' }
 
   constraints subdomain: '' do
@@ -11,6 +15,8 @@ Rails.application.routes.draw do
     get 'profile' => 'profile#show'
     get 'profile/new' => 'profile#new'
     post 'profile/new' => 'profile#create'
+
+    resources :notices, only: [:index, :show]
 
     namespace :profile do
       get 'basic-info' => 'basic_info#edit'
