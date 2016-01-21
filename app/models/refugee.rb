@@ -55,9 +55,12 @@ class Refugee < ActiveRecord::Base
 
   # 世帯が存在していることのバリデーション
   def family_must_be_present
-    if family.nil?
-      errors.add(:family, :not_registered)
-    end
+    errors.add(:family, :not_registered) unless family
+  end
+
+  # 世帯の代表者かどうかを返す
+  def leader?
+    Leader.exists?(refugee_id: id)
   end
 
   # 基本情報が設定されているかどうかを返す

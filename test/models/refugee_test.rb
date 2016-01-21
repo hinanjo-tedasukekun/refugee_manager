@@ -3,7 +3,9 @@ require 'test_helper'
 class RefugeeTest < ActiveSupport::TestCase
   def setup
     @refugee = create(:refugee)
+    @refugee2 = create(:refugee2)
     @allergen = create(:allergen)
+    @leader = create(:leader)
   end
 
   test 'デフォルト値が正しい' do
@@ -130,6 +132,14 @@ class RefugeeTest < ActiveSupport::TestCase
   test 'その他アレルゲンは空でもよい' do
     @refugee.other_allergens = ''
     assert @refugee.valid?
+  end
+
+  test '世帯の代表者であると判断される' do
+    assert @refugee.leader?
+  end
+
+  test '世帯の代表者ではないと判断される' do
+    refute @refugee2.leader?
   end
 
   test '基本情報が設定されていないと判断される' do
