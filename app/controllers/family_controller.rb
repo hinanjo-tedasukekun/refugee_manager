@@ -13,5 +13,22 @@ class FamilyController < ApplicationController
   end
 
   def update
+    @refugee = current_refugee
+    @family = @refugee.family
+
+    if @family.update_attributes(family_params)
+      flash[:success] = t('view.flash.family_profile_updated')
+      redirect_to family_path
+    else
+      render 'edit'
+    end
+  end
+
+  private
+
+  def family_params
+    params.
+      require(:family).
+      permit(:num_of_members, :postal_code, :address, :at_home)
   end
 end
