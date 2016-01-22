@@ -1,4 +1,4 @@
-class Leader < ActiveRecord::Base
+class FamilyLeader < ActiveRecord::Base
   belongs_to :family
   belongs_to :refugee
 

@@ -5,7 +5,7 @@ class Profile::SkillsControllerTest < ActionController::TestCase
   include RefugeeSessionsHelper
 
   def setup
-    @leader = create(:leader)
+    @leader = create(:family_leader)
     @refugee = create(:refugee2)
 
     @skill = create(:skill)

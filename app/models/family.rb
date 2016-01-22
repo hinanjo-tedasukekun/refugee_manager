@@ -1,5 +1,7 @@
 class Family < ActiveRecord::Base
   has_many :refugees
+  has_one :family_leader
+  has_one :leader, through: :family_leader, source: 'refugee'
 
   enum at_home: {
     unspecified: 0, # 未指定

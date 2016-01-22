@@ -10,7 +10,7 @@ $LOAD_PATH.unshift("#{root_path}/lib")
 
 require 'models/family'
 require 'models/refugee'
-require 'models/leader'
+require 'models/leader_family'
 require 'models/check_digit_validator'
 require 'models/barcode'
 
@@ -52,7 +52,7 @@ def insert_family_data(leader_id, num_of_members)
   ActiveRecord::Base.transaction do
     family = Family.create!(num_of_members: num_of_members)
     refugee = Refugee.create!(id: leader_id, family: family)
-    Leader.create!(family: family, refugee: refugee)
+    FamilyLeader.create!(family: family, refugee: refugee)
   end
 
   puts("登録しました: 代表者番号 #{leader_id}, 世帯人数 #{num_of_members}")
@@ -123,7 +123,7 @@ loop do
     # 世帯の人数
     num_of_members = m[2].to_i
 
-    leader = Leader.find_by(refugee_id: leader_id)
+    leader = FamilyLeader.find_by(refugee_id: leader_id)
     begin
       if leader
         # 代表者が登録されていれば情報を更新する

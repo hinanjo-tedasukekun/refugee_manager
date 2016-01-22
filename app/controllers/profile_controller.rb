@@ -20,7 +20,7 @@ class ProfileController < ApplicationController
 
     leader_num = params[:leader_num]
     barcode = Barcode.new(code: leader_num)
-    leader = Leader.find_by(refugee_id: barcode.refugee_id)
+    leader = FamilyLeader.find_by(refugee_id: barcode.refugee_id)
     @refugee.family = leader.try!(:family)
 
     if @refugee.save
@@ -35,7 +35,7 @@ class ProfileController < ApplicationController
   def show
     @refugee = current_refugee
     @family = @refugee.family
-    @leader = Leader.find_by(family: @family).refugee
+    @leader = @family.leader
   end
 
   private

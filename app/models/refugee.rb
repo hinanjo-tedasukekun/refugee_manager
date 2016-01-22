@@ -58,9 +58,9 @@ class Refugee < ActiveRecord::Base
     errors.add(:family, :not_registered) unless family
   end
 
-  # 世帯の代表者かどうかを返す
+  # 世帯代表者であるかどうかを返す
   def leader?
-    Leader.exists?(refugee_id: id)
+    self == family.leader
   end
 
   # 基本情報が設定されているかどうかを返す

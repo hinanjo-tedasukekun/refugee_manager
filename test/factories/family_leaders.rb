@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :leader do
+  factory :family_leader do
     refugee
     family { refugee.family }
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121080857) do
+ActiveRecord::Schema.define(version: 20160122032316) do
 
   create_table "allergens", force: :cascade do |t|
     t.string   "name",       limit: 32, default: "", null: false
@@ -33,15 +33,13 @@ ActiveRecord::Schema.define(version: 20160121080857) do
   add_index "families", ["at_home"], name: "families_at_home"
   add_index "families", ["num_of_members"], name: "families_num_of_members"
 
-  create_table "leaders", force: :cascade do |t|
-    t.integer  "family_id",  limit: 4, null: false
-    t.integer  "refugee_id", limit: 4, null: false
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+  create_table "family_leaders", force: :cascade do |t|
+    t.integer "family_id",  limit: 4
+    t.integer "refugee_id", limit: 4
   end
 
-  add_index "leaders", ["family_id"], name: "leaders_family_id", unique: true
-  add_index "leaders", ["refugee_id"], name: "leaders_refugee_id", unique: true
+  add_index "family_leaders", ["family_id"], name: "family_leaders_family_id"
+  add_index "family_leaders", ["refugee_id"], name: "family_leaders_refugee_id"
 
   create_table "notices", force: :cascade do |t|
     t.string   "title",      limit: 255, default: "", null: false

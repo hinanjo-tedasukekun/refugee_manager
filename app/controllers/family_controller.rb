@@ -4,7 +4,7 @@ class FamilyController < ApplicationController
   def show
     @refugee = current_refugee
     @family = @refugee.family
-    @leader = Leader.find_by(family: @family).refugee
+    @leader = @family.leader
   end
 
   def edit

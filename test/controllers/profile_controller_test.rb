@@ -5,7 +5,7 @@ class ProfileControllerTest < ActionController::TestCase
   include RefugeeSessionsHelper
 
   def setup
-    @leader = create(:leader)
+    @leader = create(:family_leader)
     @leader_refugee = @leader.refugee
     @family = @leader.family
 

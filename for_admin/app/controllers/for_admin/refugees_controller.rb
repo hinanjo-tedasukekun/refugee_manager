@@ -10,7 +10,7 @@ module ForAdmin
       @refugee = Refugee.find_by(id: params[:id])
 
       @family = @refugee.family
-      @leader = Leader.find_by(family: @family).refugee
+      @leader = @family.leader
     end
   end
 end

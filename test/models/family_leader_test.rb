@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class LeaderTest < ActiveSupport::TestCase
+class FamilyLeaderTest < ActiveSupport::TestCase
   def setup
-    @leader = create(:leader)
+    @leader = create(:family_leader)
   end
 
   test '有効である' do
@@ -16,7 +16,7 @@ class LeaderTest < ActiveSupport::TestCase
 
   test '世帯はユニークである' do
     refugee2 = create(:refugee2)
-    leader2 = Leader.new(family: @leader.family, refugee: refugee2)
+    leader2 = FamilyLeader.new(family: @leader.family, refugee: refugee2)
     assert_not leader2.valid?
   end
 
@@ -27,7 +27,7 @@ class LeaderTest < ActiveSupport::TestCase
 
   test '避難者はユニークである' do
     other_family = create(:family)
-    leader2 = Leader.new(family: other_family, refugee: @leader.refugee)
+    leader2 = FamilyLeader.new(family: other_family, refugee: @leader.refugee)
     assert_not leader2.valid?
   end
 end

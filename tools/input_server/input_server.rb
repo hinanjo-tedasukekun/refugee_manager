@@ -10,7 +10,7 @@ $LOAD_PATH.unshift("#{root_path}/lib")
 
 require 'models/family'
 require 'models/refugee'
-require 'models/leader'
+require 'models/family_leader'
 require 'models/check_digit_validator'
 require 'models/barcode'
 
@@ -159,7 +159,7 @@ module InputServer
     # 代表者番号
     num_of_members = message.num_of_members.to_i
 
-    leader = Leader.find_by(refugee_id: leader_id)
+    leader = FamilyLeader.find_by(refugee_id: leader_id)
     if leader
       # 代表者が登録されていれば情報を更新する
       update_family_data(leader, num_of_members)
@@ -180,7 +180,7 @@ module InputServer
     ActiveRecord::Base.transaction do
       family = Family.create!(num_of_members: num_of_members)
       refugee = Refugee.create!(id: leader_id, family: family)
-      Leader.create!(family: family, refugee: refugee)
+      FamilyLeader.create!(family: family, refugee: refugee)
     end
 
     logger.info("Registered: family_id = #{family.id}, " \

@@ -5,7 +5,7 @@ class Profile::VulnerabilitiesControllerTest < ActionController::TestCase
   include RefugeeSessionsHelper
 
   def setup
-    @leader = create(:leader)
+    @leader = create(:family_leader)
     @refugee = create(:refugee2)
 
     @vulnerability = create(:vulnerability)

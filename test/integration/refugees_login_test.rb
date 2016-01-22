@@ -13,7 +13,7 @@ class RefugeesLoginTest < ActionDispatch::IntegrationTest
   end
 
   test '登録されている番号でログインし、ログアウトする' do
-    leader = FactoryGirl.create(:leader)
+    leader = FactoryGirl.create(:family_leader)
     refugee = leader.refugee
     refugee_num = Barcode.from_id(19, refugee.id).code
 

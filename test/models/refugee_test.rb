@@ -5,7 +5,7 @@ class RefugeeTest < ActiveSupport::TestCase
     @refugee = create(:refugee)
     @refugee2 = create(:refugee2)
     @allergen = create(:allergen)
-    @leader = create(:leader)
+    @leader = create(:family_leader)
   end
 
   test 'デフォルト値が正しい' do
