@@ -40,3 +40,18 @@
     世帯情報の修正
   </a>
 </div>
+<h1>メンバー</h1>
+<table class="table table-striped">
+  <thead>
+    <th class="refugee_num">番号</th>
+    <th class="refugee_name">名前</th>
+  </thead>
+  <tbody>
+    <% @members.each do |m| %>
+      <tr>
+        <td class="refugee_num"><%= m.barcode.code %></td>
+        <td class="refugee_name"><%= m.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

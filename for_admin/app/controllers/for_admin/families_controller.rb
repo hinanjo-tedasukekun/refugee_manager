@@ -10,6 +10,7 @@ module ForAdmin
     def show
       @family = Family.find(params[:id])
       @leader = @family.leader
+      @members = @family.refugees.sort_by { |r| r.barcode.code }
     end
 
     def edit
