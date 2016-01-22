@@ -1,0 +1,16 @@
+<% provide(:title, 'パスワード') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">個人情報の登録・修正</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>パスワード</h1>
+<p>個人情報はパスワードで保護されています。パスワードを入力してください。</p>
+<%= form_for(@refugee, url: authenticate_path) do |f| %>
+  <div class="form-group">
+    <%= f.hidden_field :id %>
+    <%= f.label :password %>
+    <%= f.password_field :password, class: 'form-control', required: true %>
+  </div>
+  <%= f.submit('次へ', class: 'btn btn-primary form-control') %>
+<% end %>

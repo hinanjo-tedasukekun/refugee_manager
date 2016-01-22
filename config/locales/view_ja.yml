@@ -11,6 +11,7 @@ ja:
       notice_registered: お知らせが登録されました。
       notice_updated: お知らせが更新されました。
       notice_deleted: お知らせが削除されました。
+      password_not_match: パスワードが違います。
     label:
       number: 番号
       leader_number: 代表者番号

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     post 'login' => 'refugee_sessions#create'
     delete 'logout' => 'refugee_sessions#destroy'
 
+    get 'authenticate' => 'refugee_sessions#authenticate'
+    patch 'authenticate' => 'refugee_sessions#do_authenticate'
+
     get 'profile' => 'profile#show'
     get 'profile/new' => 'profile#new'
     post 'profile/new' => 'profile#create'
