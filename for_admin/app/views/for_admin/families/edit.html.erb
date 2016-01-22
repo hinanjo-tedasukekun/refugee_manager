@@ -1,0 +1,28 @@
+<% provide(:title, '世帯情報の修正') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to '世帯情報', @family %></li>
+  <li class="active">世帯情報の修正</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>世帯情報</h1>
+<%= form_for(@family) do |f| %>
+  <%= render 'shared/error_messages', target: @family %>
+  <div class="form-group">
+    <%= f.label :num_of_members %>
+    <%= f.number_field :num_of_members, class: 'form-control', min: 1 %>
+  </div>
+  <div class="form-group">
+    <%= f.label :postal_code %>
+    <%= f.text_field :postal_code, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :address %>
+    <%= f.text_field :address, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :at_home %>
+    <%= f.select :at_home, Family.at_homes_i18n.invert, {}, class: 'form-control' %>
+  </div>
+  <%= f.submit '更新', class: 'btn btn-primary form-control' %>
+<% end %>
