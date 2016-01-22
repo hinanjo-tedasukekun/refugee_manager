@@ -19,4 +19,9 @@ class Family < ActiveRecord::Base
     presence: true
   validates :postal_code,
     format: { with: /\A(\d{7})?\Z/ }
+
+  # 整形された郵便番号を返す
+  def formatted_postal_code
+    "#{postal_code[0, 3]}-#{postal_code[3, 4]}"
+  end
 end
