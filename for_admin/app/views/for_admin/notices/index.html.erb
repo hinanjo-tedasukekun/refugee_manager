@@ -15,7 +15,7 @@
   <tbody>
     <% @notices.each do |n| %>
       <tr>
-        <td><%= n.updated_at.strftime('%F %T') %></td>
+        <td><%= format_time(n.updated_at) %></td>
         <td><%= link_to n.title, notice_path(n) %></td>
       </tr>
     <% end %>

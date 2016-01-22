@@ -6,6 +6,21 @@
 </ol>
 <%= render 'shared/flash' %>
 <h1><%= @notice.title %></h1>
-<div class="well">
-  <%= simple_format(@notice.content) %>
-</div>
+<ul class="list-unstyled notice-datetime">
+  <% if @notice.updated_at != @notice.created_at %>
+    <li>
+      <span class="label label-default">掲載</span>
+      <%= format_time(@notice.created_at) %>
+    </li>
+    <li>
+      <span class="label label-primary">更新</span>
+      <%= format_time(@notice.updated_at) %>
+    </li>
+  <% else %>
+    <li>
+      <span class="label label-primary">掲載</span>
+      <%= format_time(@notice.created_at) %>
+    </li>
+  <% end %>
+</ul>
+<%= simple_format(@notice.content) %>

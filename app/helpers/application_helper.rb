@@ -17,4 +17,8 @@ module ApplicationHelper
   def navbar_title
     Subdomain::Admin.matches?(request) ? '避難所管理システム' : '避難所'
   end
+
+  def format_time(time)
+    time.strftime('%F %T')
+  end
 end

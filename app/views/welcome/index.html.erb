@@ -17,13 +17,13 @@
     <tbody>
       <% @notices.each do |n| %>
         <tr>
-          <td><%= n.updated_at.strftime('%F %T') %></td>
+          <td><%= format_time(n.updated_at) %></td>
           <td><%= link_to n.title, notice_path(n) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <p><%= link_to fa_icon('info-circle', text: 'すべてのお知らせを見る'), notices_path, class: 'btn btn-default btn-block' %></p>
+  <p><%= link_to fa_icon('info-circle', text: 'すべてのお知らせ'), notices_path, class: 'btn btn-default btn-block' %></p>
 </div>
 <% if refugee_logged_in? %>
   <div class="menu">
