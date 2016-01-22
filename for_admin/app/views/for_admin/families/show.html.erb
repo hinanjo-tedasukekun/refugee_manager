@@ -49,7 +49,7 @@
   <tbody>
     <% @members.each do |m| %>
       <tr>
-        <td class="refugee_num"><%= m.barcode.code %></td>
+        <td class="refugee_num"><%= link_to m.barcode.code, m %></td>
         <td class="refugee_name"><%= m.name %></td>
       </tr>
     <% end %>
