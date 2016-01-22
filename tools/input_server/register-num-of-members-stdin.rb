@@ -10,7 +10,7 @@ $LOAD_PATH.unshift("#{root_path}/lib")
 
 require 'models/family'
 require 'models/refugee'
-require 'models/leader_family'
+require 'models/family_leader'
 require 'models/check_digit_validator'
 require 'models/barcode'
 
