@@ -8,6 +8,9 @@ ja:
       leader_number_required: 代表者番号を入力してください。
       refugee_not_registered: 避難者が登録されていません。
       family_profile_updated: 世帯情報が更新されました。
+      notice_registered: お知らせが登録されました。
+      notice_updated: お知らせが更新されました。
+      notice_deleted: お知らせが削除されました。
     label:
       number: 番号
       leader_number: 代表者番号

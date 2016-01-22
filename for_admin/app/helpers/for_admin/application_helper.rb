@@ -9,5 +9,10 @@ module ForAdmin
         page_title + ' - ' + base_title
       end
     end
+
+    # 日時を整形する
+    def format_time(time)
+      time.strftime('%F %T')
+    end
   end
 end

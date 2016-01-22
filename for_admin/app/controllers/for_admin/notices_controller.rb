@@ -7,7 +7,13 @@ module ForAdmin
     end
 
     def create
-      raise NotImplementedError
+      @notice = Notice.new(notice_params)
+      if @notice.save
+        flash[:success] = t('view.flash.notice_registered')
+        redirect_to notices_path
+      else
+        render 'new'
+      end
     end
 
     def new
@@ -15,7 +21,7 @@ module ForAdmin
     end
 
     def edit
-      raise NotImplementedError
+      @notice = Notice.find(params[:id])
     end
 
     def show
@@ -23,11 +29,26 @@ module ForAdmin
     end
 
     def update
-      raise NotImplementedError
+      @notice = Notice.find(params[:id])
+      if @notice.update_attributes(notice_params)
+        flash[:success] = t('view.flash.notice_updated')
+        redirect_to @notice
+      else
+        render 'edit'
+      end
     end
 
     def destroy
-      raise NotImplementedError
+      @notice = Notice.find(params[:id])
+      @notice.destroy
+      flash[:success] = t('view.flash.notice_deleted')
+      redirect_to notices_path
+    end
+
+    private
+
+    def notice_params
+      params.require(:notice).permit(:title, :content)
     end
   end
 end
