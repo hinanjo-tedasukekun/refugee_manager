@@ -8,23 +8,5 @@
 <h1>パスワード</h1>
 <%= form_for(@refugee, url: profile_password_path) do |f| %>
   <%= render 'shared/error_messages', target: @refugee %>
-  <div class="checkbox">
-    <label>
-      <%= f.check_box :password_protected %>
-      <%= t('activerecord.attributes.refugee.password_protected') %>
-    </label>
-  </div>
-  <div class="refugee-password">
-    <div class="form-group">
-      <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
-      <p><small>パスワードは4文字以上で入力してください。</small></p>
-    </div>
-    <div class="form-group">
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
-      <p id="password-confirmation-error"><small></small></p>
-    </div>
-  </div>
-  <%= f.submit '更新', id: 'submit', class: 'btn btn-primary btn-block' %>
+  <%= render 'shared/refugees/password/edit_form_contents', f: f %>
 <% end %>

@@ -8,21 +8,5 @@
 <h1>基本情報</h1>
 <%= form_for(@refugee, url: profile_basic_info_path) do |f| %>
   <%= render 'shared/error_messages', target: @refugee %>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :furigana %>
-    <%= f.text_field :furigana, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :gender %>
-    <%= f.select :gender, Refugee.genders_i18n.invert, {}, class: 'form-control' %>
-  </div>
-  <div class="form-group">
-    <%= f.label :age %>
-    <%= f.number_field :age, class: 'form-control', min: 0 %>
-  </div>
-  <%= f.submit '更新', class: 'btn btn-primary form-control' %>
+  <%= render 'shared/refugees/basic_info/edit_form_contents', f: f %>
 <% end %>
