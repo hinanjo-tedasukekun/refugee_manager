@@ -2,16 +2,6 @@
 
 require 'yaml'
 
-config_path = File.expand_path('config.yml', File.dirname(__FILE__))
-default_config = {
-  'shelter_id' => 19
-}
-config = default_config.merge(YAML.load_file(config_path))
-shelter_id = config['shelter_id']
-
-puts("環境: #{Rails.env}")
-puts("避難所番号: #{shelter_id}")
-
 # 無効なコマンド表示
 def print_invalid_command(line)
   puts("#{line}: 無効なコマンドです")
@@ -75,6 +65,12 @@ PRESENCE_PATTERN = /\AP ([0-9]{8}) ([01])\z/
 # 終了のパターン
 QUIT_PATTERN = /\Aq(?:uit)?\z/i
 
+# 避難所
+shelter = Shelter.find(1)
+
+puts("環境: #{Rails.env}")
+puts("避難所番号: #{shelter.num}")
+
 # メインループ：1 行ずつ読み込む
 loop do
   print('> ')
@@ -92,7 +88,7 @@ loop do
 
     # バーコード
     barcode = Barcode.new(code: m[1])
-    unless barcode.valid? && barcode.shelter_id == shelter_id
+    unless barcode.valid? && barcode.shelter_id == shelter.num
       # 無効なバーコードまたは避難所番号が異なる場合
       print_error(line)
       next
@@ -121,7 +117,7 @@ loop do
 
     # バーコード
     barcode = Barcode.new(code: m[1])
-    unless barcode.valid? && barcode.shelter_id == shelter_id
+    unless barcode.valid? && barcode.shelter_id == shelter.num
       # 無効なバーコードまたは避難所番号が異なる場合
       print_error(line)
       next
