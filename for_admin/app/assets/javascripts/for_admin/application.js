@@ -3,6 +3,7 @@
 //= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require refugee_manager
+//= require ../for_admin
 //= require_tree .
 //= require turbolinks
 
@@ -13,7 +14,7 @@
 $(function () {
   var
     $body = $('body'),
-    controller = $body.data('controller').replace(/\//, '_'),
+    controller = $body.data('controller').replace(/\//g, '_'),
     action = $body.data('action'),
     activeController = ForAdmin[controller];
 

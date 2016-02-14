@@ -1,0 +1,12 @@
+<% provide(:title, '得意な分野') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to '個人情報', @refugee %></li>
+  <li class="active">得意な分野</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>得意な分野</h1>
+<%= form_for(@refugee, url: refugees_skills_path(@refugee)) do |f| %>
+  <%= render 'shared/error_messages', target: @refugee %>
+  <%= render 'shared/refugees/skills/edit_form_contents', f: f %>
+<% end %>

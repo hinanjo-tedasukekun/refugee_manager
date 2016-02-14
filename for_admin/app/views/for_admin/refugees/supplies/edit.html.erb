@@ -1,0 +1,12 @@
+<% provide(:title, '必需品') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to '個人情報', @refugee %></li>
+  <li class="active">必需品</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>必需品</h1>
+<%= form_for(@refugee, url: refugees_supplies_path(@refugee)) do |f| %>
+  <%= render 'shared/error_messages', target: @refugee %>
+  <%= render 'shared/refugees/supplies/edit_form_contents', f: f %>
+<% end %>

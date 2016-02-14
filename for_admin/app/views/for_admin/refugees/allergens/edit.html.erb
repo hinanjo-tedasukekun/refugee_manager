@@ -1,0 +1,12 @@
+<% provide(:title, 'アレルギー') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to '個人情報', @refugee %></li>
+  <li class="active">アレルギー</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>アレルギー</h1>
+<%= form_for(@refugee, url: refugees_allergens_path(@refugee)) do |f| %>
+  <%= render 'shared/error_messages', target: @refugee %>
+  <%= render 'shared/refugees/allergens/edit_form_contents', f: f %>
+<% end %>

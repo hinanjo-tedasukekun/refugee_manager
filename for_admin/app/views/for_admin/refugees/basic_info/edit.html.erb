@@ -1,0 +1,12 @@
+<% provide(:title, '基本情報') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to '個人情報', @refugee %></li>
+  <li class="active">基本情報</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>基本情報</h1>
+<%= form_for(@refugee, url: refugees_basic_info_path(@refugee)) do |f| %>
+  <%= render 'shared/error_messages', target: @refugee %>
+  <%= render 'shared/refugees/basic_info/edit_form_contents', f: f %>
+<% end %>

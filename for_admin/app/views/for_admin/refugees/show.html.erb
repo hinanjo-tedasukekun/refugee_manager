@@ -28,32 +28,32 @@
   </tbody>
 </table>
 <div class="list-group profile-menu">
-  <a href="#" class="list-group-item">
+  <a href="<%= refugees_edit_basic_info_path(@refugee) %>" class="list-group-item">
     <i class="fa fa-user"></i>
     基本情報
     <%= render('shared/set_badge') if @refugee.set_basic_info? %>
   </a>
-  <a href="#" class="list-group-item">
+  <a href="<%= refugees_edit_password_path(@refugee) %>" class="list-group-item">
     <i class="fa fa-key"></i>
     パスワード
     <%= render('shared/set_badge') if @refugee.password_protected? %>
   </a>
-  <a href="#" class="list-group-item">
+  <a href="<%= refugees_edit_vulnerabilities_path(@refugee) %>" class="list-group-item">
     <i class="fa fa-exclamation-triangle"></i>
     要配慮事項
     <%= render('shared/set_badge') unless @refugee.vulnerabilities.empty? %>
   </a>
-  <a href="#" class="list-group-item">
+  <a href="<%= refugees_edit_supplies_path(@refugee) %>" class="list-group-item">
     <i class="fa fa-archive"></i>
     必需品
     <%= render('shared/set_badge') unless @refugee.supplies.empty? %>
   </a>
-  <a href="#" class="list-group-item">
+  <a href="<%= refugees_edit_allergens_path(@refugee) %>" class="list-group-item">
     <i class="fa fa-ban"></i>
     アレルギー
     <%= render('shared/set_badge') if @refugee.have_allergies? %>
   </a>
-  <a href="#" class="list-group-item">
+  <a href="<%= refugees_edit_skills_path(@refugee) %>" class="list-group-item">
     <i class="fa fa-star"></i>
     得意な分野
     <%= render('shared/set_badge') unless @refugee.skills.empty? %>

@@ -1,0 +1,12 @@
+<% provide(:title, 'パスワード') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li><%= link_to '個人情報', @refugee %></li>
+  <li class="active">パスワード</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>パスワード</h1>
+<%= form_for(@refugee, url: refugees_password_path) do |f| %>
+  <%= render 'shared/error_messages', target: @refugee %>
+  <%= render 'shared/refugees/password/edit_form_contents', f: f %>
+<% end %>
