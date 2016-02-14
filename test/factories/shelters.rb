@@ -7,7 +7,7 @@ FactoryGirl.define do
     postal_code '4328053'
 
     initialize_with do
-      Family.find_or_create_by(id: id)
+      Shelter.find_or_create_by(id: id)
     end
   end
 end
