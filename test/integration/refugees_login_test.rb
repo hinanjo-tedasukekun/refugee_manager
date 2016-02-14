@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class RefugeesLoginTest < ActionDispatch::IntegrationTest
+  setup do
+    @shelter = create(:shelter)
+  end
+
   test '無効な番号でログインする' do
     host! NORMAL_HOST
     get login_path
@@ -43,7 +47,7 @@ class RefugeesLoginTest < ActionDispatch::IntegrationTest
     get login_path
     assert_template 'refugee_sessions/new'
 
-    num = Barcode.from_id(ApplicationHelper::SHELTER_ID, 9999).code
+    num = Barcode.from_id(@shelter.num, 9999).code
     post login_path, session: { refugee_num: num }
     assert_redirected_to controller: 'profile', action: 'new', num: num
     follow_redirect!

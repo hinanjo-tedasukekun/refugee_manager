@@ -2,6 +2,7 @@ require 'test_helper'
 
 class RefugeeTest < ActiveSupport::TestCase
   def setup
+    @shelter = create(:shelter)
     @refugee = create(:refugee)
     @refugee2 = create(:refugee2)
     @allergen = create(:allergen)
@@ -125,7 +126,7 @@ class RefugeeTest < ActiveSupport::TestCase
   end
 
   test '正しいバーコードが得られる' do
-    num = Barcode.from_id(SHELTER_ID, @refugee.id).code
+    num = Barcode.from_id(@shelter.num, @refugee.id).code
     assert_equal num, @refugee.barcode.code
   end
 

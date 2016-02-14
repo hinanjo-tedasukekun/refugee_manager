@@ -1,6 +1,8 @@
 module ApplicationHelper
-  # 避難所番号
-  SHELTER_ID = 19
+  # 現在の避難所を返す
+  def this_shelter
+    Shelter.find(1)
+  end
 
   # ページごとに完全なタイトルを返す
   def full_title(page_title = '')

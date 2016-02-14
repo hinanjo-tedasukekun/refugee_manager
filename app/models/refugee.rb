@@ -1,4 +1,6 @@
 class Refugee < ActiveRecord::Base
+  include ApplicationHelper
+
   belongs_to :family
 
   has_many :refugee_vulnerabilities
@@ -50,7 +52,8 @@ class Refugee < ActiveRecord::Base
 
   # 対応するバーコードを返す
   def barcode
-    @barcode ||= Barcode.from_id(ApplicationHelper::SHELTER_ID, id)
+    @shelter ||= this_shelter
+    @barcode ||= Barcode.from_id(@shelter.num, id)
   end
 
   # 世帯が存在していることのバリデーション

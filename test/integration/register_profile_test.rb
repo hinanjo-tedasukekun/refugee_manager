@@ -3,6 +3,10 @@ require 'test_helper'
 class RegisterProfileTest < ActionDispatch::IntegrationTest
   include ApplicationHelper
 
+  setup do
+    @shelter = create(:shelter)
+  end
+
   test '代表者番号を入力しないと登録できない' do
     host! NORMAL_HOST
     post profile_new_path, refugee: { id: 9999 }
@@ -22,7 +26,7 @@ class RegisterProfileTest < ActionDispatch::IntegrationTest
 
     host! NORMAL_HOST
     assert Refugee.find_by(id: LEADER_ID).nil?
-    leader_num = Barcode.from_id(SHELTER_ID, LEADER_ID).code
+    leader_num = Barcode.from_id(@shelter.num, LEADER_ID).code
     post profile_new_path, refugee: { id: 9999 }, leader_num: leader_num
     assert_template 'profile/new'
     assert_select '#error-explanation'

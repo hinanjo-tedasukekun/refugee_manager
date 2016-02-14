@@ -5,6 +5,8 @@ class ProfileControllerTest < ActionController::TestCase
   include RefugeeSessionsHelper
 
   def setup
+    @shelter = create(:shelter)
+
     @leader = create(:family_leader)
     @leader_refugee = @leader.refugee
     @family = @leader.family
@@ -81,7 +83,7 @@ class ProfileControllerTest < ActionController::TestCase
   test '登録画面が表示される' do
     assert_not refugee_logged_in?
 
-    num = Barcode.from_id(SHELTER_ID, 9999).code
+    num = Barcode.from_id(@shelter.num, 9999).code
     name = 'foo bar'
     furigana = 'ふー ばー'
 
