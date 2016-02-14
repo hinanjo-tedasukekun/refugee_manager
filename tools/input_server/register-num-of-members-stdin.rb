@@ -1,36 +1,16 @@
 # 標準入力から受け取った世帯の情報をデータベースへ登録する
 
-require 'active_record'
-require 'active_support/core_ext/object/with_options'
 require 'yaml'
-
-root_path = File.expand_path('../..', File.dirname(__FILE__))
-$LOAD_PATH.unshift("#{root_path}/app")
-$LOAD_PATH.unshift("#{root_path}/lib")
-
-require 'models/family'
-require 'models/refugee'
-require 'models/family_leader'
-require 'models/check_digit_validator'
-require 'models/barcode'
 
 config_path = File.expand_path('config.yml', File.dirname(__FILE__))
 default_config = {
-  'shelter_id' => 19,
-  'rails_env' => 'development'
+  'shelter_id' => 19
 }
 config = default_config.merge(YAML.load_file(config_path))
 shelter_id = config['shelter_id']
 
+puts("環境: #{Rails.env}")
 puts("避難所番号: #{shelter_id}")
-
-# データベースへの接続
-Dir.chdir(root_path)
-rails_env = config['rails_env']
-db_config = YAML.load_file('config/database.yml')[rails_env]
-ActiveRecord::Base.establish_connection(db_config)
-
-puts("データベースに接続完了: #{rails_env} 環境")
 
 # 無効なコマンド表示
 def print_invalid_command(line)

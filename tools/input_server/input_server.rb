@@ -1,19 +1,8 @@
 require 'serverengine'
 require 'xbee-ruby'
-require 'active_record'
-require 'active_support/core_ext/object/with_options'
 require 'yaml'
 
-root_path = File.expand_path('../..', File.dirname(__FILE__))
-$LOAD_PATH.unshift("#{root_path}/app")
-$LOAD_PATH.unshift("#{root_path}/lib")
-
-require 'models/family'
-require 'models/refugee'
-require 'models/family_leader'
-require 'models/check_digit_validator'
-require 'models/barcode'
-
+# 入力端末との通信を行うサーバー
 module InputServer
   # 世帯情報のパターン
   FAMILY_DATA_PATTERN = /\A# ([0-9]{8}) ([0-9]{1,2})\z/
@@ -33,13 +22,6 @@ module InputServer
       @xbee = open_xbee
     rescue => xbee_open_error
       logger.fatal("XBee open error: #{xbee_open_error}")
-      abort
-    end
-
-    begin
-      establish_db_connection
-    rescue => db_connection_error
-      logger.fatal("Database connection error: #{db_connection_error}")
       abort
     end
 
@@ -77,21 +59,6 @@ module InputServer
   def close_xbee(xbee)
     xbee.close
     logger.info("Closed XBee device: #{config['xbee']['port']}")
-
-    true
-  end
-
-  # データベースへの接続を確立する
-  def establish_db_connection
-    rails_env = config['rails_env']
-
-    Dir.chdir(config[:root_path])
-    db_config = YAML.load_file('config/database.yml')[rails_env]
-    ActiveRecord::Base.establish_connection(db_config)
-
-    logger.info(
-      "Established database connection (environment: #{rails_env})"
-    )
 
     true
   end
@@ -289,14 +256,12 @@ end
 
 config_path = File.expand_path('config.yml', File.dirname(__FILE__))
 default_config = {
-  root_path: root_path,
   log: '-',
   'shelter_id' => 19,
   'xbee' => {
     'port' => '/dev/ttyUSB0',
     'rate' => 9600
   },
-  'rails_env' => 'development',
   'log_level' => 'info'
 }
 config = default_config.merge(YAML.load_file(config_path))

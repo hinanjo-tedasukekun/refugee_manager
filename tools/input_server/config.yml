@@ -10,12 +10,6 @@ xbee:
   # ボーレート
   rate: 9600
 
-# Rails の環境
-# 開発中：development
-# 本番前：staging
-# 本番　：production
-rails_env: staging
-
 # ログを記録するレベル
 # debug, info, warn, error, fatal
 log_level: info

@@ -1,24 +1,12 @@
 require 'serverengine'
 require 'serialport'
-require 'active_record'
-require 'active_support/core_ext/object/with_options'
 require 'yaml'
 
-root_path = File.expand_path('../..', File.dirname(__FILE__))
-$LOAD_PATH.unshift("#{root_path}/app")
-$LOAD_PATH.unshift("#{root_path}/lib")
-
-require 'models/family'
-require 'models/refugee'
-require 'models/family_leader'
-require 'models/check_digit_validator'
-require 'models/barcode'
-
+# 表示端末との通信を行うサーバー
 module ComServer
-
   def run
     logger.level = :info
-    logger.info('Starting Kuno server...')
+    logger.info('Starting display server...')
 
     begin
       @sp = SerialPort.new(config['serial_port'], 9600, 8, 1, 0)
@@ -27,18 +15,11 @@ module ComServer
       abort
     end
 
-    begin
-      establish_db_connection
-    rescue => db_connection_error
-      logger.fatal("Database connection error: #{db_connection_error}")
-      abort
-    end
-
     @server_thread = new_server_thread
     @server_thread.join
 
     begin
-        @sp.close
+      @sp.close
     rescue => sp_close_error
       logger.fatal("SerialPort close error: #{sp_close_error}")
       abort
@@ -50,21 +31,6 @@ module ComServer
   end
 
   private
-
-  # データベースへの接続を確立する
-  def establish_db_connection
-    rails_env = config['rails_env']
-
-    Dir.chdir(config[:root_path])
-    db_config = YAML.load_file('config/database.yml')[rails_env]
-    ActiveRecord::Base.establish_connection(db_config)
-
-    logger.info(
-      "Established database connection (environment: #{rails_env})"
-    )
-
-    true
-  end
 
   # 新しいサーバースレッドを作成する
   def new_server_thread
@@ -92,10 +58,8 @@ end
 
 config_path = File.expand_path('config.yml', File.dirname(__FILE__))
 default_config = {
-  root_path: root_path,
   'shelter_id' => 19,
-  'serial_port' => '/dev/ttyACM0',
-  'rails_env' => 'development'
+  'serial_port' => '/dev/ttyACM0'
 }
 config = default_config.merge(YAML.load_file(config_path))
 se = ServerEngine.create(nil, ComServer, config)
