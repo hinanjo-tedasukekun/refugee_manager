@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122032316) do
+ActiveRecord::Schema.define(version: 20160214220529) do
 
   create_table "allergens", force: :cascade do |t|
     t.string   "name",       limit: 32, default: "", null: false
@@ -108,6 +108,17 @@ ActiveRecord::Schema.define(version: 20160122032316) do
   add_index "refugees", ["gender"], name: "refugees_gender"
   add_index "refugees", ["name"], name: "refugees_name"
   add_index "refugees", ["presence"], name: "refugees_presence"
+
+  create_table "shelters", force: :cascade do |t|
+    t.integer  "num",         limit: 4,   default: 1,            null: false
+    t.string   "name",        limit: 255, default: "ポリテクカレッジ浜松", null: false
+    t.string   "postal_code", limit: 7,   default: "",           null: false
+    t.string   "address",     limit: 255, default: "",           null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "shelters", ["num"], name: "shelters_num"
 
   create_table "skills", force: :cascade do |t|
     t.string   "name",       limit: 32, default: "", null: false
