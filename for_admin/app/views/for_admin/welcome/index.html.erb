@@ -20,20 +20,20 @@
 <table class="table table-striped status">
   <tbody>
     <tr>
-      <th scope="col">避難所番号</th>
-      <td>19</td>
+      <th scope="col"><%= t('activerecord.attributes.shelter.num') %></th>
+      <td><%= @shelter.num %></td>
     </tr>
     <tr>
-      <th scope="col">避難所名</th>
-      <td>ポリテクカレッジ浜松</td>
+      <th scope="col"><%= t('activerecord.attributes.shelter.name') %></th>
+      <td><%= @shelter.name %></td>
     </tr>
     <tr>
-      <th scope="col">郵便番号</th>
-      <td>432-8053</td>
+      <th scope="col"><%= t('activerecord.attributes.shelter.postal_code') %></th>
+      <td><%= @shelter.formatted_postal_code %></td>
     </tr>
     <tr>
-      <th scope="col">住所</th>
-      <td>静岡県浜松市南区法枝町693</td>
+      <th scope="col"><%= t('activerecord.attributes.shelter.address') %></th>
+      <td><%= @shelter.address %></td>
     </tr>
   </tbody>
 </table>

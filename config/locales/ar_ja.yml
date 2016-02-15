@@ -1,11 +1,17 @@
 ja:
   activerecord:
     models:
+      shelter: 避難所
       family: 世帯
       refugee: 避難者
       leader: 世帯代表者
       notice: お知らせ
     attributes:
+      shelter:
+        num: 避難所番号
+        name: 避難所名
+        postal_code: 郵便番号
+        address: 住所
       family:
         address: 住所
         at_home: 在宅避難
