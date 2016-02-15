@@ -15,6 +15,15 @@ module ComServer
       abort
     end
 
+    begin
+      @shelter = Shelter.find(1)
+    rescue => get_shelter_error
+      logger.fatal("Cannot get the shelter info: #{get_shelter_error}")
+      logger.info('Please run "bin/rake db:migrate && bin/rake db:seed_fu"')
+
+      abort
+    end
+
     @server_thread = new_server_thread
     @server_thread.join
 
@@ -35,7 +44,7 @@ module ComServer
   # 新しいサーバースレッドを作成する
   def new_server_thread
     Thread.new do
-      shelter_id ="%03d" % config[ 'shelter_id' ]
+      shelter_id ="%03d" % @shelter.num
       loop do
         line = @sp.gets.chomp
         logger.debug("<< #{line}")
@@ -58,7 +67,6 @@ end
 
 config_path = File.expand_path('config.yml', File.dirname(__FILE__))
 default_config = {
-  'shelter_id' => 19,
   'serial_port' => '/dev/ttyACM0'
 }
 config = default_config.merge(YAML.load_file(config_path))

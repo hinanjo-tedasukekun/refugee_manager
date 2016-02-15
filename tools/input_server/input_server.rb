@@ -25,6 +25,15 @@ module InputServer
       abort
     end
 
+    begin
+      @shelter = Shelter.find(1)
+    rescue => get_shelter_error
+      logger.fatal("Cannot get the shelter info: #{get_shelter_error}")
+      logger.info('Please run "bin/rake db:migrate && bin/rake db:seed_fu"')
+
+      abort
+    end
+
     @server_thread = new_server_thread
     @server_thread.join
 
@@ -104,6 +113,22 @@ module InputServer
     end
   end
 
+  # 避難所番号が合っているかどうかをチェックする
+  # @param [Barcode] barcode バーコード
+  # @return [true] 避難所番号が合っていた場合
+  # @raise [ArgumentError] 避難所番号が合っていなかった場合
+  def check_shelter_id(barcode)
+    barcode_shelter_id = barcode.shelter_id
+    this_shelter_id = @shelter.num
+
+    unless barcode_shelter_id == this_shelter_id
+      raise ArgumentError,
+        "Different shelter id: #{barcode_shelter_id} =/= #{this_shelter_id}"
+    end
+
+    true
+  end
+
   # 世帯情報のメッセージを処理する
   def process_family_data(message)
     leader_num = message.leader_num
@@ -114,12 +139,7 @@ module InputServer
       raise ArgumentError, "Invalid barcode: #{leader_num}"
     end
 
-    barcode_shelter_id = barcode.shelter_id
-    this_shelter_id = config['shelter_id']
-    unless barcode_shelter_id == this_shelter_id
-      raise ArgumentError,
-        "Different shelter id: #{barcode_shelter_id} =/= #{this_shelter_id}"
-    end
+    check_shelter_id(barcode)
 
     # 代表者番号
     leader_id = barcode.refugee_id
@@ -181,12 +201,7 @@ module InputServer
       raise ArgumentError, "Invalid barcode: #{refugee_num}"
     end
 
-    barcode_shelter_id = barcode.shelter_id
-    this_shelter_id = config['shelter_id']
-    unless barcode_shelter_id == this_shelter_id
-      raise ArgumentError,
-        "Different shelter id: #{barcode_shelter_id} =/= #{this_shelter_id}"
-    end
+    check_shelter_id(barcode)
 
     refugee_id = barcode.refugee_id
     refugee = Refugee.find_by(id: refugee_id)
@@ -257,7 +272,6 @@ end
 config_path = File.expand_path('config.yml', File.dirname(__FILE__))
 default_config = {
   log: '-',
-  'shelter_id' => 19,
   'xbee' => {
     'port' => '/dev/ttyUSB0',
     'rate' => 9600
