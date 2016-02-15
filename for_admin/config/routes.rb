@@ -5,6 +5,10 @@ ForAdmin::Engine.routes.draw do
   resources :families, only: %i(index show edit update)
   resources :notices
 
+  get 'shelter/edit' => 'shelter#edit'
+  patch 'shelter' => 'shelter#update'
+  get 'shelter', to: redirect('/')
+
   namespace :refugees do
     get ':id/basic-info/edit' => 'basic_info#edit', as: 'edit_basic_info'
     patch ':id/basic-info' => 'basic_info#update', as: 'basic_info'

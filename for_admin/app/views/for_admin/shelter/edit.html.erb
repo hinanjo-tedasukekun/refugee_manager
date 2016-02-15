@@ -1,0 +1,27 @@
+<% provide(:title, '避難所情報') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">避難所情報</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>避難所情報</h1>
+<%= form_for(@shelter, url: shelter_path) do |f| %>
+  <%= render 'shared/error_messages', target: @shelter %>
+  <div class="form-group">
+    <%= f.label :num %>
+    <%= f.number_field :num, class: 'form-control', min: 1, max: 999 %>
+  </div>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :postal_code %>
+    <%= f.text_field :postal_code, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :address %>
+    <%= f.text_field :address, class: 'form-control' %>
+  </div>
+  <%= f.submit '更新', class: 'btn btn-primary form-control' %>
+<% end %>

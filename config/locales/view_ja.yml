@@ -3,6 +3,7 @@ ja:
     flash:
       invalid_number: 無効な番号が入力されました。番号を再度ご確認ください。
       invalid_leader_number: 無効な代表者番号が入力されました。代表者番号を再度ご確認ください。
+      shelter_profile_updated: 避難所情報が更新されました。
       profile_registered: 個人情報が登録されました。
       profile_updated: 個人情報が更新されました。
       leader_number_required: 代表者番号を入力してください。
