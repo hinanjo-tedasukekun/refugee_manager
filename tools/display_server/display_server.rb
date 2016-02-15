@@ -3,7 +3,7 @@ require 'serialport'
 require 'yaml'
 
 # 表示端末との通信を行うサーバー
-module ComServer
+module DisplayServer
   def run
     logger.level = :info
     logger.info('Starting display server...')
@@ -70,5 +70,5 @@ default_config = {
   'serial_port' => '/dev/ttyACM0'
 }
 config = default_config.merge(YAML.load_file(config_path))
-se = ServerEngine.create(nil, ComServer, config)
+se = ServerEngine.create(nil, DisplayServer, config)
 se.run
