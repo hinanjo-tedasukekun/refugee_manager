@@ -14,6 +14,7 @@ module InputServer
   # 在室情報のメッセージを表す構造体
   PresenceMessage = Struct.new(:refugee_num, :presence, :response)
 
+  # サーバーを実行する
   def run
     logger.level = config['log_level']
     logger.info('Starting input server...')
@@ -45,6 +46,7 @@ module InputServer
     end
   end
 
+  # サーバーを停止する
   def stop
     @server_thread.kill
   end
@@ -75,6 +77,10 @@ module InputServer
   # 新しいサーバースレッドを作成する
   def new_server_thread
     Thread.new do
+      # 'Packet is too short' が発生した回数
+      n_packet_is_too_short = 0
+
+      # メインループ
       loop do
         begin
           logger.debug('Waiting response')
@@ -105,6 +111,21 @@ module InputServer
             end
           else
             log_incoming(response)
+          end
+        rescue IOError => io_error
+          io_error_message = io_error.message
+          logger.error(io_error_message)
+
+          if io_error_message.start_with?('Packet is too short')
+            n_packet_is_too_short += 1
+
+            if n_packet_is_too_short >= 3
+              # 'Packet is too short' エラーが多発する場合は強制終了する
+              # USB で接続している XBee のアダプタを引き抜いた場合などに
+              # このような状況になる
+              logger.fatal('Too many "packet is too short" errors!')
+              abort
+            end
           end
         rescue => e
           logger.error(e.message)
