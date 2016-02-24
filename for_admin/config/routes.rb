@@ -6,8 +6,8 @@ ForAdmin::Engine.routes.draw do
   resources :notices
 
   get 'shelter/edit' => 'shelter#edit'
+  get 'shelter' => 'shelter#show'
   patch 'shelter' => 'shelter#update'
-  get 'shelter', to: redirect('/')
 
   namespace :refugees do
     get ':id/basic-info/edit' => 'basic_info#edit', as: 'edit_basic_info'
