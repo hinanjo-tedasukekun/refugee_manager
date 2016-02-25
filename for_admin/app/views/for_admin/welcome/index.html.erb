@@ -1,18 +1,21 @@
 <%= render 'shared/flash' %>
 <h1>避難所状況</h1>
+<p>
+  <span class="label label-primary">最終更新</span> <span id="shelter_data_updated_at"><%= format_time(@now) %></span>
+</p>
 <table class="table table-striped status">
   <tbody>
     <tr>
       <th scope="col">世帯人数の合計</th>
-      <td class="value"><%= Family.sum(:num_of_members) %></td>
+      <td id="num_of_refugees" class="value"><%= @num_of_refugees %></td>
     </tr>
     <tr>
       <th scope="col">登録避難者数</th>
-      <td class="value"><%= Refugee.count %></td>
+      <td id="num_of_registered_refugees" class="value"><%= @num_of_registered_refugees %></td>
     </tr>
     <tr>
       <th scope="col">在室避難者数</th>
-      <td class="value"><%= Refugee.where(presence: true).count %></td>
+      <td id="num_of_present_refugees" class="value"><%= @num_of_present_refugees %></td>
     </tr>
   </tbody>
 </table>
