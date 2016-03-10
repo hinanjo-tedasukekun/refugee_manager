@@ -39,6 +39,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_template 'show'
 
+    assert_select 'a[href=?]', family_path
     assert_select 'a[href=?]', profile_basic_info_path
     assert_select 'a[href=?]', profile_password_path
     assert_select 'a[href=?]', profile_vulnerabilities_path

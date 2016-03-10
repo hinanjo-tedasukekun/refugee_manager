@@ -27,6 +27,9 @@
   </tbody>
 </table>
 <div class="list-group profile-menu">
+  <a href="<%= family_path %>" class="list-group-item">
+    <%= fa_icon('users', text: '世帯情報') %>
+  </a>
   <a href="<%= profile_basic_info_path %>" class="list-group-item">
     <%= fa_icon('user', text: '基本情報') %>
     <%= render('shared/set_badge') if @refugee.set_basic_info? %>
