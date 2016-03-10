@@ -5,6 +5,12 @@
 </ol>
 <%= render 'shared/flash' %>
 <h1>登録避難者</h1>
+<p>
+  <a href="<%= refugees_path(format: :csv) %>" class="btn btn-primary btn-block">
+    <i class="fa fa-download"></i>
+    CSV 形式でダウンロード
+  </a>
+</p>
 <table class="table table-striped refugees-list">
   <thead>
     <th class="refugee_id">番号</th>
