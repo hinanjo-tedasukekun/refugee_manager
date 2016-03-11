@@ -1,0 +1,14 @@
+<% provide(:title, '避難者名簿ダウンロード') %>
+<ol class="breadcrumb">
+  <li><%= link_to 'ホーム', root_path %></li>
+  <li class="active">避難者名簿ダウンロード</li>
+</ol>
+<%= render 'shared/flash' %>
+<h1>避難者名簿ダウンロード</h1>
+<p>以下から避難者名簿を CSV 形式でダウンロードすることができます。</p>
+<p>ダウンロードする避難者名簿の種類を選択してください。</p>
+<div class="list-group">
+  <%= link_to '全避難者', list_of_refugees_all_refugees_path(format: :csv), class: 'list-group-item' %>
+  <%= link_to '非在宅避難者', list_of_refugees_refugees_not_at_home_path(format: :csv), class: 'list-group-item' %>
+  <%= link_to '在宅避難者', list_of_refugees_refugees_at_home_path(format: :csv), class: 'list-group-item' %>
+</div>

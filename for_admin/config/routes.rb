@@ -28,4 +28,9 @@ ForAdmin::Engine.routes.draw do
     get ':id/skills/edit' => 'skills#edit', as: 'edit_skills'
     patch ':id/skills' => 'skills#update', as: 'skills'
   end
+
+  get 'list_of_refugees' => 'list_of_refugees#index'
+  get 'list_of_refugees/all_refugees'
+  get 'list_of_refugees/refugees_not_at_home'
+  get 'list_of_refugees/refugees_at_home'
 end

@@ -20,6 +20,9 @@ class Family < ActiveRecord::Base
   validates :postal_code,
     format: { with: /\A(\d{7})?\Z/ }
 
+  # 非在宅避難
+  scope :not_at_home, -> { where.not(at_home: at_homes[:at_home]) }
+
   # 整形された郵便番号を返す
   def formatted_postal_code
     "#{postal_code[0, 3]}-#{postal_code[3, 4]}"

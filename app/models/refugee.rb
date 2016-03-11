@@ -50,6 +50,15 @@ class Refugee < ActiveRecord::Base
       if: :password_protected?
   end
 
+  # 在宅避難者
+  scope(:at_home,
+        -> { joins(:family).merge(Family.at_home) })
+  # 非在宅避難者
+  scope(:not_at_home,
+        -> { joins(:family).merge(Family.not_at_home) })
+  # 世帯順
+  scope(:family_order, -> { order(:family_id, :id) })
+
   # 対応するバーコードを返す
   def barcode
     @shelter ||= this_shelter
