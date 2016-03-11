@@ -1,11 +1,9 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require refugee_manager
 //= require ../for_admin
 //= require_tree .
-//= require turbolinks
 
 /*global $, ForAdmin */
 
