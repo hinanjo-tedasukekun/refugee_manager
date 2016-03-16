@@ -54,6 +54,10 @@ module DisplayServer
             refugees_num = Family.sum(:num_of_members)
             @sp.puts "@#{shelter_id}UNU #{refugees_num}\r"
           end
+        when /@(\d\d\d)DNR/
+          if $1 == shelter_id
+            refugees_num = Refugee.count
+            @sp.puts "@#{shelter_id}UNR #{refugees_num}\r"
         when /@(\d\d\d)DNP/
           if $1 == shelter_id
             refugees_num = Refugee.where(presence: true).count

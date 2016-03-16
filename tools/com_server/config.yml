@@ -1,4 +1,0 @@
-#　シリアル通信の設定
-
-# XBee 関連の設定
-serial_port: /dev/ttyAMA0
