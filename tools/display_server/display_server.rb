@@ -46,24 +46,40 @@ module DisplayServer
     Thread.new do
       shelter_id ="%03d" % @shelter.num
       loop do
-        line = @sp.gets.chomp
+        begin
+          line = @sp.gets
+        rescue => e
+          logger.fatal("[Get command] <#{e.class}> #{e}")
+          abort
+        end
+
+        unless line
+          sleep 0.1
+          next
+        end
         logger.debug("<< #{line}")
-        case line
-        when /@(\d\d\d)DNU/
-          if $1 == shelter_id
-            refugees_num = Family.sum(:num_of_members)
-            @sp.puts "@#{shelter_id}UNU #{refugees_num}\r"
+
+        begin
+          case line.chomp
+          when /@(\d\d\d)DNU/
+            if $1 == shelter_id
+              refugees_num = Family.sum(:num_of_members)
+              @sp.puts "@#{shelter_id}UNU #{refugees_num}\r"
+            end
+          when /@(\d\d\d)DNR/
+            if $1 == shelter_id
+              refugees_num = Refugee.count
+              @sp.puts "@#{shelter_id}UNR #{refugees_num}\r"
+            end
+          when /@(\d\d\d)DNP/
+            if $1 == shelter_id
+              refugees_num = Refugee.where(presence: true).count
+              @sp.puts "@#{shelter_id}UNP #{refugees_num}\r"
+            end
           end
-        when /@(\d\d\d)DNR/
-          if $1 == shelter_id
-            refugees_num = Refugee.count
-            @sp.puts "@#{shelter_id}UNR #{refugees_num}\r"
-          end
-        when /@(\d\d\d)DNP/
-          if $1 == shelter_id
-            refugees_num = Refugee.where(presence: true).count
-            @sp.puts "@#{shelter_id}UNP #{refugees_num}\r"
-          end
+        rescue => e
+          logger.fatal("[Reply] <#{e.class}> #{e}")
+          abort
         end
       end
     end
